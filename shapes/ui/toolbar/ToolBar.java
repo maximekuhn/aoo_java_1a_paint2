@@ -14,9 +14,6 @@ public class ToolBar extends JToolBar {
 	public ToolBar(ShapesView sview) {
 		super("Tools");
 		this.sview = sview;
-		
-		// TODO: delete
-		System.out.println("fuck git");
 	}
 	
 	public void addContainer(ToolContainer tc) {
