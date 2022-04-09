@@ -14,6 +14,9 @@ public abstract class ToolContainer {
 	public ToolContainer(ShapesView sview) {
 		this.sview = sview;
 		this.buttons = new LinkedList<JButton>();
+		this.buildButtons();
+		this.addAllButtons();
+		this.addActionListener();
 	}
 	
 	public LinkedList<JButton> getButtons(){

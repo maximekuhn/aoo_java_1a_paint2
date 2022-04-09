@@ -3,7 +3,6 @@ package graphics.shapes.ui.toolbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import graphics.shapes.ui.ShapesView;
@@ -18,9 +17,6 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	
 	public SelectionTools(ShapesView sview) {
 		super(sview);
-		this.buildButtons();
-		this.addAllButtons();
-		this.addActionListener();
 	}
 	
 	@Override
@@ -30,8 +26,6 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		this.rotateButton = new JButton("rotate");
 		this.ereaseButton = new JButton("erase");
 		this.groupButton = new JButton("group");
-		
-		this.selectionButton.setIcon(new ImageIcon("/res/icons/cursor.png"));
 	}
 	
 	@Override
