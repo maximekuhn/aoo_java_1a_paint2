@@ -14,9 +14,10 @@ public class ToolBar extends JToolBar {
 	public ToolBar(ShapesView sview) {
 		super("Tools");
 		this.sview = sview;
+		this.addContainer(new SelectionTools(this.sview));
 	}
 	
-	public void addContainer(ToolContainer tc) {
+	private void addContainer(ToolContainer tc) {
 		LinkedList<JButton> buttons = tc.getButtons();
 		for(JButton b : buttons)
 			this.add(b);
