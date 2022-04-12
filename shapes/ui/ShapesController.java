@@ -66,7 +66,8 @@ public class ShapesController extends Controller {
 	@Override
 	public void keyReleased(KeyEvent evt)
 	{
-		this.shiftDown = false;
+		if(evt.getKeyCode() == 16) // shift
+			this.shiftDown = false;
 	}
 	
 	private Shape getTarget() {
