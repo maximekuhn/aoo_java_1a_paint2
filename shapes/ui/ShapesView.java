@@ -1,6 +1,5 @@
 package graphics.shapes.ui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import graphics.shapes.SCollection;

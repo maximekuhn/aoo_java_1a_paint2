@@ -20,6 +20,12 @@ public abstract class ToolContainer {
 		
 		this.addAllButtons();
 		this.addActionListener();
+		
+		/*
+		 * remove focus on JButtons so ShapesView has the focus
+		 */
+		for(JButton b : this.buttons)
+			b.setRequestFocusEnabled(false);
 	}
 	
 	
