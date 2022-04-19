@@ -1,6 +1,7 @@
 package graphics.shapes.ui.toolbar;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -37,7 +38,7 @@ public class ColorTools extends ToolContainer implements ActionListener {
 		this.cyanButton = new JButton("");
 		this.blueButton = new JButton("");
 		this.magentaButton = new JButton("");
-		setColor();
+		this.setColor();
 	}
 	
 	public void setColor() {
@@ -50,7 +51,7 @@ public class ColorTools extends ToolContainer implements ActionListener {
 		this.greenButton.setBackground(Color.green);
 		this.cyanButton.setBackground(Color.cyan);
 		this.blueButton.setBackground(Color.blue);
-		this.magentaButton.setBackground(Color.magenta);	
+		this.magentaButton.setBackground(Color.magenta);
 	}
 
 	@Override
@@ -65,6 +66,9 @@ public class ColorTools extends ToolContainer implements ActionListener {
 		this.addButton(this.cyanButton);
 		this.addButton(this.blueButton);
 		this.addButton(this.magentaButton);
+		
+		for(JButton b : this.getButtons())
+			b.setPreferredSize(new Dimension(20,20));
 	}
 
 	@Override

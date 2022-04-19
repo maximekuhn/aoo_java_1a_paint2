@@ -17,13 +17,10 @@ public class ToolBar extends JToolBar {
 		
 		this.addContainer(new SelectionTools(this.sview));
         this.addSeparator();
-<<<<<<< HEAD
 		this.addContainer(new ShapesTool(this.sview));
 		this.addSeparator();
 		this.addContainer(new ColorTools(this.sview));
-=======
-		this.addContainer(new ShapesTool(this.sview));		
->>>>>>> e9085ea84babbd3294e220835c9a23536c6d6a6f
+		this.addContainer(new StrokeColorTools(this.sview));
 	}
 	
 	private void addContainer(ToolContainer tc) {
