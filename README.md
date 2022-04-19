@@ -17,3 +17,7 @@ envoi les modifications sur le dépôt github
 
 ### Récupérer le code
 $ git pull 
+
+
+---
+GRAINCA Albi, CRON Bastien, GOKER Batuhan, KUHN Maxime
