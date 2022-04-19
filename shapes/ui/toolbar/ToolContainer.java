@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import graphics.shapes.ui.Editor;
 import graphics.shapes.ui.ShapesView;
 
 public abstract class ToolContainer {
@@ -18,10 +17,13 @@ public abstract class ToolContainer {
 		this.sview = sview;
 		this.buttons = new LinkedList<JButton>();
 		this.buildButtons();
+		
 		this.addAllButtons();
 		this.addActionListener();
 	}
 	
+	
+
 	public LinkedList<JButton> getButtons(){
 		return this.buttons;
 	}
