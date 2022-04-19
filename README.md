@@ -9,13 +9,13 @@ $ git add -A
 <br/>
 $ git commit -m "message de commit"
 <br/>
-> mettez une description rapide de ce qui a changé
+> mettre une description de ce qui a changé
 
 <br/>
 <br/>
 $ git push
 <br/>
-> envoie les modifications sur le dépôt github
+> envoi les modifications sur le dépôt github
 
 ### Récupérer le code
 $ git pull 
