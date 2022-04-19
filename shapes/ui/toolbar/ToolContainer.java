@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import graphics.shapes.ui.Editor;
 import graphics.shapes.ui.ShapesView;
 
 public abstract class ToolContainer {
@@ -20,6 +19,12 @@ public abstract class ToolContainer {
 		this.buildButtons();
 		this.addAllButtons();
 		this.addActionListener();
+		
+		/*
+		 * remove focus on JButtons so ShapesView has the focus
+		 */
+		for(JButton b : this.buttons)
+			b.setRequestFocusEnabled(false);
 	}
 	
 	public LinkedList<JButton> getButtons(){

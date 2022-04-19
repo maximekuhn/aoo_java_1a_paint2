@@ -1,8 +1,10 @@
 package graphics.shapes.ui.toolbar;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 import graphics.shapes.ui.ShapesView;
@@ -45,7 +47,5 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource().equals(this.selectionButton))
-			System.out.println("selection button pressed");
 	}
 }
