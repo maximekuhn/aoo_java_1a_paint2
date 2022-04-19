@@ -21,11 +21,11 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	
 	@Override
 	protected void buildButtons() {
-		this.selectionButton = new JButton("selection");
-		this.translateButton = new JButton("translate");
-		this.rotateButton = new JButton("rotate");
-		this.ereaseButton = new JButton("erase");
-		this.groupButton = new JButton("group");
+		this.selectionButton = new JButton(imageSize("pictures/cursor.png"));
+		this.translateButton = new JButton(imageSize("pictures/move.png"));
+		this.rotateButton = new JButton(imageSize("pictures/rotate.png"));
+		this.ereaseButton = new JButton(imageSize("pictures/eraser.png"));
+		this.groupButton = new JButton(imageSize("pictures/group.png"));
 	}
 	
 	@Override
