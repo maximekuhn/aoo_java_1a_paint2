@@ -53,7 +53,7 @@ public class Editor extends JFrame
 		this.menuBar = new MenuBar(this.sview);
 		this.setJMenuBar(this.menuBar);
 		
-		this.add(new ToolBar(this.sview), BorderLayout.PAGE_START);
+		this.sview.add(new ToolBar(this.sview), BorderLayout.PAGE_START);
 	}
 
 	
