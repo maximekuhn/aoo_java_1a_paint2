@@ -12,6 +12,7 @@ public class MenuBar extends JMenuBar {
 	public MenuBar(ShapesView sview) {
 		super();
 		this.sview = sview;
+		
 		this.fileMenu = new FileMenu(this.sview);
 		this.add(this.fileMenu);
 	}

@@ -1,6 +1,7 @@
 package graphics.shapes.ui.menu;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -73,16 +74,20 @@ public class FileMenu extends JMenu implements ActionListener {
 		 * SAVE
 		 */
 		ShapesView tmpSView = new ShapesView(this.sview.getModel());
-		tmpSView.setSize(this.sview.getPreferredSize());
-		tmpSView.setPreferredSize(this.sview.getPreferredSize());
-		BufferedImage bi = new BufferedImage(tmpSView.getHeight(), tmpSView.getWidth(), BufferedImage.TYPE_INT_RGB);
+		tmpSView.setSize(this.sview.getSize());
+		
+		BufferedImage bi = new BufferedImage(tmpSView.getWidth(), tmpSView.getHeight(), BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2D = bi.createGraphics();
 		tmpSView.paint(g2D);
+		
 		try {
 			ImageIO.write(bi, "png", fileToSave);
 		} 
 		catch(Exception e) {
 			e.printStackTrace();
+		}
+		finally {
+			tmpSView = null;
 		}
 	}
 
