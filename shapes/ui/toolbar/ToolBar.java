@@ -18,9 +18,6 @@ public class ToolBar extends JToolBar {
 		this.addContainer(new SelectionTools(this.sview));
         this.addSeparator();
 		this.addContainer(new ShapesTool(this.sview));
-		this.addSeparator();
-		this.addContainer(new ColorTools(this.sview));
-		this.addContainer(new StrokeColorTools(this.sview));
 	}
 	
 	private void addContainer(ToolContainer tc) {

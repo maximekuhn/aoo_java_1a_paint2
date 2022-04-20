@@ -3,6 +3,7 @@ package graphics.shapes.ui.menu;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -10,8 +11,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 import graphics.shapes.ui.ShapesView;
+import graphics.shapes.ui.toolbar.ToolBar;
 
 public class FileMenu extends JMenu implements ActionListener {
 	
@@ -41,6 +44,10 @@ public class FileMenu extends JMenu implements ActionListener {
 		this.save.addActionListener(this);
 		this.quit.addActionListener(this);
 		
+		// keyboard shortcuts
+		this.open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
+		this.save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+		
 		this.add(this.open);
 		this.add(this.save);
 		this.addSeparator();
@@ -61,12 +68,16 @@ public class FileMenu extends JMenu implements ActionListener {
 		
 		if(fileToSave == null) return;
 		
-		BufferedImage bi = new BufferedImage(this.sview.getWidth(), this.sview.getHeight(), BufferedImage.TYPE_INT_RGB);
+		// TODO : fix saved image
+		// save process
+		ShapesView tmpView = new ShapesView(this.sview.getModel());
+		tmpView.setPreferredSize(this.sview.getPreferredSize());
+		BufferedImage bi = new BufferedImage((int)tmpView.getPreferredSize().getHeight(), (int)tmpView.getPreferredSize().getWidth(), BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2D = bi.createGraphics();
-		this.sview.paint(g2D);
+		tmpView.paintComponents(g2D);
 		try {
 			ImageIO.write(bi, "png", fileToSave);
-		}
+		} 
 		catch(Exception e) {
 			e.printStackTrace();
 		}
