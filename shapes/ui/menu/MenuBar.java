@@ -7,6 +7,7 @@ import graphics.shapes.ui.ShapesView;
 public class MenuBar extends JMenuBar {
 	
 	private FileMenu fileMenu;
+	private SelectionMenu selectionMenu;
 	private ShapesView sview;
 	
 	public MenuBar(ShapesView sview) {
@@ -15,6 +16,9 @@ public class MenuBar extends JMenuBar {
 		
 		this.fileMenu = new FileMenu(this.sview);
 		this.add(this.fileMenu);
+		
+		this.selectionMenu = new SelectionMenu(this.sview);
+		this.add(this.selectionMenu);
 	}
 
 }

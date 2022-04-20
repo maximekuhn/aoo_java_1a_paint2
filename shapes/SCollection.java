@@ -56,6 +56,10 @@ public class SCollection extends Shape {
 		this.shapes.add(s);
 	}
 	
+	public void remove(Shape s) {
+		this.shapes.remove(s);
+	}
+	
 	public Iterator<Shape> iterator() {
 		return this.shapes.iterator();
 	}
