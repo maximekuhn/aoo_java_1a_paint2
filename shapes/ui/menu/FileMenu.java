@@ -1,5 +1,6 @@
 package graphics.shapes.ui.menu;
 
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -68,13 +69,15 @@ public class FileMenu extends JMenu implements ActionListener {
 		
 		if(fileToSave == null) return;
 		
-		// TODO : fix saved image
-		// save process
-		ShapesView tmpView = new ShapesView(this.sview.getModel());
-		tmpView.setPreferredSize(this.sview.getPreferredSize());
-		BufferedImage bi = new BufferedImage((int)tmpView.getPreferredSize().getHeight(), (int)tmpView.getPreferredSize().getWidth(), BufferedImage.TYPE_INT_RGB);
+		/*
+		 * SAVE
+		 */
+		ShapesView tmpSView = new ShapesView(this.sview.getModel());
+		tmpSView.setSize(this.sview.getPreferredSize());
+		tmpSView.setPreferredSize(this.sview.getPreferredSize());
+		BufferedImage bi = new BufferedImage(tmpSView.getHeight(), tmpSView.getWidth(), BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2D = bi.createGraphics();
-		tmpView.paintComponents(g2D);
+		tmpSView.paint(g2D);
 		try {
 			ImageIO.write(bi, "png", fileToSave);
 		} 
