@@ -9,4 +9,6 @@ public interface ShapeVisitor {
 	public void visitText(SText st);
 	
 	public void visitCollection(SCollection sc);
+	
+	public void visitImage(SImage si);
 }

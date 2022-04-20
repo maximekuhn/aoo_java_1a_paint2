@@ -1,13 +1,14 @@
 package graphics.shapes.ui.menu;
 
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -15,8 +16,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import graphics.shapes.SCollection;
+import graphics.shapes.SImage;
+import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.ShapesView;
-import graphics.shapes.ui.toolbar.ToolBar;
 
 public class FileMenu extends JMenu implements ActionListener {
 	
@@ -92,7 +95,25 @@ public class FileMenu extends JMenu implements ActionListener {
 	}
 
 	private void doOpen() {
-		System.out.println("open");
+		JFileChooser fc = new JFileChooser();
+		int result = fc.showOpenDialog(null);
+		File fileToOpen = fc.getSelectedFile();
+		
+		if(fileToOpen == null || result == JFileChooser.CANCEL_OPTION) return;
+		
+		try {
+			Image img = ImageIO.read(fileToOpen);
+			SImage si = new SImage(new Point(0,0), img);
+			si.addAttributes(new SelectionAttributes());
+			((SCollection)this.sview.getModel()).add(si);
+			this.sview.repaint();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void doExit() {
