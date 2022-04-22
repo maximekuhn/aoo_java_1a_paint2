@@ -129,11 +129,11 @@ public class ShapeDraftman implements ShapeVisitor {
 		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
 		if(ca.filled) {
 			this.g2D.setColor(ca.filledColor);
-			this.g2D.fill(si.getRect());
+			this.g2D.fill(si.getBounds());
 		}
 		if(ca.stroked) {
 			this.g2D.setColor(ca.strokedColor);
-			this.g2D.draw(si.getRect());
+			this.g2D.draw(si.getBounds());
 		}
 		
 		SelectionAttributes sa = (SelectionAttributes) si.getAttributes(SelectionAttributes.ID);

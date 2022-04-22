@@ -22,11 +22,13 @@ public class SelectionMenu extends JMenu implements ActionListener {
 	private static final String UNSELECT_ALL = "Unselect all";
 	private static final String INVERT = "Invert";
 	private static final String DELETE = "Delete";
+	private static final String DUPLICATE = "Duplicate";
 	
 	private JMenuItem selectAll;
 	private JMenuItem unselectAll;
 	private JMenuItem invert;
 	private JMenuItem delete;
+	private JMenuItem duplicate;
 	
 	private ShapesView sview;
 	
@@ -41,22 +43,26 @@ public class SelectionMenu extends JMenu implements ActionListener {
 		this.unselectAll = new JMenuItem(UNSELECT_ALL);
 		this.invert = new JMenuItem(INVERT);
 		this.delete = new JMenuItem(DELETE);
+		this.duplicate = new JMenuItem(DUPLICATE);
 		
 		this.selectAll.addActionListener(this);
 		this.unselectAll.addActionListener(this);
 		this.invert.addActionListener(this);
 		this.delete.addActionListener(this);
+		this.duplicate.addActionListener(this);
 		
 		// keyboard shortcuts
 		this.selectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK));
 		this.invert.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
 		this.delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
+		this.duplicate.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
 		
 		this.add(this.selectAll);
 		this.add(this.unselectAll);
 		this.add(this.invert);
 		this.addSeparator();
 		this.add(this.delete);
+		this.add(this.duplicate);
 	}
 	
 	@Override
@@ -65,6 +71,7 @@ public class SelectionMenu extends JMenu implements ActionListener {
 		else if(e.getSource().equals(this.unselectAll)) this.doUnselectAll();
 		else if(e.getSource().equals(this.invert)) this.doInvert();
 		else if(e.getSource().equals(this.delete)) this.doDelete();
+		else if(e.getSource().equals(this.duplicate)) this.doDuplicate();
 	}
 	
 	private void doSelectAll() {
@@ -122,6 +129,29 @@ public class SelectionMenu extends JMenu implements ActionListener {
 		
 		for(Shape s1 : shapesToRemove)
 			model.remove(s1);
+		
+		this.sview.repaint();
+	}
+	
+	private void doDuplicate() {
+		SCollection model = (SCollection) this.sview.getModel();
+		Iterator<Shape> it = model.iterator();
+		Shape s;
+		
+		// TODO : fix doDuplicate (redo all)
+		
+		/*
+		 * need to store shapes before adding them,
+		 * in order to avoid confusion with it.next()
+		 */
+		LinkedList<Shape> shapesToAdd = new LinkedList<>();
+		while(it.hasNext()) {
+			s = it.next();
+			shapesToAdd.add(s);
+		}
+		
+		for(Shape s1 : shapesToAdd)
+			model.add(s1);
 		
 		this.sview.repaint();
 	}

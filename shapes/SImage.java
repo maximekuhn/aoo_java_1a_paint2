@@ -42,9 +42,5 @@ public class SImage extends Shape {
 	public Image getImage() {
 		return this.img;
 	}
-	
-	public Rectangle getRect() {
-		return this.rect;
-	}
 
 }
