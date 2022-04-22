@@ -53,9 +53,10 @@ public class Editor extends JFrame
 		
 		this.sview = new ShapesView(this.model);
 		this.sview.setPreferredSize(new Dimension(600,600));
+		this.sview.setBackground(Color.WHITE);
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
 		
-		this.menuBar = new MenuBar(this.sview);
+		this.menuBar = new MenuBar(this.sview, this);
 		this.setJMenuBar(this.menuBar);
 		
 		this.sview.add(new ToolBar(this.sview), BorderLayout.PAGE_START);

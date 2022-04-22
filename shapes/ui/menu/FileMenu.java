@@ -1,5 +1,6 @@
 package graphics.shapes.ui.menu;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -18,6 +19,7 @@ import javax.swing.KeyStroke;
 
 import graphics.shapes.SCollection;
 import graphics.shapes.SImage;
+import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.ShapesView;
 
@@ -78,6 +80,7 @@ public class FileMenu extends JMenu implements ActionListener {
 		 */
 		ShapesView tmpSView = new ShapesView(this.sview.getModel());
 		tmpSView.setSize(this.sview.getSize());
+		tmpSView.setBackground(this.sview.getBackground());
 		
 		BufferedImage bi = new BufferedImage(tmpSView.getWidth(), tmpSView.getHeight(), BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2D = bi.createGraphics();
@@ -105,6 +108,7 @@ public class FileMenu extends JMenu implements ActionListener {
 			Image img = ImageIO.read(fileToOpen);
 			SImage si = new SImage(new Point(0,0), img);
 			si.addAttributes(new SelectionAttributes());
+			si.addAttributes(new ColorAttributes(false, false, Color.BLACK, Color.BLACK));
 			((SCollection)this.sview.getModel()).add(si);
 			this.sview.repaint();
 		}

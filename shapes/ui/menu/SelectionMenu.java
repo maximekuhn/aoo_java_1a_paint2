@@ -53,6 +53,7 @@ public class SelectionMenu extends JMenu implements ActionListener {
 		
 		// keyboard shortcuts
 		this.selectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK));
+		this.unselectAll.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK));
 		this.invert.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
 		this.delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
 		this.duplicate.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
@@ -134,26 +135,8 @@ public class SelectionMenu extends JMenu implements ActionListener {
 	}
 	
 	private void doDuplicate() {
-		SCollection model = (SCollection) this.sview.getModel();
-		Iterator<Shape> it = model.iterator();
-		Shape s;
-		
-		// TODO : fix doDuplicate (redo all)
-		
-		/*
-		 * need to store shapes before adding them,
-		 * in order to avoid confusion with it.next()
-		 */
-		LinkedList<Shape> shapesToAdd = new LinkedList<>();
-		while(it.hasNext()) {
-			s = it.next();
-			shapesToAdd.add(s);
-		}
-		
-		for(Shape s1 : shapesToAdd)
-			model.add(s1);
-		
-		this.sview.repaint();
+		// TODO : duplicate in selection menu
+		System.out.println("doDuplicate");
 	}
 
 }
