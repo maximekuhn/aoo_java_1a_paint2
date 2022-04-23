@@ -24,6 +24,11 @@ public class FontAttributes extends Attributes {
 		this.fontColor = Color.BLACK;
 	}
 	
+	public FontAttributes(Font font, Color fontColor) {
+		this.font = font;
+		this.fontColor = fontColor;
+	}
+	
 	public Rectangle getBounds(String s) {
 		FontRenderContext frc = DEFAULT_GRAPHICS.getFontRenderContext();
 		return font.getStringBounds(s, frc).getBounds();

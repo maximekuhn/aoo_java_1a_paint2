@@ -3,7 +3,9 @@ package graphics.shapes;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
+import graphics.shapes.attributes.SelectionAttributes;
 
 public class SText extends Shape {
 
@@ -30,7 +32,7 @@ public class SText extends Shape {
 
 	@Override
 	public void setLoc(Point p) {
-		this.loc.setLocation(p);
+		this.loc = new Point(p);
 	}
 
 	@Override
@@ -51,4 +53,20 @@ public class SText extends Shape {
 	public void accept(ShapeVisitor v) {
 		v.visitText(this);
 	}
+
+	@Override
+	public Shape copy() {
+		SText st = new SText(this.getLoc(), this.text);
+		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = new ColorAttributes();
+		st.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
+		SelectionAttributes sa = (SelectionAttributes) this.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = new SelectionAttributes();
+		st.addAttributes(new SelectionAttributes(sa.isSelected()));
+		FontAttributes fa = (FontAttributes) this.getAttributes(FontAttributes.ID);
+		if(fa == null) fa = new FontAttributes();
+		st.addAttributes(new FontAttributes(fa.font, fa.fontColor));
+		return st;
+	}
+
 }

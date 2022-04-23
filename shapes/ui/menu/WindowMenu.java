@@ -27,6 +27,9 @@ public class WindowMenu extends JMenu implements ActionListener {
 	private static final int DEFAULT_WIDTH = 600;
 	private static final int DEFAULT_HEIGHT = 600;
 	
+	private static final Color DARK_THEME_COLOR = Color.GRAY;
+	private static final Color LIGHT_THEME_COLOR = Color.WHITE;
+	
 	private Editor editor;
 	private MenuBar menuBar;
 	private ShapesView sview;
@@ -111,7 +114,7 @@ public class WindowMenu extends JMenu implements ActionListener {
 
 	private void doDarkTheme() {
 		// TODO : change color of other components
-		this.sview.setBackground(Color.GRAY);
+		this.sview.setBackground(DARK_THEME_COLOR);
 	}
 
 }

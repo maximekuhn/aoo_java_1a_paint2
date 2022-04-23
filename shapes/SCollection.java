@@ -5,6 +5,9 @@ import java.awt.Rectangle;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.SelectionAttributes;
+
 public class SCollection extends Shape {
 
 	private LinkedList<Shape> shapes;
@@ -63,7 +66,19 @@ public class SCollection extends Shape {
 	public Iterator<Shape> iterator() {
 		return this.shapes.iterator();
 	}
-	
-	
 
+	@Override
+	public Shape copy() {
+		SCollection sc = new SCollection();
+		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = new ColorAttributes();
+		sc.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
+		SelectionAttributes sa = (SelectionAttributes) this.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = new SelectionAttributes();
+		sc.addAttributes(new SelectionAttributes(sa.isSelected()));
+		for(Shape shape : this.shapes)
+			sc.add(shape.copy());
+		return sc;
+	}
+	
 }

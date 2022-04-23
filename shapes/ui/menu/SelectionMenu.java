@@ -1,5 +1,6 @@
 package graphics.shapes.ui.menu;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -114,7 +115,6 @@ public class SelectionMenu extends JMenu implements ActionListener {
 	private void doDelete() {
 		SCollection model = (SCollection) this.sview.getModel();
 		Iterator<Shape> it = model.iterator();
-		Shape s;
 		
 		/*
 		 * removable shapes need to be stored somewhere,
@@ -122,6 +122,7 @@ public class SelectionMenu extends JMenu implements ActionListener {
 		 * the shape in the while loop !
 		 */
 		LinkedList<Shape> shapesToRemove = new LinkedList<>();
+		Shape s;
 		while(it.hasNext()) {
 			s = it.next();
 			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
@@ -135,8 +136,35 @@ public class SelectionMenu extends JMenu implements ActionListener {
 	}
 	
 	private void doDuplicate() {
-		// TODO : duplicate in selection menu
-		System.out.println("doDuplicate");
+		SCollection model = (SCollection) this.sview.getModel();
+		Iterator<Shape> it = model.iterator();
+		
+		/*
+		 * duplicate shapes need to be stored somewhere,
+		 * otherwise there is a confusion when calling it.next() if we add
+		 * the shape to the model inside the while loop.
+		 */
+		LinkedList<Shape> shapesToDuplicate = new LinkedList<>();
+		Shape s;
+		while(it.hasNext()) {
+			s = it.next();
+			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
+			if(sa.isSelected()) shapesToDuplicate.add(s.copy());
+		}
+		
+		for(Shape std : shapesToDuplicate) {
+			/*
+			 * make std appears top left (x = 10, y = 10)
+			 * unselect std
+			 */
+			SelectionAttributes sa = (SelectionAttributes) std.getAttributes(SelectionAttributes.ID);
+			if(sa == null) sa = new SelectionAttributes();
+			sa.unselect();
+			std.setLoc(new Point(10,10));
+			model.add(std);
+		}
+		
+		this.sview.repaint();
 	}
 
 }

@@ -4,6 +4,9 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.SelectionAttributes;
+
 public class SImage extends Shape {
 
 	private Rectangle rect;
@@ -41,6 +44,18 @@ public class SImage extends Shape {
 	
 	public Image getImage() {
 		return this.img;
+	}
+
+	@Override
+	public Shape copy() {
+		SImage si = new SImage(this.getLoc(), this.img);
+		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = new ColorAttributes();
+		si.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
+		SelectionAttributes sa = (SelectionAttributes) this.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = new SelectionAttributes();
+		si.addAttributes(new SelectionAttributes(sa.isSelected()));
+		return si;
 	}
 
 }

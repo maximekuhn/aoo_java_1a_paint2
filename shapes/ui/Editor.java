@@ -4,11 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import graphics.shapes.SCircle;
@@ -16,7 +12,6 @@ import graphics.shapes.SCircle;
 import graphics.shapes.SCircle;
 */
 import graphics.shapes.SCollection;
-import graphics.shapes.SImage;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
 /*
