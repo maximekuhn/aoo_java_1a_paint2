@@ -69,6 +69,7 @@ public class SCollection extends Shape {
 
 	@Override
 	public Shape copy() {
+		// TODO : fix copy in SCollection
 		SCollection sc = new SCollection();
 		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = new ColorAttributes();
