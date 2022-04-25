@@ -19,5 +19,15 @@ envoi les modifications sur le dépôt github
 $ git pull 
 
 
+### Arborescence du projet
+graphics
+├── shapes
+│   ├── attributes
+│   └── ui
+│       ├── menu
+│       └── toolbar
+└── ui
+pictures
+
 ---
 GRAINCA Albi, CRON Bastien, GOKER Batuhan, KUHN Maxime
