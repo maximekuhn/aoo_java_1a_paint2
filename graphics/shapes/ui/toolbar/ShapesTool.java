@@ -24,13 +24,13 @@ public class ShapesTool extends ToolContainer implements ActionListener {
 
 	@Override
 	protected void buildButtons() {
-		this.squareButton = new JButton(imageSize("src/graphics/pictures/square.png"));
-		this.circleButton = new JButton(imageSize("src/graphics/pictures/circle.png"));
-		this.triangleButton = new JButton(imageSize("src/graphics/pictures/triangle.png"));
-		this.lineButton = new JButton(imageSize("src/graphics/pictures/line.png"));
-		this.arrowButton = new JButton(imageSize("src/graphics/pictures/arrow.png"));
-		this.letterButton = new JButton(imageSize("src/graphics/pictures/letter.png"));
-		this.pencilButton = new JButton(imageSize("src/graphics/pictures/pencil.png"));
+		this.squareButton = new JButton(imageSize("src/pictures/square.png"));
+		this.circleButton = new JButton(imageSize("src/pictures/circle.png"));
+		this.triangleButton = new JButton(imageSize("src/pictures/triangle.png"));
+		this.lineButton = new JButton(imageSize("src/pictures/line.png"));
+		this.arrowButton = new JButton(imageSize("src/pictures/arrow.png"));
+		this.letterButton = new JButton(imageSize("src/pictures/letter.png"));
+		this.pencilButton = new JButton(imageSize("src/pictures/pencil.png"));
 	}
 
 	@Override
