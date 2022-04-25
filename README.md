@@ -21,8 +21,8 @@ $ git pull
 
 ### Arborescence du projet
 src <br/>
-  graphics <br/>
-  pictures <br/>
+|  graphics <br/>
+|  pictures <br/>
 
 ---
 GRAINCA Albi, CRON Bastien, GOKER Batuhan, KUHN Maxime
