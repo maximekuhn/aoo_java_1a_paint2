@@ -34,7 +34,7 @@ public class Editor extends JFrame
 	
 	public Editor()
 	{	
-		super("Paint Albi");
+		super("Paint Test");
 
 		this.addWindowListener(new java.awt.event.WindowAdapter()
 		{
