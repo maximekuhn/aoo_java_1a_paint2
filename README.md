@@ -24,6 +24,7 @@ $ git pull
 src <br/>
 |  graphics <br/>
 |  pictures <br/>
+|  README.md <br/>
 
 ---
 GRAINCA Albi, CRON Bastien, GOKER Batuhan, KUHN Maxime
