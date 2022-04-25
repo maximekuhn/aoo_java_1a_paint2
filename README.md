@@ -1,9 +1,10 @@
 # aoo_java_1a_paint2
 
 ### Modifier / ajouter
-$ git add -A
+$ git add file
 <br/>
-ajoute tous les fichiers modifiés
+ajoute un fichier. <br/>
+/!\ AJOUTER UNIQUEMENT LES FICHIERS DANS GRAPHICS OU PICTURES /!\
 <br/>
 <br/>
 $ git commit -m "message de commit"
