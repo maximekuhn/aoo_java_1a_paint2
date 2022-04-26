@@ -1,3 +1,3 @@
-module aoo_java_1a_paint2 {
+module TD_java {
 	requires java.desktop;
 }
