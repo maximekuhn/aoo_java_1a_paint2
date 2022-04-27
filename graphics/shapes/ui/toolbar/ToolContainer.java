@@ -1,8 +1,11 @@
 package graphics.shapes.ui.toolbar;
 
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -44,6 +47,21 @@ public abstract class ToolContainer {
 	
 	public ImageIcon imageSize(String filename) {
 		return new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+	}
+	
+	public Image cursorSize(String filename) {
+		try {
+			Image cursorImage = ImageIO.read(new File(filename));
+			cursorImage = cursorImage.getScaledInstance(24, 24, Image.SCALE_DEFAULT);
+			return cursorImage;
+		}
+		catch(IOException e1) {
+			e1.printStackTrace();
+		}
+		catch(Exception e2) {
+			e2.printStackTrace();
+		}
+		return null;
 	}
 	
 	protected abstract void buildButtons();

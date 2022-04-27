@@ -2,7 +2,10 @@ package graphics.shapes.ui.toolbar;
 
 
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,6 +34,7 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 
 	public ShapesTools(ShapesView sview) {
 		super(sview);
+		this.controller = new ShapesToolController(this.sview);
 		//this.controller = (ShapesToolController) sview.getController();
 	}
 
@@ -64,11 +68,18 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		/*
 		if(e.getSource().equals(this.squareButton)) this.doAddSquare();
 		else if(e.getSource().equals(this.circleButton)) this.doAddCircle();
 		else if(e.getSource().equals(this.letterButton)) this.doAddText();
-		*/
+		else if(e.getSource().equals(this.pencilButton)) this.doPencil();
+	}
+
+	private void doPencil() {
+		Image cursorImage = this.cursorSize("src/pictures/pencil.png");
+		if(cursorImage != null) {
+			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
+			this.getView().setCursor(customCursor);
+		}
 	}
 
 	private void doAddSquare() {
@@ -77,6 +88,12 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		sr.addAttributes(new SelectionAttributes(false));
 		
 		this.controller.setShape(sr);
+		
+		Image cursorImage = this.cursorSize("src/pictures/square.png");
+		if(cursorImage != null) {
+			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
+			this.getView().setCursor(customCursor);
+		}
 	}
 	
 	private void doAddCircle() {
@@ -85,6 +102,12 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		sc.addAttributes(new SelectionAttributes(false));
 		
 		this.controller.setShape(sc);
+		
+		Image cursorImage = this.cursorSize("src/pictures/circle.png");
+		if(cursorImage != null) {
+			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
+			this.getView().setCursor(customCursor);
+		}
 	}
 	
 	private void doAddText() {
@@ -94,6 +117,12 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		st.addAttributes(new SelectionAttributes());
 		
 		this.controller.setShape(st);
+		
+		Image cursorImage = this.cursorSize("src/pictures/letter.png");
+		if(cursorImage != null) {
+			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
+			this.getView().setCursor(customCursor);
+		}
 	}
 	
 }

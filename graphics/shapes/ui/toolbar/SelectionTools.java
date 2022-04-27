@@ -1,12 +1,14 @@
 package graphics.shapes.ui.toolbar;
 
 import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import graphics.shapes.ui.Editor;
 import graphics.shapes.ui.SelectionController;
 import graphics.shapes.ui.ShapesView;
 
@@ -18,12 +20,11 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	private JButton eraseButton;
 	private JButton groupButton;
 	
-	private Cursor cursor;
-	
 	private SelectionController controller;
 	
 	public SelectionTools(ShapesView sview) {
 		super(sview);
+		this.controller = new SelectionController(this.sview);
 		//this.controller = (SelectionController) sview.getController();
 	}
 	
@@ -66,6 +67,12 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 
 	private void doErase() {
 		this.controller.setActionMode(SelectionActions.ERASE);
+		
+		Image cursorImage = this.cursorSize("src/pictures/cursors/eraser_cursor.png");
+		if(cursorImage != null) {
+			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
+			this.getView().setCursor(customCursor);
+		}
 	}
 
 	private void doRotate() {
@@ -75,13 +82,18 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 
 	private void doTranslate() {
 		this.controller.setActionMode(SelectionActions.TRANSLATE);
-		this.cursor = new Cursor(Cursor.MOVE_CURSOR);
-		this.sview.setCursor(this.cursor);
-		System.out.println(this.sview.getCursor());
+		
+		Image cursorImage = this.cursorSize("src/pictures/cursors/move_cursor.png");
+		if(cursorImage != null) {
+			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
+			this.getView().setCursor(customCursor);
+		}
 	}
 
 	private void doSelect() {
 		this.controller.setActionMode(SelectionActions.SELECT);
+		
+		this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 
 }

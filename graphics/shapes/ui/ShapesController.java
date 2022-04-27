@@ -1,5 +1,6 @@
 package graphics.shapes.ui;
 
+import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
