@@ -57,4 +57,10 @@ public class SCircle extends Shape {
 		return sc;
 	}
 
+	@Override
+	public void resize(int dx, int dy) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

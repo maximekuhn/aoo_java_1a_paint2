@@ -14,6 +14,8 @@ public class ShapesController extends Controller {
 	
 	private Point lastClick;
 	private boolean shiftDown;
+
+	private static final int HANDLER_SIZE = 6;
 	
 	public ShapesController(Object model) {
 		super(model);
@@ -52,6 +54,7 @@ public class ShapesController extends Controller {
 		int dy = evt.getY() - this.lastClick.y;
 		
 		this.translateSelected(dx, dy);
+		this.resizeSelected(dx, dy);
 		
 		this.lastClick.setLocation(evt.getPoint());
 	}
@@ -100,11 +103,49 @@ public class ShapesController extends Controller {
 		while(it.hasNext()) {
 			Shape s = it.next();
 			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-			if(sa.isSelected()) {
+			if(sa.isSelected() && this.isHandlerSelected(s)==0) {
 				s.translate(dx, dy);
 				this.getView().repaint();
 			}
 		}
 	}
 	
+	private void resizeSelected(int dx, int dy) {
+		SCollection model = (SCollection) this.getModel();
+		Iterator<Shape> it = model.iterator();
+		
+		while(it.hasNext()) {
+			Shape s = it.next();
+			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
+			if(sa.isSelected()) {
+				if (this.isHandlerSelected(s)==1) {
+					s.translate(dx, dy);
+					s.resize(-dx, -dy);
+					this.getView().repaint();
+				}
+				else if (this.isHandlerSelected(s)==2) {
+					s.resize(dx, dy);
+					this.getView().repaint();
+				}
+			}
+		}
+	}
+
+	private int isHandlerSelected(Shape s) {
+		int xleft = s.getBounds().x;
+		int xright = s.getBounds().x + s.getBounds().width;
+		int ytop = s.getBounds().y;
+		int ybottom = s.getBounds().y + s.getBounds().height;
+		if (this.lastClick.x >= xleft-HANDLER_SIZE && this.lastClick.x <= xleft && this.lastClick.y >= ytop-HANDLER_SIZE && this.lastClick.y <= ytop) {
+			// if top left handler is selected
+			return 1;
+		}
+		else if (this.lastClick.x >= xright && this.lastClick.x <= xright+HANDLER_SIZE && this.lastClick.y >= ybottom && this.lastClick.y <= ybottom+HANDLER_SIZE) {
+			// if bottom right handler is selected
+			return 2;
+		}
+		else {
+			return 0;
+		}
+	}
 }

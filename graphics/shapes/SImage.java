@@ -58,4 +58,10 @@ public class SImage extends Shape {
 		return si;
 	}
 
+	@Override
+	public void resize(int dx, int dy) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -69,4 +69,10 @@ public class SText extends Shape {
 		return st;
 	}
 
+	@Override
+	public void resize(int dx, int dy) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -51,4 +51,7 @@ public class SRectangle extends Shape {
 		return sr;
 	}
 
+	public void resize(int dx, int dy) {
+		this.rect.setSize((int)this.rect.getWidth()+dx, (int)this.rect.getHeight()+dy);
+	}
 }

@@ -33,5 +33,7 @@ public abstract class Shape {
 	public abstract void accept(ShapeVisitor v);
 	
 	public abstract Shape copy();
+
+	public abstract void resize(int dx, int dy);
 	
 }
