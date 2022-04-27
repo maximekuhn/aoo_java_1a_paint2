@@ -10,7 +10,7 @@ import graphics.shapes.ui.ShapesView;
 
 public abstract class ToolContainer {
 	
-	private ShapesView sview;
+	protected ShapesView sview;
 	private LinkedList<JButton> buttons;
 	
 	public ToolContainer(ShapesView sview) {

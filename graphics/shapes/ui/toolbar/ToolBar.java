@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
+import graphics.shapes.ui.Editor;
 import graphics.shapes.ui.ShapesView;
 
 public class ToolBar extends JToolBar {

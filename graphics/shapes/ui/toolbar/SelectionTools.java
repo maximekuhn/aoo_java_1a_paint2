@@ -1,12 +1,13 @@
 package graphics.shapes.ui.toolbar;
 
-import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
+import graphics.shapes.ui.Editor;
+import graphics.shapes.ui.SelectionController;
 import graphics.shapes.ui.ShapesView;
 
 public class SelectionTools extends ToolContainer implements ActionListener {
@@ -14,11 +15,16 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	private JButton selectionButton;
 	private JButton translateButton;
 	private JButton rotateButton;
-	private JButton ereaseButton;
+	private JButton eraseButton;
 	private JButton groupButton;
+	
+	private Cursor cursor;
+	
+	private SelectionController controller;
 	
 	public SelectionTools(ShapesView sview) {
 		super(sview);
+		//this.controller = (SelectionController) sview.getController();
 	}
 	
 	@Override
@@ -26,7 +32,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		this.selectionButton = new JButton(imageSize("src/pictures/cursor.png"));
 		this.translateButton = new JButton(imageSize("src/pictures/move.png"));
 		this.rotateButton = new JButton(imageSize("src/pictures/rotate.png"));
-		this.ereaseButton = new JButton(imageSize("src/pictures/eraser.png"));
+		this.eraseButton = new JButton(imageSize("src/pictures/eraser.png"));
 		this.groupButton = new JButton(imageSize("src/pictures/group.png"));
 	}
 	
@@ -35,7 +41,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		this.addButton(this.selectionButton);
 		this.addButton(this.translateButton);
 		this.addButton(this.rotateButton);
-		this.addButton(this.ereaseButton);
+		this.addButton(this.eraseButton);
 		this.addButton(this.groupButton);
 	}
 	
@@ -47,6 +53,35 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().equals(this.selectionButton)) this.doSelect();
+		else if(e.getSource().equals(this.translateButton)) this.doTranslate();
+		else if(e.getSource().equals(this.rotateButton)) this.doRotate();
+		else if(e.getSource().equals(this.eraseButton)) this.doErase();
+		else if(e.getSource().equals(this.groupButton)) this.doGroup();
+	}
+
+	private void doGroup() {
+		this.controller.setActionMode(SelectionActions.GROUP);
+	}
+
+	private void doErase() {
+		this.controller.setActionMode(SelectionActions.ERASE);
+	}
+
+	private void doRotate() {
+		this.controller.setActionMode(SelectionActions.ROTATE);
+		this.controller.doRotation();
+	}
+
+	private void doTranslate() {
+		this.controller.setActionMode(SelectionActions.TRANSLATE);
+		this.cursor = new Cursor(Cursor.MOVE_CURSOR);
+		this.sview.setCursor(this.cursor);
+		System.out.println(this.sview.getCursor());
+	}
+
+	private void doSelect() {
+		this.controller.setActionMode(SelectionActions.SELECT);
 	}
 
 }
