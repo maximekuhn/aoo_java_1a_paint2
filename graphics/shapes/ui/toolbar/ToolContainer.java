@@ -43,7 +43,7 @@ public abstract class ToolContainer {
 	}
 	
 	public ImageIcon imageSize(String filename) {
-		return new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+		return new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
 	}
 	
 	protected abstract void buildButtons();
