@@ -40,7 +40,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		this.rotateButton = new JButton(imageSize("src/pictures/rotate.png"));
 		this.eraseButton = new JButton(imageSize("src/pictures/eraser.png"));
 		this.groupButton = new JButton(imageSize("src/pictures/group.png"));
-		this.ungroupButton = new JButton(imageSize("src/pictures/group.png"));
+		this.ungroupButton = new JButton(imageSize("src/pictures/ungroup.png"));
 	}
 	
 	@Override
