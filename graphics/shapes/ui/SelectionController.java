@@ -51,7 +51,6 @@ public class SelectionController extends Controller {
 		
 	}
 	
-
 	@Override
 	public void keyPressed(KeyEvent evt)
 	{

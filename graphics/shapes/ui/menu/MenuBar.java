@@ -10,6 +10,8 @@ public class MenuBar extends JMenuBar {
 	private FileMenu fileMenu;
 	private SelectionMenu selectionMenu;
 	private WindowMenu windowMenu;
+	private DeveloperMenu developerMenu;
+	
 	private ShapesView sview;
 	private Editor editor;
 	
@@ -26,6 +28,9 @@ public class MenuBar extends JMenuBar {
 		
 		this.windowMenu = new WindowMenu(this.editor, this, this.sview);
 		this.add(this.windowMenu);
+		
+		this.developerMenu = new DeveloperMenu(this.sview);
+		this.add(this.developerMenu);
 	}
 
 }
