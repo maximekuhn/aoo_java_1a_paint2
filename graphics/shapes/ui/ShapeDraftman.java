@@ -133,12 +133,14 @@ public class ShapeDraftman implements ShapeVisitor {
 	
 	@Override
 	public void visitCollection(SCollection sc) {
+		Iterator<Shape> i = sc.iterator();
+		if(!i.hasNext()) return;
+		
 		RotationAttributes ra = (RotationAttributes) sc.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
 		AffineTransform old = this.g2D.getTransform();
 		this.g2D.rotate(Math.toRadians(ra.getAngle()), sc.getBounds().x + sc.getBounds().width / 2, sc.getBounds().y + sc.getBounds().height / 2);
 		
-		Iterator<Shape> i = sc.iterator();
 		while(i.hasNext())
 			i.next().accept(this);
 		
