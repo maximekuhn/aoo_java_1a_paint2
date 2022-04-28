@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import graphics.shapes.SCollection;
 import graphics.shapes.Shape;
@@ -29,12 +30,16 @@ public class SelectionController extends Controller {
 		this.actionMode = action;
 	}
 	
+	public SelectionActions getActionMode() {
+		return this.actionMode;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
 		this.lastClick.setLocation(e.getPoint());
 		
-		if(this.actionMode.equals(SelectionActions.SELECT) || this.actionMode.equals(SelectionActions.ROTATE)) this.doSelect(e);
+		if(this.actionMode.equals(SelectionActions.SELECT)) this.doSelect(e);
 		else if(this.actionMode.equals(SelectionActions.ERASE)) this.doErase(e);
 	}
 	
@@ -117,6 +122,35 @@ public class SelectionController extends Controller {
 				ra.rotate90Right();
 			}
 		}
+		this.getView().repaint();
+	}
+	
+	public void doGroup() {
+		SCollection model = (SCollection) this.getModel();
+		Iterator<Shape> it = model.iterator();
+		
+		LinkedList<Shape> shapesToGroup = new LinkedList<>();
+		
+		Shape s;
+		while(it.hasNext()) {
+			s = it.next();
+			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
+			if(sa == null) sa = new SelectionAttributes();
+			if(sa.isSelected()) shapesToGroup.add(s);
+		}
+		
+		SCollection group = new SCollection();
+		for(Shape shape : shapesToGroup) {
+			model.remove(shape);
+			group.add(shape);
+			SelectionAttributes satt = (SelectionAttributes) shape.getAttributes(SelectionAttributes.ID);
+			if(satt == null) satt = new SelectionAttributes();
+			satt.unselect();
+		}
+		group.addAttributes(new SelectionAttributes(true));
+		
+		model.add(group);
+		
 		this.getView().repaint();
 	}
 

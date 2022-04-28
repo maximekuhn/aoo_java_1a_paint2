@@ -15,6 +15,8 @@ import graphics.shapes.ui.ShapesView;
 
 public class SelectionTools extends ToolContainer implements ActionListener {
 
+	// TODO : handle all cursors (old ...)
+	
 	private JButton selectionButton;
 	private JButton translateButton;
 	private JButton rotateButton;
@@ -67,7 +69,10 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	}
 
 	private void doGroup() {
+		SelectionActions old = this.controller.getActionMode();
 		this.controller.setActionMode(SelectionActions.GROUP);
+		this.controller.doGroup();
+		this.controller.setActionMode(old);
 	}
 
 	private void doErase() {
@@ -81,9 +86,10 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	}
 
 	private void doRotate() {
+		SelectionActions old = this.controller.getActionMode();
 		this.controller.setActionMode(SelectionActions.ROTATE);
 		this.controller.doRotation();
-		
+		this.controller.setActionMode(old);
 		this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 
