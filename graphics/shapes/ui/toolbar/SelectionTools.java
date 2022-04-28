@@ -78,6 +78,8 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	private void doRotate() {
 		this.controller.setActionMode(SelectionActions.ROTATE);
 		this.controller.doRotation();
+		
+		this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 
 	private void doTranslate() {

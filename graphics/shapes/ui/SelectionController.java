@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import graphics.shapes.SCollection;
 import graphics.shapes.Shape;
+import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.toolbar.SelectionActions;
 import graphics.ui.Controller;
@@ -33,7 +34,7 @@ public class SelectionController extends Controller {
 	{
 		this.lastClick.setLocation(e.getPoint());
 		
-		if(this.actionMode.equals(SelectionActions.SELECT)) this.doSelect(e);
+		if(this.actionMode.equals(SelectionActions.SELECT) || this.actionMode.equals(SelectionActions.ROTATE)) this.doSelect(e);
 		else if(this.actionMode.equals(SelectionActions.ERASE)) this.doErase(e);
 	}
 	
@@ -99,7 +100,6 @@ public class SelectionController extends Controller {
 	}
 	
 	public void doRotation() {
-		// TODO : finish rotation
 		SCollection model = (SCollection) this.getModel();
 		Iterator<Shape> it = model.iterator();
 		
@@ -108,8 +108,17 @@ public class SelectionController extends Controller {
 			s = it.next();
 			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
 			if(sa == null) sa = new SelectionAttributes();
-			if(sa.isSelected()) System.out.println("rotation");
+			
+			if(sa.isSelected()) {
+				RotationAttributes ra = (RotationAttributes) s.getAttributes(RotationAttributes.ID);
+				if(ra == null) {
+					ra = new RotationAttributes();
+					s.addAttributes(ra);
+				}
+				ra.rotate90Right();
+			}
 		}
+		this.getView().repaint();
 	}
 
 	private void translateSelected(int dx, int dy) {

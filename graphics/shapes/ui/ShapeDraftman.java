@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
 import java.util.Iterator;
 
 import graphics.shapes.SCircle;
@@ -15,6 +17,7 @@ import graphics.shapes.Shape;
 import graphics.shapes.ShapeVisitor;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
+import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
 public class ShapeDraftman implements ShapeVisitor {
@@ -22,12 +25,18 @@ public class ShapeDraftman implements ShapeVisitor {
 	private static final ColorAttributes DEFAULTCOLORATTRIBUTES = new ColorAttributes();
 	private static final SelectionAttributes DEFAULTSELECTIONATTRIBUTES = new SelectionAttributes();
 	private static final FontAttributes DEFAULTFONTATTRIBUTES = new FontAttributes();
+	private static final RotationAttributes DEFAULTROTATIONATTRIBUTES = new RotationAttributes();
 	private static final int HANDLER_SIZE = 6;
 	private Graphics2D g2D;
 	
 	@Override
 	public void visitRectangle(SRectangle sr) {
 		Rectangle r = sr.getBounds();
+		
+		RotationAttributes ra = (RotationAttributes) sr.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), sr.getBounds().x + sr.getBounds().width / 2, sr.getBounds().y + sr.getBounds().height / 2);
 		
 		ColorAttributes ca = (ColorAttributes) sr.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
@@ -48,12 +57,19 @@ public class ShapeDraftman implements ShapeVisitor {
 			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
 			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
 		}
+		
+		this.g2D.setTransform(old);
 	}
 	
 	@Override
 	public void visitCircle(SCircle sc) {
 		Point loc = sc.getLoc();
 		int radius = sc.getRadius();
+		
+		RotationAttributes ra = (RotationAttributes) sc.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), sc.getBounds().x + sc.getBounds().width / 2, sc.getBounds().y + sc.getBounds().height / 2);
 		
 		ColorAttributes ca = (ColorAttributes) sc.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
@@ -74,10 +90,18 @@ public class ShapeDraftman implements ShapeVisitor {
 			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
 			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
 		}
+		
+		this.g2D.setTransform(old);
 	}
 
 	@Override
 	public void visitText(SText st) {
+		RotationAttributes ra = (RotationAttributes) st.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), st.getBounds().x + st.getBounds().width / 2, st.getBounds().y + st.getBounds().height / 2);
+		
+		
 		ColorAttributes ca = (ColorAttributes) st.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
 		if(ca.filled) {
@@ -103,10 +127,17 @@ public class ShapeDraftman implements ShapeVisitor {
 		this.g2D.setFont(fa.font);
 		this.g2D.setColor(fa.fontColor);
 		this.g2D.drawString(st.getText(), st.getLoc().x, st.getLoc().y);
+		
+		this.g2D.setTransform(old);
 	}
 	
 	@Override
 	public void visitCollection(SCollection sc) {
+		RotationAttributes ra = (RotationAttributes) sc.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), sc.getBounds().x + sc.getBounds().width / 2, sc.getBounds().y + sc.getBounds().height / 2);
+		
 		Iterator<Shape> i = sc.iterator();
 		while(i.hasNext())
 			i.next().accept(this);
@@ -119,10 +150,17 @@ public class ShapeDraftman implements ShapeVisitor {
 			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
 			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
 		}
+		
+		this.g2D.setTransform(old);
 	}
 	
 	@Override
 	public void visitImage(SImage si) {
+		RotationAttributes ra = (RotationAttributes) si.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), si.getBounds().x + si.getBounds().width / 2, si.getBounds().y + si.getBounds().height / 2);
+		
 		this.g2D.drawImage(si.getImage(), si.getBounds().x, si.getBounds().y, null);
 
 		ColorAttributes ca = (ColorAttributes) si.getAttributes(ColorAttributes.ID);
@@ -144,10 +182,15 @@ public class ShapeDraftman implements ShapeVisitor {
 			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
 			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
 		}
+		
+		this.g2D.setTransform(old);
 	}
 	
 	public void setGraphics(Graphics g) {
 		this.g2D = (Graphics2D) g;
+		
+		// anti-aliasing
+		this.g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 	
 }
