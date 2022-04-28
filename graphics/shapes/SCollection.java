@@ -62,7 +62,6 @@ public class SCollection extends Shape {
 	
 	public void remove(Shape s) {
 		this.shapes.remove(s);
-		s = null; // for the garbage collector
 	}
 	
 	public Iterator<Shape> iterator() {
