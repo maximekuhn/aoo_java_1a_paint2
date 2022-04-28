@@ -30,6 +30,8 @@ public class FileMenu extends JMenu implements ActionListener {
 	private static final String SAVE = "save";
 	private static final String QUIT = "quit";
 	
+	private static final String SAVE_EXTENSION = "png";
+	
 	private ShapesView sview;
 	
 	private JMenuItem open;
@@ -86,8 +88,10 @@ public class FileMenu extends JMenu implements ActionListener {
 		Graphics2D g2D = bi.createGraphics();
 		tmpSView.paint(g2D);
 		
+		if(! fileToSave.toString().endsWith("." + SAVE_EXTENSION)) fileToSave = new File(fileToSave + "." + SAVE_EXTENSION);
+		
 		try {
-			ImageIO.write(bi, "png", fileToSave);
+			ImageIO.write(bi, SAVE_EXTENSION, fileToSave);
 		} 
 		catch(Exception e) {
 			e.printStackTrace();

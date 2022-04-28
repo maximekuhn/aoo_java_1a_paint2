@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
 public class SCircle extends Shape {
@@ -47,13 +48,16 @@ public class SCircle extends Shape {
 
 	@Override
 	public Shape copy() {
-		SCircle sc = new SCircle(this.getLoc(), this.getRadius());
+		SCircle sc = new SCircle(new Point(this.getLoc()), this.getRadius());
 		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = new ColorAttributes();
 		sc.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
 		SelectionAttributes sa = (SelectionAttributes) this.getAttributes(SelectionAttributes.ID);
 		if(sa == null) sa = new SelectionAttributes();
 		sc.addAttributes(new SelectionAttributes(sa.isSelected()));
+		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = new RotationAttributes();
+		sc.addAttributes(ra);
 		return sc;
 	}
 

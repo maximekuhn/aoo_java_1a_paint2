@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
 public class SCollection extends Shape {
@@ -61,6 +62,7 @@ public class SCollection extends Shape {
 	
 	public void remove(Shape s) {
 		this.shapes.remove(s);
+		s = null; // for the garbage collector
 	}
 	
 	public Iterator<Shape> iterator() {
@@ -69,7 +71,6 @@ public class SCollection extends Shape {
 
 	@Override
 	public Shape copy() {
-		// TODO : fix copy in SCollection
 		SCollection sc = new SCollection();
 		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = new ColorAttributes();
@@ -77,8 +78,23 @@ public class SCollection extends Shape {
 		SelectionAttributes sa = (SelectionAttributes) this.getAttributes(SelectionAttributes.ID);
 		if(sa == null) sa = new SelectionAttributes();
 		sc.addAttributes(new SelectionAttributes(sa.isSelected()));
-		for(Shape shape : this.shapes)
-			sc.add(shape.copy());
+		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = new RotationAttributes();
+		sc.addAttributes(ra);
+		
+		Shape sCopy;
+		for(Shape shape : this.shapes) {
+			sCopy = shape.copy();
+			
+			/*
+			 * all shapes in an SCollection are not selected / unselected,
+			 * the SCollection itself is selected / unselected.
+			 */
+			SelectionAttributes saSCopy = (SelectionAttributes) sCopy.getAttributes(SelectionAttributes.ID);
+			if(saSCopy == null) saSCopy = new SelectionAttributes();
+			saSCopy.unselect();
+			sc.add(sCopy);
+		}
 		return sc;
 	}
 

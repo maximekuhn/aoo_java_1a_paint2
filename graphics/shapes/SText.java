@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
+import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
 public class SText extends Shape {
@@ -56,7 +57,7 @@ public class SText extends Shape {
 
 	@Override
 	public Shape copy() {
-		SText st = new SText(this.getLoc(), this.text);
+		SText st = new SText(new Point(this.getLoc()), this.text);
 		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = new ColorAttributes();
 		st.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
@@ -66,6 +67,9 @@ public class SText extends Shape {
 		FontAttributes fa = (FontAttributes) this.getAttributes(FontAttributes.ID);
 		if(fa == null) fa = new FontAttributes();
 		st.addAttributes(new FontAttributes(fa.font, fa.fontColor));
+		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = new RotationAttributes();
+		st.addAttributes(ra);
 		return st;
 	}
 

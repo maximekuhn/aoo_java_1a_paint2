@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
 public class SImage extends Shape {
@@ -55,6 +56,9 @@ public class SImage extends Shape {
 		SelectionAttributes sa = (SelectionAttributes) this.getAttributes(SelectionAttributes.ID);
 		if(sa == null) sa = new SelectionAttributes();
 		si.addAttributes(new SelectionAttributes(sa.isSelected()));
+		RotationAttributes  ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = new RotationAttributes();
+		si.addAttributes(ra);
 		return si;
 	}
 

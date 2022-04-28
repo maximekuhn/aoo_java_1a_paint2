@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
 public class SRectangle extends Shape {
@@ -48,6 +49,9 @@ public class SRectangle extends Shape {
 		SelectionAttributes sa = (SelectionAttributes) this.getAttributes(SelectionAttributes.ID);
 		if(sa == null) sa = new SelectionAttributes();
 		sr.addAttributes(new SelectionAttributes(sa.isSelected()));
+		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = new RotationAttributes();
+		sr.addAttributes(ra);
 		return sr;
 	}
 
