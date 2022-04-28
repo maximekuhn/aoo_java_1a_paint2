@@ -17,6 +17,7 @@ import graphics.shapes.SText;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
+import graphics.shapes.ui.MainController;
 import graphics.shapes.ui.ShapesToolController;
 import graphics.shapes.ui.ShapesView;
 
@@ -31,11 +32,14 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 	private JButton pencilButton;
 	
 	private ShapesToolController controller;
+	private MainController mainController;
 
 	public ShapesTools(ShapesView sview) {
 		super(sview);
-		this.controller = new ShapesToolController(this.sview);
-		//this.controller = (ShapesToolController) sview.getController();
+		this.controller = new ShapesToolController(sview.getModel());
+		this.controller.setView(sview);
+		this.mainController = (MainController) this.sview.getController();
+		this.mainController.addController(this.controller);
 	}
 
 	@Override
@@ -68,6 +72,7 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		this.mainController.setController(this.controller);
 		if(e.getSource().equals(this.squareButton)) this.doAddSquare();
 		else if(e.getSource().equals(this.circleButton)) this.doAddCircle();
 		else if(e.getSource().equals(this.letterButton)) this.doAddText();

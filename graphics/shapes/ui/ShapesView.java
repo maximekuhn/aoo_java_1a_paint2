@@ -26,7 +26,7 @@ public class ShapesView extends View {
 	
 	@Override
 	public Controller defaultController(Object model) {
-		return new ShapesController(model);
+		return new MainController(model);
 	}
 	
 	@Override

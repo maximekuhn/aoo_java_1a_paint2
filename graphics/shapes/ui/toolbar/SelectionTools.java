@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import graphics.shapes.ui.MainController;
 import graphics.shapes.ui.SelectionController;
 import graphics.shapes.ui.ShapesView;
 
@@ -21,11 +22,14 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	private JButton groupButton;
 	
 	private SelectionController controller;
+	private MainController mainController;
 	
 	public SelectionTools(ShapesView sview) {
 		super(sview);
-		this.controller = new SelectionController(this.sview);
-		//this.controller = (SelectionController) sview.getController();
+		this.controller = new SelectionController(sview.getModel());
+		this.controller.setView(sview);
+		this.mainController = (MainController) this.sview.getController();
+		this.mainController.addController(this.controller);
 	}
 	
 	@Override
@@ -54,6 +58,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		this.mainController.setController(this.controller);
 		if(e.getSource().equals(this.selectionButton)) this.doSelect();
 		else if(e.getSource().equals(this.translateButton)) this.doTranslate();
 		else if(e.getSource().equals(this.rotateButton)) this.doRotate();
