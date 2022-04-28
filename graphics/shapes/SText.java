@@ -78,5 +78,4 @@ public class SText extends Shape {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

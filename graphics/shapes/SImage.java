@@ -67,5 +67,5 @@ public class SImage extends Shape {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }

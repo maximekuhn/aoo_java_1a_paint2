@@ -49,8 +49,6 @@ public class ShapeDraftman implements ShapeVisitor {
 			this.g2D.draw(r);
 		}
 		
-		System.out.print(sr.getBounds());
-		
 		SelectionAttributes sa = (SelectionAttributes) sr.getAttributes(SelectionAttributes.ID);
 		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
 		if(sa.isSelected()) {
