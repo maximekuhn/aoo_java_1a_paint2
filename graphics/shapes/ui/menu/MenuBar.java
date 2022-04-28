@@ -1,5 +1,9 @@
 package graphics.shapes.ui.menu;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
 import javax.swing.JMenuBar;
 
 import graphics.shapes.ui.Editor;
@@ -14,6 +18,8 @@ public class MenuBar extends JMenuBar {
 	
 	private ShapesView sview;
 	private Editor editor;
+	
+	private Color color;
 	
 	public MenuBar(ShapesView sview, Editor editor) {
 		super();

@@ -31,7 +31,7 @@ public class ShapeDraftman implements ShapeVisitor {
 	
 	@Override
 	public void visitRectangle(SRectangle sr) {
-		Rectangle r = sr.getBounds();
+		Rectangle r = sr.getBounds();	
 		
 		RotationAttributes ra = (RotationAttributes) sr.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;

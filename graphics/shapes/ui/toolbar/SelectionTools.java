@@ -14,14 +14,13 @@ import graphics.shapes.ui.SelectionController;
 import graphics.shapes.ui.ShapesView;
 
 public class SelectionTools extends ToolContainer implements ActionListener {
-
-	// TODO : handle all cursors (old ...)
 	
 	private JButton selectionButton;
 	private JButton translateButton;
 	private JButton rotateButton;
 	private JButton eraseButton;
 	private JButton groupButton;
+	private JButton ungroupButton;
 	
 	private SelectionController controller;
 	private MainController mainController;
@@ -41,6 +40,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		this.rotateButton = new JButton(imageSize("src/pictures/rotate.png"));
 		this.eraseButton = new JButton(imageSize("src/pictures/eraser.png"));
 		this.groupButton = new JButton(imageSize("src/pictures/group.png"));
+		this.ungroupButton = new JButton(imageSize("src/pictures/group.png"));
 	}
 	
 	@Override
@@ -50,6 +50,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		this.addButton(this.rotateButton);
 		this.addButton(this.eraseButton);
 		this.addButton(this.groupButton);
+		this.addButton(this.ungroupButton);
 	}
 	
 	@Override
@@ -66,13 +67,21 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		else if(e.getSource().equals(this.rotateButton)) this.doRotate();
 		else if(e.getSource().equals(this.eraseButton)) this.doErase();
 		else if(e.getSource().equals(this.groupButton)) this.doGroup();
+		else if(e.getSource().equals(this.ungroupButton)) this.doUnGroup();
+	}
+
+	private void doUnGroup() {
+		SelectionActions old = this.controller.getActionMode();
+		this.controller.setActionMode(SelectionActions.UNGROUP);
+		this.controller.doUngroup();
+		this.controller.setActionMode(old);
 	}
 
 	private void doGroup() {
-		SelectionActions old = this.controller.getActionMode();
+		SelectionActions oldAction = this.controller.getActionMode();
 		this.controller.setActionMode(SelectionActions.GROUP);
 		this.controller.doGroup();
-		this.controller.setActionMode(old);
+		this.controller.setActionMode(oldAction);
 	}
 
 	private void doErase() {
@@ -86,11 +95,10 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	}
 
 	private void doRotate() {
-		SelectionActions old = this.controller.getActionMode();
+		SelectionActions oldAction = this.controller.getActionMode();
 		this.controller.setActionMode(SelectionActions.ROTATE);
 		this.controller.doRotation();
-		this.controller.setActionMode(old);
-		this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		this.controller.setActionMode(oldAction);
 	}
 
 	private void doTranslate() {

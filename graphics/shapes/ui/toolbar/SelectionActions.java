@@ -6,5 +6,6 @@ public enum SelectionActions {
 	TRANSLATE,
 	ROTATE,
 	ERASE,
-	GROUP;
+	GROUP,
+	UNGROUP;
 }

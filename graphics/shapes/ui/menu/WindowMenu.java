@@ -108,13 +108,14 @@ public class WindowMenu extends JMenu implements ActionListener {
 	
 	private void doLightTheme() {
 		// TODO : change color of other components
-		this.sview.setBackground(Color.WHITE);
+		this.sview.setBackground(LIGHT_THEME_COLOR);
 		this.sview.repaint();
 	}
 
 	private void doDarkTheme() {
 		// TODO : change color of other components
 		this.sview.setBackground(DARK_THEME_COLOR);
+		this.sview.repaint();
 	}
 
 }

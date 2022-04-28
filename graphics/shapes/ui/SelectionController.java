@@ -153,6 +153,47 @@ public class SelectionController extends Controller {
 		
 		this.getView().repaint();
 	}
+	
+	public void doUngroup() {
+		SCollection model = (SCollection) this.getModel();
+		Iterator<Shape> iterator = model.iterator();
+		
+		LinkedList<Shape> separatedShapes = new LinkedList<>();
+		LinkedList<SCollection> SCollectionToRemove = new LinkedList<>();
+		
+		Shape shape;
+		while(iterator.hasNext()) {
+			shape = iterator.next();
+			
+			SelectionAttributes sa = (SelectionAttributes) shape.getAttributes(SelectionAttributes.ID);
+			if(sa == null) sa = new SelectionAttributes();
+			
+			if(sa.isSelected()) {
+				// check if shape is an SCollection using model
+				if(shape.getClass().getName().equals(model.getClass().getName())) {
+					SCollection sc = (SCollection) shape;
+					Iterator<Shape> it = sc.iterator();
+					LinkedList<Shape> shapesToRemoveFromSC = new LinkedList<>();
+					Shape s;
+					while(it.hasNext()) {
+						s = it.next();
+						separatedShapes.add(s);
+					}
+					for(Shape str : shapesToRemoveFromSC)
+						sc.remove(str);
+					SCollectionToRemove.add(sc);
+				}
+			}
+		}
+		
+		for(Shape sh : separatedShapes)
+			model.add(sh);
+		
+		for(SCollection scollection : SCollectionToRemove)
+			model.remove(scollection);
+		
+		this.getView().repaint();
+	}
 
 	private void translateSelected(int dx, int dy) {
 		SCollection model = (SCollection) this.getModel();
