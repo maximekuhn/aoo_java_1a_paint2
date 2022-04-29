@@ -58,7 +58,7 @@ public class SImage extends Shape {
 		si.addAttributes(new SelectionAttributes(sa.isSelected()));
 		RotationAttributes  ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = new RotationAttributes();
-		si.addAttributes(ra);
+		si.addAttributes(new RotationAttributes(ra.getAngle()));
 		return si;
 	}
 

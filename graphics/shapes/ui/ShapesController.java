@@ -1,6 +1,5 @@
 package graphics.shapes.ui;
 
-import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -23,6 +22,7 @@ public class ShapesController extends Controller {
 		this.lastClick = new Point();
 		this.shiftDown = false;
 	}
+	
 	
 	@Override
 	public void mousePressed(MouseEvent e)

@@ -51,7 +51,7 @@ public class SRectangle extends Shape {
 		sr.addAttributes(new SelectionAttributes(sa.isSelected()));
 		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = new RotationAttributes();
-		sr.addAttributes(ra);
+		sr.addAttributes(new RotationAttributes(ra.getAngle()));
 		return sr;
 	}
 

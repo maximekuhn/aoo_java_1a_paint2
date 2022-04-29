@@ -9,6 +9,10 @@ public class RotationAttributes extends Attributes {
 		this.angle = 0;
 	}
 	
+	public RotationAttributes(int angle) {
+		this.angle = angle;
+	}
+
 	@Override
 	public String getId() {
 		return ID;

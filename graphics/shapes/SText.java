@@ -69,7 +69,7 @@ public class SText extends Shape {
 		st.addAttributes(new FontAttributes(fa.font, fa.fontColor));
 		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = new RotationAttributes();
-		st.addAttributes(ra);
+		st.addAttributes(new RotationAttributes(ra.getAngle()));
 		return st;
 	}
 

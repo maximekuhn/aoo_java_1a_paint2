@@ -81,6 +81,7 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 
 	private void doPencil() {
 		this.controller.setShape(null);
+		this.controller.allowSketch();
 		
 		Image cursorImage = this.cursorSize("src/pictures/pencil.png");
 		if(cursorImage != null) {
@@ -95,6 +96,7 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		sr.addAttributes(new SelectionAttributes(false));
 		
 		this.controller.setShape(sr);
+		this.controller.disallowSketch();
 		
 		Image cursorImage = this.cursorSize("src/pictures/square.png");
 		if(cursorImage != null) {
@@ -109,6 +111,7 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		sc.addAttributes(new SelectionAttributes(false));
 		
 		this.controller.setShape(sc);
+		this.controller.disallowSketch();
 		
 		Image cursorImage = this.cursorSize("src/pictures/circle.png");
 		if(cursorImage != null) {
@@ -124,6 +127,7 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		st.addAttributes(new SelectionAttributes());
 		
 		this.controller.setShape(st);
+		this.controller.disallowSketch();
 		
 		Image cursorImage = this.cursorSize("src/pictures/letter.png");
 		if(cursorImage != null) {

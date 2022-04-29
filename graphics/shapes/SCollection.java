@@ -79,7 +79,7 @@ public class SCollection extends Shape {
 		sc.addAttributes(new SelectionAttributes(sa.isSelected()));
 		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = new RotationAttributes();
-		sc.addAttributes(ra);
+		sc.addAttributes(new RotationAttributes(ra.getAngle()));
 		
 		Shape sCopy;
 		for(Shape shape : this.shapes) {

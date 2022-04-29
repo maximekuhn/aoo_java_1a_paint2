@@ -57,7 +57,7 @@ public class SCircle extends Shape {
 		sc.addAttributes(new SelectionAttributes(sa.isSelected()));
 		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = new RotationAttributes();
-		sc.addAttributes(ra);
+		sc.addAttributes(new RotationAttributes(ra.getAngle()));
 		return sc;
 	}
 

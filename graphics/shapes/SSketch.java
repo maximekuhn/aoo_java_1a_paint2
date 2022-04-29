@@ -4,6 +4,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.RotationAttributes;
+import graphics.shapes.attributes.SelectionAttributes;
+
 public class SSketch extends Shape {
 
 	private Point loc;
@@ -57,8 +61,21 @@ public class SSketch extends Shape {
 
 	@Override
 	public Shape copy() {
-		// TODO Auto-generated method stub
-		return null;
+		SSketch sketch = new SSketch(new Point(this.getLoc()));
+		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = new ColorAttributes();
+		sketch.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
+		SelectionAttributes sa = (SelectionAttributes) this.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = new SelectionAttributes();
+		sketch.addAttributes(new SelectionAttributes(sa.isSelected()));
+		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = new RotationAttributes();
+		sketch.addAttributes(new RotationAttributes(ra.getAngle()));
+		
+		for(Point p : this.points) {
+			sketch.addPoint(new Point(p));
+		}
+		return sketch;
 	}
 
 	@Override
