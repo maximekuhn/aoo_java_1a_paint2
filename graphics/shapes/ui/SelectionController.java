@@ -1,24 +1,30 @@
 package graphics.shapes.ui;
 
+import java.awt.Color;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import graphics.shapes.SCollection;
+import graphics.shapes.SRectangle;
 import graphics.shapes.Shape;
+import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.toolbar.SelectionActions;
 import graphics.ui.Controller;
 
 public class SelectionController extends Controller {
-
+	
 	private SelectionActions actionMode = SelectionActions.SELECT;
 	
 	private Point lastClick;
 	private boolean shiftDown;
+	
+	private SRectangle selectionRectangle;
 	
 	public SelectionController(Object newModel) {
 		super(newModel);
@@ -47,12 +53,26 @@ public class SelectionController extends Controller {
 	public void mousePressed(MouseEvent e)
 	{
 		this.lastClick.setLocation(e.getPoint());
+		
+		if(this.actionMode.equals(SelectionActions.SELECT)) this.doCreateSelectionRectangle(e);
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent evt)
 	{	
 		if(this.actionMode.equals(SelectionActions.TRANSLATE)) this.doTranslate(evt);
+		else if(this.actionMode.equals(SelectionActions.SELECT)) this.doDraggingSelection(evt);
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e)
+	{
+		if(this.selectionRectangle != null) {
+			((SCollection) this.getModel()).remove(this.selectionRectangle);
+			this.selectionRectangle = null;
+			this.getView().repaint();
+		}
 		
 	}
 	
@@ -70,6 +90,41 @@ public class SelectionController extends Controller {
 			this.shiftDown = false;
 	}
 	
+	private void doCreateSelectionRectangle(MouseEvent e) {
+		SRectangle selectRect = new SRectangle(e.getPoint(), 0, 0);
+		selectRect.addAttributes(new SelectionAttributes());
+		selectRect.addAttributes(new ColorAttributes(false, true, Color.BLACK, Color.RED));
+		this.selectionRectangle = selectRect;
+		((SCollection) this.getModel()).add(this.selectionRectangle);
+	}
+	
+	private void doDraggingSelection(MouseEvent evt) {
+		Rectangle bounds = new Rectangle(
+				this.selectionRectangle.getLoc().x,
+				this.selectionRectangle.getLoc().y,
+				evt.getPoint().x - this.selectionRectangle.getLoc().x,
+				evt.getPoint().y - this.selectionRectangle.getLoc().y);
+	
+	this.selectionRectangle.setBounds(bounds);
+	this.doSelectWithSelectionRectangle();
+	this.getView().repaint();
+	}
+	
+	private void doSelectWithSelectionRectangle() {
+		SCollection model = (SCollection) this.getModel();
+		Iterator<Shape> iterator = model.iterator();
+		
+		Shape s;
+		while(iterator.hasNext()) {
+			s = iterator.next();
+			if(s == this.selectionRectangle) continue;
+			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
+			if(sa == null) sa = new SelectionAttributes();
+			if(this.selectionRectangle.getBounds().intersects(s.getBounds())) sa.select();
+			else sa.unselect();
+		}
+	}
+		
 	private void doSelect(MouseEvent e) {
 		this.lastClick.setLocation(e.getPoint());
 		
@@ -140,6 +195,7 @@ public class SelectionController extends Controller {
 		}
 		
 		SCollection group = new SCollection();
+		if(shapesToGroup.size() == 0) return;
 		for(Shape shape : shapesToGroup) {
 			model.remove(shape);
 			group.add(shape);
@@ -226,7 +282,7 @@ public class SelectionController extends Controller {
 		
 		while(it.hasNext()) {
 			Shape s = it.next();
-			if(s.getBounds().contains(lastClick))
+			if(s.getBounds().contains(this.lastClick))
 				return s;
 		}
 		return null;

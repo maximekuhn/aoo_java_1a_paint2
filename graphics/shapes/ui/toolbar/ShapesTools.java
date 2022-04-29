@@ -83,7 +83,7 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		this.controller.setShape(null);
 		this.controller.allowSketch();
 		
-		Image cursorImage = this.cursorSize("src/pictures/pencil.png");
+		Image cursorImage = this.cursorSize("src/pictures/cursors/pencil_cursor.png");
 		if(cursorImage != null) {
 			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
 			this.getView().setCursor(customCursor);

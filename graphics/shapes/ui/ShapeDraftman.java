@@ -196,6 +196,12 @@ public class ShapeDraftman implements ShapeVisitor {
 		
 		ColorAttributes ca = (ColorAttributes) sk.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
+		if(ca.stroked) {
+			this.g2D.setColor(ca.strokedColor);
+			this.g2D.draw(sk.getBounds());
+		}
+		if(ca.filled)
+			this.g2D.setColor(ca.filledColor);
 		
 		RotationAttributes ra = (RotationAttributes) sk.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;

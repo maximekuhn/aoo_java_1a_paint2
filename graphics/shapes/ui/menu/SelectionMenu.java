@@ -154,13 +154,17 @@ public class SelectionMenu extends JMenu implements ActionListener {
 		
 		for(Shape std : shapesToDuplicate) {
 			/*
-			 * make std appears top left (x = 10, y = 10)
+			 * make std appears topLeft of duplicated shape
 			 * unselect std
 			 */
 			SelectionAttributes sa = (SelectionAttributes) std.getAttributes(SelectionAttributes.ID);
 			if(sa == null) sa = new SelectionAttributes();
 			sa.unselect();
-			std.setLoc(new Point(10,10));
+			Point loc = new Point(std.getLoc());
+			if(loc.x - 30 > 0 && loc.y - 30 > 0)
+				std.setLoc(new Point(loc.x - 30, loc.y - 30));
+			else
+				std.setLoc(new Point(loc.x + 30, loc.y + 30));
 			model.add(std);
 		}
 		

@@ -1,16 +1,16 @@
 package graphics.shapes.ui;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 
 import graphics.shapes.SCollection;
 import graphics.shapes.SSketch;
 import graphics.shapes.Shape;
+import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.ui.Controller;
 
 public class ShapesToolController extends Controller {
-	
-	// TODO : fix sketch;
 	
 	private Shape shapeToAdd;
 	private SSketch sketch;
@@ -65,6 +65,7 @@ public class ShapesToolController extends Controller {
 		if(!this.sketchForbidden) {
 			SSketch sketch = new SSketch(e.getPoint());
 			sketch.addAttributes(new SelectionAttributes());
+			sketch.addAttributes(new ColorAttributes(true, false, Color.BLACK, Color.BLACK));
 			this.sketch = sketch;
 			((SCollection) this.getModel()).add(this.sketch);
 		}
