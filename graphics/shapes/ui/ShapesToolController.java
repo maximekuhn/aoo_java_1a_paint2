@@ -13,12 +13,19 @@ public class ShapesToolController extends Controller {
 	private Shape shapeToAdd;
 	private SSketch sketch;
 	
+	private boolean sketchForbidden;
+	
 	public ShapesToolController(Object newModel) {
 		super(newModel);
+		this.sketchForbidden = true;
 	}
 	
 	public void setShape(Shape s) {
 		this.shapeToAdd = s;
+	}
+	
+	public void allowSketch() {
+		this.sketchForbidden = false;
 	}
 	
 	@Override
@@ -34,22 +41,29 @@ public class ShapesToolController extends Controller {
 	
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		this.sketch.addPoint(e.getPoint());
-		this.getView().repaint();
+		if(!this.sketchForbidden) {
+			this.sketch.addPoint(e.getPoint());
+			this.getView().repaint();
+		}
 	}
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		this.sketch = null;
-		this.getView().repaint();
+		if(!this.sketchForbidden) {
+			this.sketch = null;
+			this.getView().repaint();
+			this.sketchForbidden = true;
+		}
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		SSketch sketch = new SSketch(e.getPoint());
-		sketch.addAttributes(new SelectionAttributes());
-		this.sketch = sketch;
-		((SCollection) this.getModel()).add(this.sketch);
+		if(!this.sketchForbidden) {
+			SSketch sketch = new SSketch(e.getPoint());
+			sketch.addAttributes(new SelectionAttributes());
+			this.sketch = sketch;
+			((SCollection) this.getModel()).add(this.sketch);
+		}
 	}
 
 }
