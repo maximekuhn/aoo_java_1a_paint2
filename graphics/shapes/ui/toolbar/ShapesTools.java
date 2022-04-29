@@ -81,7 +81,6 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 
 	private void doPencil() {
 		this.controller.setShape(null);
-		this.controller.allowSketch();
 		
 		Image cursorImage = this.cursorSize("src/pictures/pencil.png");
 		if(cursorImage != null) {
