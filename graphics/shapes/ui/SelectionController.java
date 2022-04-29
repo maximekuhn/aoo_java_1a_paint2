@@ -121,7 +121,7 @@ public class SelectionController extends Controller {
 			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
 			if(sa == null) sa = new SelectionAttributes();
 			if(this.selectionRectangle.getBounds().intersects(s.getBounds())) sa.select();
-			else sa.unselect();
+			else if(!this.shiftDown) sa.unselect();
 		}
 	}
 		
