@@ -80,6 +80,8 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 	}
 
 	private void doPencil() {
+		this.controller.setShape(null);
+		
 		Image cursorImage = this.cursorSize("src/pictures/pencil.png");
 		if(cursorImage != null) {
 			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");

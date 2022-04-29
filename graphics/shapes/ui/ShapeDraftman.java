@@ -7,11 +7,13 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SImage;
 import graphics.shapes.SRectangle;
+import graphics.shapes.SSketch;
 import graphics.shapes.SText;
 import graphics.shapes.Shape;
 import graphics.shapes.ShapeVisitor;
@@ -188,6 +190,36 @@ public class ShapeDraftman implements ShapeVisitor {
 		this.g2D.setTransform(old);
 	}
 	
+	@Override
+	public void visitSSketch(SSketch sk) {
+		LinkedList<Point> points = sk.getPoints();
+		
+		ColorAttributes ca = (ColorAttributes) sk.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
+		
+		RotationAttributes ra = (RotationAttributes) sk.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), sk.getBounds().x + sk.getBounds().width / 2, sk.getBounds().y + sk.getBounds().height / 2);
+		
+		for(int i=0; i< points.size() - 1; i++) {
+			Point current = points.get(i);
+			Point next = points.get(i + 1);
+			this.g2D.drawLine(current.x, current.y, next.x, next.y);
+		}
+		
+		SelectionAttributes sa = (SelectionAttributes) sk.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
+		if(sa.isSelected()) {
+			Rectangle bounds = sk.getBounds();
+			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
+			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+		}
+		
+		this.g2D.setTransform(old);
+	}
+
 	public void setGraphics(Graphics g) {
 		this.g2D = (Graphics2D) g;
 		
