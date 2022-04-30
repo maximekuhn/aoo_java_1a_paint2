@@ -55,11 +55,13 @@ public class SRectangle extends Shape {
 		return sr;
 	}
 
+	@Override
 	public void resize(int dx, int dy) {
 		this.rect.setSize((int)this.rect.getWidth()+dx, (int)this.rect.getHeight()+dy);
 	}
-	
+
 	public void setBounds(Rectangle bounds) {
 		this.rect.setBounds(bounds);
 	}
+	
 }

@@ -39,11 +39,22 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	@Override
 	protected void buildButtons() {
 		this.selectionButton = new JButton(imageSize("src/pictures/cursor.png"));
+		this.selectionButton.setToolTipText("Select shape(s)");
+		
 		this.translateButton = new JButton(imageSize("src/pictures/move.png"));
+		this.translateButton.setToolTipText("Translate selected shape(s)");
+		
 		this.rotateButton = new JButton(imageSize("src/pictures/rotate.png"));
+		this.rotateButton.setToolTipText("Rotate selected shape(s)");
+		
 		this.eraseButton = new JButton(imageSize("src/pictures/eraser.png"));
+		this.eraseButton.setToolTipText("Erase shape");
+		
 		this.groupButton = new JButton(imageSize("src/pictures/group.png"));
+		this.groupButton.setToolTipText("Group selected shapes");
+		
 		this.ungroupButton = new JButton(imageSize("src/pictures/ungroup.png"));
+		this.ungroupButton.setToolTipText("Ungroup selected group");
 	}
 	
 	@Override
