@@ -15,6 +15,8 @@ import graphics.shapes.ui.ShapesView;
 
 public class SelectionTools extends ToolContainer implements ActionListener {
 	
+	private ToolBar tb;
+	
 	private JButton selectionButton;
 	private JButton translateButton;
 	private JButton rotateButton;
@@ -25,8 +27,9 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	private SelectionController controller;
 	private MainController mainController;
 	
-	public SelectionTools(ShapesView sview) {
+	public SelectionTools(ShapesView sview, ToolBar tb) {
 		super(sview);
+		this.tb = tb;
 		this.controller = new SelectionController(sview.getModel());
 		this.controller.setView(sview);
 		this.mainController = (MainController) this.sview.getController();
@@ -69,7 +72,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		else if(e.getSource().equals(this.groupButton)) this.doGroup();
 		else if(e.getSource().equals(this.ungroupButton)) this.doUnGroup();
 	}
-
+	
 	private void doUnGroup() {
 		SelectionActions old = this.controller.getActionMode();
 		this.controller.setActionMode(SelectionActions.UNGROUP);
@@ -85,6 +88,8 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	}
 
 	private void doErase() {
+		this.tb.highlightButton(this.eraseButton);
+		
 		this.controller.setActionMode(SelectionActions.ERASE);
 		
 		Image cursorImage = this.cursorSize("src/pictures/cursors/eraser_cursor.png");
@@ -102,6 +107,8 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	}
 
 	private void doTranslate() {
+		this.tb.highlightButton(this.translateButton);
+		
 		this.controller.setActionMode(SelectionActions.TRANSLATE);
 		
 		Image cursorImage = this.cursorSize("src/pictures/cursors/move_cursor.png");
@@ -112,6 +119,8 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	}
 
 	private void doSelect() {
+		this.tb.highlightButton(this.selectionButton);
+		
 		this.controller.setActionMode(SelectionActions.SELECT);
 		
 		this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));

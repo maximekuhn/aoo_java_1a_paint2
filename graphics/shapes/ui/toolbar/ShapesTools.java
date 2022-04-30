@@ -23,6 +23,8 @@ import graphics.shapes.ui.ShapesView;
 
 public class ShapesTools extends ToolContainer implements ActionListener {
 	
+	private ToolBar tb;
+	
 	private JButton squareButton;
 	private JButton circleButton;
 	private JButton triangleButton;
@@ -34,8 +36,9 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 	private ShapesToolController controller;
 	private MainController mainController;
 
-	public ShapesTools(ShapesView sview) {
+	public ShapesTools(ShapesView sview, ToolBar tb) {
 		super(sview);
+		this.tb = tb;
 		this.controller = new ShapesToolController(sview.getModel());
 		this.controller.setView(sview);
 		this.mainController = (MainController) this.sview.getController();
@@ -80,6 +83,8 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 	}
 
 	private void doPencil() {
+		this.tb.highlightButton(this.pencilButton);
+		
 		this.controller.setShape(null);
 		this.controller.allowSketch();
 		
@@ -91,6 +96,8 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 	}
 
 	private void doAddSquare() {
+		this.tb.highlightButton(this.squareButton);
+		
 		SRectangle sr = new SRectangle(new Point(0,0), 50, 50);
 		sr.addAttributes(new ColorAttributes(true, true, Color.BLUE, Color.BLACK));
 		sr.addAttributes(new SelectionAttributes(false));
@@ -106,6 +113,8 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 	}
 	
 	private void doAddCircle() {
+		this.tb.highlightButton(this.circleButton);
+		
 		SCircle sc = new SCircle(new Point(0,0), 50);
 		sc.addAttributes(new ColorAttributes(true, true, Color.ORANGE, Color.BLACK));
 		sc.addAttributes(new SelectionAttributes(false));
@@ -121,6 +130,8 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 	}
 	
 	private void doAddText() {
+		this.tb.highlightButton(this.letterButton);
+		
 		SText st = new SText(new Point(0,0), "text");
 		st.addAttributes(new ColorAttributes(false, true, Color.BLACK, Color.BLACK));
 		st.addAttributes(new FontAttributes());
