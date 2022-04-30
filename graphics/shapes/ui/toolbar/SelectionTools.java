@@ -74,17 +74,21 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	}
 	
 	private void doUnGroup() {
-		SelectionActions old = this.controller.getActionMode();
+		this.tb.highlightButton(this.ungroupButton);
+		
 		this.controller.setActionMode(SelectionActions.UNGROUP);
 		this.controller.doUngroup();
-		this.controller.setActionMode(old);
+		
+		this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 
 	private void doGroup() {
-		SelectionActions oldAction = this.controller.getActionMode();
+		this.tb.highlightButton(this.groupButton);
+		
 		this.controller.setActionMode(SelectionActions.GROUP);
 		this.controller.doGroup();
-		this.controller.setActionMode(oldAction);
+		
+		this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 
 	private void doErase() {
@@ -100,10 +104,12 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	}
 
 	private void doRotate() {
-		SelectionActions oldAction = this.controller.getActionMode();
+		this.tb.highlightButton(this.rotateButton);
+		
 		this.controller.setActionMode(SelectionActions.ROTATE);
 		this.controller.doRotation();
-		this.controller.setActionMode(oldAction);
+		
+		this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 
 	private void doTranslate() {
