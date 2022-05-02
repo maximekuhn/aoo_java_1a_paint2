@@ -19,6 +19,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	
 	private JButton selectionButton;
 	private JButton translateButton;
+	private JButton resizeButton;
 	private JButton rotateButton;
 	private JButton eraseButton;
 	private JButton groupButton;
@@ -43,6 +44,9 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		
 		this.translateButton = new JButton(imageSize("src/pictures/move.png"));
 		this.translateButton.setToolTipText("Translate selected shape(s)");
+
+		this.resizeButton = new JButton(imageSize("src/pictures/resize.png"));
+		this.resizeButton.setToolTipText("Translate selected shape(s)");
 		
 		this.rotateButton = new JButton(imageSize("src/pictures/rotate.png"));
 		this.rotateButton.setToolTipText("Rotate selected shape(s)");
@@ -61,6 +65,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 	protected void addAllButtons() {
 		this.addButton(this.selectionButton);
 		this.addButton(this.translateButton);
+		this.addButton(this.resizeButton);
 		this.addButton(this.rotateButton);
 		this.addButton(this.eraseButton);
 		this.addButton(this.groupButton);
@@ -78,6 +83,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		this.mainController.setController(this.controller);
 		if(e.getSource().equals(this.selectionButton)) this.doSelect();
 		else if(e.getSource().equals(this.translateButton)) this.doTranslate();
+		else if(e.getSource().equals(this.resizeButton)) this.doResize();
 		else if(e.getSource().equals(this.rotateButton)) this.doRotate();
 		else if(e.getSource().equals(this.eraseButton)) this.doErase();
 		else if(e.getSource().equals(this.groupButton)) this.doGroup();
@@ -120,6 +126,14 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		this.controller.setActionMode(SelectionActions.ROTATE);
 		this.controller.doRotation();
 		
+		this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+	}
+
+	private void doResize() {
+		this.tb.highlightButton(this.resizeButton);
+
+		this.controller.setActionMode(SelectionActions.RESIZE);
+
 		this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 

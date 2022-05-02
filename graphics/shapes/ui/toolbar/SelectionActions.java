@@ -4,6 +4,7 @@ public enum SelectionActions {
 
 	SELECT,
 	TRANSLATE,
+	RESIZE,
 	ROTATE,
 	ERASE,
 	GROUP,

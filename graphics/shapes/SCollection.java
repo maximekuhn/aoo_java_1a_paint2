@@ -101,7 +101,15 @@ public class SCollection extends Shape {
 
 	@Override
 	public void resize(int dx, int dy) {
-		// TODO Auto-generated method stub
+		for(Shape s : this.shapes) {
+			s.resize((int)((float)s.getBounds().width/(float)this.getBounds().width)*dx, (int)((float)s.getBounds().height/(float)this.getBounds().height)*dy);
+			/* System.out.println(s.getBounds().width/this.getBounds().width);
+			System.out.println(dx);
+			System.out.println("--"); */
+			s.translate(dx, dy);
+			// s.translate(((s.getLoc().x-this.getLoc().x)/this.getBounds().width)*dx, ((s.getLoc().y-this.getLoc().y)/this.getBounds().height)*dy);
+		}
+		
 
 	}
 	
