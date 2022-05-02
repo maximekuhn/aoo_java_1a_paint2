@@ -28,7 +28,7 @@ public class ShapeDraftman implements ShapeVisitor {
 	private static final SelectionAttributes DEFAULTSELECTIONATTRIBUTES = new SelectionAttributes();
 	private static final FontAttributes DEFAULTFONTATTRIBUTES = new FontAttributes();
 	private static final RotationAttributes DEFAULTROTATIONATTRIBUTES = new RotationAttributes();
-	private static final int HANDLER_SIZE = 6;
+	private static final int HANDLER_SIZE = 12;
 	private Graphics2D g2D;
 	
 	@Override

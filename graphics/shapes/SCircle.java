@@ -63,8 +63,13 @@ public class SCircle extends Shape {
 
 	@Override
 	public void resize(int dx, int dy) {
-		// TODO Auto-generated method stub
-		
+		// this.radius += Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
+		if (dx > dy) {
+			this.radius += dx;
+		}
+		else {
+			this.radius += dy;
+		}
 	}
 	
 }

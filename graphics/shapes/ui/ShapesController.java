@@ -14,13 +14,18 @@ public class ShapesController extends Controller {
 	
 	private Point lastClick;
 	private boolean shiftDown;
+	private boolean handlerSelected;
+	private int handler;
 
-	private static final int HANDLER_SIZE = 6;
+	private static final int HANDLER_SIZE = 12;
+	private static final int MIN_SHAPE_SIZE = 6;
 	
 	public ShapesController(Object model) {
 		super(model);
 		this.lastClick = new Point();
 		this.shiftDown = false;
+		this.handlerSelected = false;
+		this.handler = 0;
 	}
 	
 	
@@ -46,6 +51,7 @@ public class ShapesController extends Controller {
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		this.handlerSelected = false;
 	}
 	
 	@Override
@@ -104,9 +110,15 @@ public class ShapesController extends Controller {
 		while(it.hasNext()) {
 			Shape s = it.next();
 			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-			if(sa.isSelected() && this.isHandlerSelected(s)==0) {
-				s.translate(dx, dy);
-				this.getView().repaint();
+			if(sa.isSelected()) {
+				if (!handlerSelected) {
+					this.handler = this.isHandlerSelected(s);
+					this.handlerSelected = true;
+				}
+				if (this.handler==0) {
+					s.translate(dx, dy);
+					this.getView().repaint();
+				}
 			}
 		}
 	}
@@ -119,12 +131,28 @@ public class ShapesController extends Controller {
 			Shape s = it.next();
 			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
 			if(sa.isSelected()) {
-				if (this.isHandlerSelected(s)==1) {
+				if (!handlerSelected) {
+					this.handler = this.isHandlerSelected(s);
+					this.handlerSelected = true;
+				}
+				if (handler==1) {
+					if (s.getBounds().width-dx < MIN_SHAPE_SIZE && dx > 0) {
+						dx = 0;
+					}
+					if (s.getBounds().height-dy < MIN_SHAPE_SIZE && dy > 0) {
+						dy = 0;
+					}
 					s.translate(dx, dy);
 					s.resize(-dx, -dy);
 					this.getView().repaint();
 				}
-				else if (this.isHandlerSelected(s)==2) {
+				else if (handler==2) {
+					if (s.getBounds().width-dx < MIN_SHAPE_SIZE && dx < 0) {
+						dx = 0;
+					}
+					if (s.getBounds().height-dy < MIN_SHAPE_SIZE && dy < 0) {
+						dy = 0;
+					}
 					s.resize(dx, dy);
 					this.getView().repaint();
 				}
