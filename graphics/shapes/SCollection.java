@@ -2,10 +2,12 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
@@ -100,7 +102,24 @@ public class SCollection extends Shape {
 	@Override
 	public void resize(int dx, int dy) {
 		// TODO Auto-generated method stub
-		
+
+	}
+	
+	public void sortByLayers() {
+		this.shapes.sort(new Comparator<Shape>() {
+
+			@Override
+			public int compare(Shape s1, Shape s2) {
+				LayerAttributes la1 = (LayerAttributes) s1.getAttributes(LayerAttributes.ID);
+				if(la1 == null) la1 = new LayerAttributes();
+				
+				LayerAttributes la2 = (LayerAttributes) s2.getAttributes(LayerAttributes.ID);
+				if(la2 == null) la2 = new LayerAttributes();
+				
+				return la1.getLayer() - la2.getLayer();
+			}
+			
+		});
 	}
 	
 }

@@ -21,6 +21,7 @@ public class ShapesView extends View {
 		this.draftman.setGraphics(g);
 		SCollection model = (SCollection) this.getModel();
 		if(model == null) return;
+		model.sortByLayers();
 		model.accept(draftman);
 	}
 	

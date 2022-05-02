@@ -80,8 +80,21 @@ public class SSketch extends Shape {
 
 	@Override
 	public void resize(int dx, int dy) {
-		// TODO Auto-generated method stub
+		// TODO: fix resize
+		Point center = this.getCenter();
+		int width = this.getBounds().width;
+		int height = this.getBounds().height;
 		
+		for(Point p : this.points) {
+			if(width != 0)
+				p.x += (float) dx * (p.x - center.x) / width;
+			if(height != 0)
+				p.y += (float) dy * (p.y - center.y) / height;
+		}
+	}
+	
+	private Point getCenter() {
+		return new Point((int) this.getBounds().getCenterX(), (int) this.getBounds().getCenterY());
 	}
 	
 	public void addPoint(Point p) {
