@@ -63,7 +63,6 @@ public class SCircle extends Shape {
 
 	@Override
 	public void resize(int dx, int dy) {
-		// this.radius += Math.sqrt(Math.pow(dx, 2)+Math.pow(dy, 2));
 		if (dx > dy) {
 			this.radius += dx;
 		}

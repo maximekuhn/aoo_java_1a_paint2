@@ -2,6 +2,9 @@ package graphics.shapes.ui;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.Cursor;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -15,6 +18,7 @@ import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.toolbar.SelectionActions;
+import graphics.shapes.ui.toolbar.ToolContainer;
 import graphics.ui.Controller;
 
 public class SelectionController extends Controller {
@@ -82,6 +86,10 @@ public class SelectionController extends Controller {
 			this.getView().repaint();
 		}
 		this.handlerSelected = false;
+	}
+
+	public void mouseMoved(MouseEvent e) {
+		if(this.actionMode.equals(SelectionActions.RESIZE) && !this.handlerSelected) doChangeCursor();
 	}
 	
 	@Override
@@ -334,6 +342,25 @@ public class SelectionController extends Controller {
 		}
 		else {
 			return 0;
+		}
+	}
+
+	private void doChangeCursor() {
+		SCollection model = (SCollection) this.getModel();
+		Iterator<Shape> it = model.iterator();
+		
+		while(it.hasNext()) {
+			Shape s = it.next();
+			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
+			if(sa.isSelected()) {
+				if (this.isHandlerSelected(s) > 0) {
+					Image cursorImage = ToolContainer.cursorSize("src/pictures/cursors/resize_cursor.png");
+					Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
+					this.getView().setCursor(customCursor);
+				} else {
+					this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+			}
 		}
 	}
 
