@@ -29,7 +29,7 @@ public class SelectionController extends Controller {
 	private int handler;
 
 	private static final int HANDLER_SIZE = 16;
-	private static final int MIN_SHAPE_SIZE = 6;
+	private static final int MIN_SHAPE_SIZE = 16;
 	
 	private SRectangle selectionRectangle;
 	
