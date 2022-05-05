@@ -2,6 +2,7 @@ package graphics.shapes.ui;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.Cursor;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -22,11 +23,12 @@ public class SelectionController extends Controller {
 	private SelectionActions actionMode = SelectionActions.SELECT;
 	
 	private Point lastClick;
+	private Point cursorPos;
 	private boolean shiftDown;
 	private boolean handlerSelected;
 	private int handler;
 
-	private static final int HANDLER_SIZE = 12;
+	private static final int HANDLER_SIZE = 16;
 	private static final int MIN_SHAPE_SIZE = 6;
 	
 	private SRectangle selectionRectangle;
@@ -34,6 +36,7 @@ public class SelectionController extends Controller {
 	public SelectionController(Object newModel) {
 		super(newModel);
 		this.lastClick = new Point();
+		this.cursorPos = new Point();
 		this.shiftDown = false;
 		this.handlerSelected = false;
 		this.handler = 0;
@@ -62,6 +65,8 @@ public class SelectionController extends Controller {
 		this.lastClick.setLocation(e.getPoint());
 		
 		if(this.actionMode.equals(SelectionActions.SELECT)) this.doCreateSelectionRectangle(e);
+
+		//TODO check if the cursor move slightly and count it as mouseClicked
 	}
 	
 	@Override
@@ -82,6 +87,11 @@ public class SelectionController extends Controller {
 			this.getView().repaint();
 		}
 		this.handlerSelected = false;
+	}
+
+	public void mouseMoved(MouseEvent e) {
+		this.cursorPos.setLocation(e.getPoint());
+		if(this.actionMode.equals(SelectionActions.RESIZE) && !this.handlerSelected) doChangeCursor();
 	}
 	
 	@Override
@@ -324,16 +334,36 @@ public class SelectionController extends Controller {
 		int xright = s.getBounds().x + s.getBounds().width;
 		int ytop = s.getBounds().y;
 		int ybottom = s.getBounds().y + s.getBounds().height;
-		if (this.lastClick.x >= xleft-HANDLER_SIZE && this.lastClick.x <= xleft && this.lastClick.y >= ytop-HANDLER_SIZE && this.lastClick.y <= ytop) {
+		if (this.cursorPos.x >= xleft-HANDLER_SIZE && this.cursorPos.x <= xleft && this.cursorPos.y >= ytop-HANDLER_SIZE && this.cursorPos.y <= ytop) {
 			// if top left handler is selected
 			return 1;
 		}
-		else if (this.lastClick.x >= xright && this.lastClick.x <= xright+HANDLER_SIZE && this.lastClick.y >= ybottom && this.lastClick.y <= ybottom+HANDLER_SIZE) {
+		else if (this.cursorPos.x >= xright && this.cursorPos.x <= xright+HANDLER_SIZE && this.cursorPos.y >= ybottom && this.cursorPos.y <= ybottom+HANDLER_SIZE) {
 			// if bottom right handler is selected
 			return 2;
 		}
 		else {
 			return 0;
+		}
+	}
+
+	private void doChangeCursor() {
+		SCollection model = (SCollection) this.getModel();
+		Iterator<Shape> it = model.iterator();
+		while(it.hasNext()) {
+			Shape s = it.next();
+			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
+			if(sa.isSelected()) {
+				int hand = this.isHandlerSelected(s);
+				if (hand == 1) {
+					this.getView().setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
+				} else if (hand == 2) {
+					this.getView().setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
+				} 
+				else {
+					this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				}
+			}
 		}
 	}
 

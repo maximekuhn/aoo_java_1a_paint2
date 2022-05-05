@@ -46,7 +46,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		this.translateButton.setToolTipText("Translate selected shape(s)");
 
 		this.resizeButton = new JButton(imageSize("src/pictures/resize.png"));
-		this.resizeButton.setToolTipText("Translate selected shape(s)");
+		this.resizeButton.setToolTipText("Resize selected shape(s)");
 		
 		this.rotateButton = new JButton(imageSize("src/pictures/rotate.png"));
 		this.rotateButton.setToolTipText("Rotate selected shape(s)");
@@ -113,7 +113,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		
 		this.controller.setActionMode(SelectionActions.ERASE);
 		
-		Image cursorImage = this.cursorSize("src/pictures/cursors/eraser_cursor.png");
+		Image cursorImage = ToolContainer.cursorSize("src/pictures/cursors/eraser_cursor.png");
 		if(cursorImage != null) {
 			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
 			this.getView().setCursor(customCursor);
@@ -142,7 +142,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		
 		this.controller.setActionMode(SelectionActions.TRANSLATE);
 		
-		Image cursorImage = this.cursorSize("src/pictures/cursors/move_cursor.png");
+		Image cursorImage = ToolContainer.cursorSize("src/pictures/cursors/move_cursor.png");
 		if(cursorImage != null) {
 			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
 			this.getView().setCursor(customCursor);
