@@ -172,7 +172,7 @@ public class SCollection extends Shape {
 		return layerMax + 1 - 1 * layerMin;
 	}
 	
-	private int getLayerMax() {
+	public int getLayerMax() {
 		int layerMax = 0;
 		for(Shape s : this.shapes) {
 			LayerAttributes la = (LayerAttributes) s.getAttributes(LayerAttributes.ID);
@@ -182,7 +182,7 @@ public class SCollection extends Shape {
 		return layerMax;
 	}
 	
-	private int getLayerMin() {
+	public int getLayerMin() {
 		int layerMin = 0;
 		for(Shape s : this.shapes) {
 			LayerAttributes la = (LayerAttributes) s.getAttributes(LayerAttributes.ID);
