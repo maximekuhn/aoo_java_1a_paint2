@@ -46,8 +46,9 @@ public class SCollection extends Shape {
 		int dy = p.y - this.getLoc().y;
 		for(Shape s : this.shapes) {
 			s.translate(dx, dy);
-			this.floatPosx.set(this.shapes.indexOf(s), (float)s.getLoc().x);
-			this.floatPosy.set(this.shapes.indexOf(s), (float)s.getLoc().y);
+			int index = this.shapes.indexOf(s);
+			this.floatPosx.set(index, this.floatPosx.get(index)+dx);
+			this.floatPosy.set(index, this.floatPosy.get(index)+dy);
 		}
 	}
 
@@ -55,8 +56,9 @@ public class SCollection extends Shape {
 	public void translate(int dx, int dy) {
 		for(Shape s : this.shapes) {
 			s.translate(dx, dy);
-			this.floatPosx.set(this.shapes.indexOf(s), (float)s.getLoc().x);
-			this.floatPosy.set(this.shapes.indexOf(s), (float)s.getLoc().y);
+			int index = this.shapes.indexOf(s);
+			this.floatPosx.set(index, this.floatPosx.get(index)+dx);
+			this.floatPosy.set(index, this.floatPosy.get(index)+dy);
 		}
 	}
 
@@ -77,8 +79,8 @@ public class SCollection extends Shape {
 		this.shapes.add(s);
 		this.floatPosx.add((float)s.getLoc().x);
 		this.floatPosy.add((float)s.getLoc().y);
-		this.floatDimx.add((float)s.getBounds().x);
-		this.floatDimy.add((float)s.getBounds().y);
+		this.floatDimx.add((float)s.getBounds().width);
+		this.floatDimy.add((float)s.getBounds().height);
 	}
 	
 	public void remove(Shape s) {
