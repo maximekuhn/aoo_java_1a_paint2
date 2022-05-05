@@ -46,7 +46,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		this.translateButton.setToolTipText("Translate selected shape(s)");
 
 		this.resizeButton = new JButton(imageSize("src/pictures/resize.png"));
-		this.resizeButton.setToolTipText("Translate selected shape(s)");
+		this.resizeButton.setToolTipText("Resize selected shape(s)");
 		
 		this.rotateButton = new JButton(imageSize("src/pictures/rotate.png"));
 		this.rotateButton.setToolTipText("Rotate selected shape(s)");

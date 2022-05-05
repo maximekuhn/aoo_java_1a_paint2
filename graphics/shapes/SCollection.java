@@ -14,10 +14,18 @@ import graphics.shapes.attributes.SelectionAttributes;
 public class SCollection extends Shape {
 
 	private LinkedList<Shape> shapes;
+	private LinkedList<Float> floatDimx;
+	private LinkedList<Float> floatDimy;
+	private LinkedList<Float> floatPosx;
+	private LinkedList<Float> floatPosy;
 	
 	public SCollection() {
 		super();
 		this.shapes = new LinkedList<Shape>();
+		this.floatDimx = new LinkedList<>();
+		this.floatDimy = new LinkedList<>();
+		this.floatPosx = new LinkedList<>();
+		this.floatPosy = new LinkedList<>();
 	}
 	
 	@Override
@@ -35,14 +43,20 @@ public class SCollection extends Shape {
 	public void setLoc(Point p) {
 		int dx = p.x - this.getLoc().x;
 		int dy = p.y - this.getLoc().y;
-		for(Shape s : this.shapes)
+		for(Shape s : this.shapes) {
 			s.translate(dx, dy);
+			this.floatPosx.set(this.shapes.indexOf(s), (float)s.getLoc().x);
+			this.floatPosy.set(this.shapes.indexOf(s), (float)s.getLoc().y);
+		}
 	}
 
 	@Override
 	public void translate(int dx, int dy) {
-		for(Shape s : this.shapes)
+		for(Shape s : this.shapes) {
 			s.translate(dx, dy);
+			this.floatPosx.set(this.shapes.indexOf(s), (float)s.getLoc().x);
+			this.floatPosy.set(this.shapes.indexOf(s), (float)s.getLoc().y);
+		}
 	}
 
 	@Override
@@ -60,9 +74,17 @@ public class SCollection extends Shape {
 	
 	public void add(Shape s) {
 		this.shapes.add(s);
+		this.floatPosx.add((float)s.getLoc().x);
+		this.floatPosy.add((float)s.getLoc().y);
+		this.floatDimx.add((float)s.getBounds().x);
+		this.floatDimy.add((float)s.getBounds().y);
 	}
 	
 	public void remove(Shape s) {
+		this.floatPosx.remove(this.shapes.indexOf(s));
+		this.floatPosy.remove(this.shapes.indexOf(s));
+		this.floatDimx.remove(this.shapes.indexOf(s));
+		this.floatDimy.remove(this.shapes.indexOf(s));
 		this.shapes.remove(s);
 	}
 	
@@ -102,15 +124,16 @@ public class SCollection extends Shape {
 	@Override
 	public void resize(int dx, int dy) {
 		for(Shape s : this.shapes) {
-			s.resize((int)((float)s.getBounds().width/(float)this.getBounds().width)*dx, (int)((float)s.getBounds().height/(float)this.getBounds().height)*dy);
-			/* System.out.println(s.getBounds().width/this.getBounds().width);
-			System.out.println(dx);
-			System.out.println("--"); */
-			s.translate(dx, dy);
-			// s.translate(((s.getLoc().x-this.getLoc().x)/this.getBounds().width)*dx, ((s.getLoc().y-this.getLoc().y)/this.getBounds().height)*dy);
-		}
-		
+			int index = this.shapes.indexOf(s);
 
+			this.floatDimx.set(index, this.floatDimx.get(index) + (this.floatDimx.get(index)/(float)this.getBounds().width)*dx );
+			this.floatDimy.set(index, this.floatDimy.get(index) + (this.floatDimy.get(index)/(float)this.getBounds().height)*dy );
+			s.resize((int)(this.floatDimx.get(index)-s.getBounds().width) , (int)(this.floatDimy.get(index)-s.getBounds().height));
+			
+			this.floatPosx.set(index, this.floatPosx.get(index) + ((this.floatPosx.get(index)-(float)this.getLoc().x)/this.getBounds().width)*dx);
+			this.floatPosy.set(index, this.floatPosy.get(index) + ((this.floatPosy.get(index)-(float)this.getLoc().y)/this.getBounds().height)*dy);
+			s.translate((int)(this.floatPosx.get(index)-s.getLoc().getX()), (int)(this.floatPosy.get(index)-s.getLoc().getY()));
+		}
 	}
 	
 	public void sortByLayers() {
