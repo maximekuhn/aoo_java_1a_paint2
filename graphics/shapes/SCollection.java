@@ -2,6 +2,7 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -82,6 +83,9 @@ public class SCollection extends Shape {
 		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = new RotationAttributes();
 		sc.addAttributes(new RotationAttributes(ra.getAngle()));
+		LayerAttributes la = (LayerAttributes) this.getAttributes(LayerAttributes.ID);
+		if(la == null) la = new LayerAttributes();
+		sc.addAttributes(new LayerAttributes(la.getLayer()));
 		
 		Shape sCopy;
 		for(Shape shape : this.shapes) {
@@ -130,4 +134,47 @@ public class SCollection extends Shape {
 		});
 	}
 	
+	public int getLayersCount() {
+		int layerMax = this.getLayerMax();
+		int layerMin = this.getLayerMin();
+		
+		/*
+		 * layerMax
+		 * + 1 for layer 0
+		 * -1 * layerMin > 0
+		 */
+		
+		return layerMax + 1 - 1 * layerMin;
+	}
+	
+	private int getLayerMax() {
+		int layerMax = 0;
+		for(Shape s : this.shapes) {
+			LayerAttributes la = (LayerAttributes) s.getAttributes(LayerAttributes.ID);
+			if(la == null) la = new LayerAttributes();
+			if(la.getLayer() > layerMax) layerMax = la.getLayer();
+		}
+		return layerMax;
+	}
+	
+	private int getLayerMin() {
+		int layerMin = 0;
+		for(Shape s : this.shapes) {
+			LayerAttributes la = (LayerAttributes) s.getAttributes(LayerAttributes.ID);
+			if(la == null) la = new LayerAttributes();
+			if(la.getLayer() < layerMin) layerMin = la.getLayer();
+		}
+		return layerMin;
+	}
+	
+	public SCollection getShapesAtLayer(int layer) {
+		SCollection shapesAtLayer = new SCollection();
+		for(Shape s : this.shapes) {
+			LayerAttributes la = (LayerAttributes) s.getAttributes(LayerAttributes.ID);
+			if(la == null) la = new LayerAttributes();
+			if(la.getLayer() == layer) shapesAtLayer.add(s.copy());
+		}
+		return shapesAtLayer;
+	}
+
 }

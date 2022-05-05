@@ -2,11 +2,13 @@ package graphics.shapes.ui.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 import graphics.shapes.SCollection;
 import graphics.shapes.Shape;
@@ -51,6 +53,8 @@ public class LayerMenu extends JMenu implements ActionListener {
 		this.highestLayer.addActionListener(this);
 		
 		// TODO : keyboard shortcuts (layers)
+		this.increaseLayer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_UP, KeyEvent.SHIFT_DOWN_MASK));
+		this.decreaseLayer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.SHIFT_DOWN_MASK));
 		
 		this.add(this.increaseLayer);
 		this.add(this.decreaseLayer);

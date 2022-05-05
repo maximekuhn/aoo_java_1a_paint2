@@ -22,6 +22,7 @@ public class Editor extends JFrame
 	ShapesView sview;
 	SCollection model;
 	private MenuBar menuBar;
+	private LayersView lview;
 	
 	public Editor()
 	{	
@@ -37,7 +38,12 @@ public class Editor extends JFrame
 		
 		this.buildModel();
 		
-		this.sview = new ShapesView(this.model);
+		this.lview = new LayersView(this.model);
+		this.lview.setPreferredSize(new Dimension(300,600));
+		this.lview.setBackground(Color.WHITE);
+		this.getContentPane().add(this.lview, BorderLayout.EAST);
+		
+		this.sview = new ShapesView(this.model, this.lview);
 		this.sview.setPreferredSize(new Dimension(600,600));
 		this.sview.setBackground(Color.WHITE);
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
