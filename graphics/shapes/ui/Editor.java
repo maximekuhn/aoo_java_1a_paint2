@@ -51,8 +51,11 @@ public class Editor extends JFrame
 			//set icon on JFrame menu bar, as in Windows system
 			this.setIconImage(ImageIO.read(file));
 			//set icon on system tray, as in Mac OS X system
-			final Taskbar taskbar = Taskbar.getTaskbar();
-			taskbar.setIconImage(ImageIO.read(file));
+			String os = System.getProperty("os.name").toLowerCase();
+			if (os.startsWith("mac")) {
+				final Taskbar taskbar = Taskbar.getTaskbar();
+				taskbar.setIconImage(ImageIO.read(file));
+			}
 		} catch (IOException ex) {
 			System.err.println(ex);
 		}
