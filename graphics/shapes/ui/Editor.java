@@ -4,7 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Taskbar;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import graphics.shapes.SCircle;
@@ -40,6 +44,18 @@ public class Editor extends JFrame
 		this.buildModel();
 		
 		this.setMinimumSize(new Dimension(400, 400));
+
+
+		File file = new File("src/pictures/appIcon.png");
+		try {
+			//set icon on JFrame menu bar, as in Windows system
+			this.setIconImage(ImageIO.read(file));
+			//set icon on system tray, as in Mac OS X system
+			final Taskbar taskbar = Taskbar.getTaskbar();
+			taskbar.setIconImage(ImageIO.read(file));
+		} catch (IOException ex) {
+			System.err.println(ex);
+		}
 		
 		this.lview = new LayersView(this.model);
 		this.lview.setPreferredSize(new Dimension(300,600));
