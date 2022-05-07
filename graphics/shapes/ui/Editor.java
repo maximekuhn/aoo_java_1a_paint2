@@ -11,6 +11,7 @@ import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
+import graphics.shapes.STextBox;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -22,6 +23,7 @@ public class Editor extends JFrame
 	ShapesView sview;
 	SCollection model;
 	private MenuBar menuBar;
+	private LayersView lview;
 	
 	public Editor()
 	{	
@@ -37,7 +39,12 @@ public class Editor extends JFrame
 		
 		this.buildModel();
 		
-		this.sview = new ShapesView(this.model);
+		this.lview = new LayersView(this.model);
+		this.lview.setPreferredSize(new Dimension(300,600));
+		this.lview.setBackground(Color.WHITE);
+		this.getContentPane().add(this.lview, BorderLayout.EAST);
+		
+		this.sview = new ShapesView(this.model, this.lview);
 		this.sview.setPreferredSize(new Dimension(600,600));
 		this.sview.setBackground(Color.WHITE);
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
@@ -64,7 +71,7 @@ public class Editor extends JFrame
 		c.addAttributes(new SelectionAttributes());
 		this.model.add(c);
 		
-		SText t= new SText(new Point(100,100),"hello");
+		STextBox t= new STextBox(new Point(100,100),"hello");
 		t.addAttributes(new ColorAttributes(true,true,Color.YELLOW,Color.BLUE));
 		t.addAttributes(new FontAttributes());
 		t.addAttributes(new SelectionAttributes());

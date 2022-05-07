@@ -113,7 +113,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		
 		this.controller.setActionMode(SelectionActions.ERASE);
 		
-		Image cursorImage = this.cursorSize("src/pictures/cursors/eraser_cursor.png");
+		Image cursorImage = ToolContainer.cursorSize("src/pictures/cursors/eraser_cursor.png");
 		if(cursorImage != null) {
 			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
 			this.getView().setCursor(customCursor);
@@ -142,7 +142,7 @@ public class SelectionTools extends ToolContainer implements ActionListener {
 		
 		this.controller.setActionMode(SelectionActions.TRANSLATE);
 		
-		Image cursorImage = this.cursorSize("src/pictures/cursors/move_cursor.png");
+		Image cursorImage = ToolContainer.cursorSize("src/pictures/cursors/move_cursor.png");
 		if(cursorImage != null) {
 			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
 			this.getView().setCursor(customCursor);

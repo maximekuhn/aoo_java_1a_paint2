@@ -2,11 +2,13 @@ package graphics.shapes.ui.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 import graphics.shapes.SCollection;
 import graphics.shapes.Shape;
@@ -51,6 +53,8 @@ public class LayerMenu extends JMenu implements ActionListener {
 		this.highestLayer.addActionListener(this);
 		
 		// TODO : keyboard shortcuts (layers)
+		this.increaseLayer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_UP, KeyEvent.SHIFT_DOWN_MASK));
+		this.decreaseLayer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.SHIFT_DOWN_MASK));
 		
 		this.add(this.increaseLayer);
 		this.add(this.decreaseLayer);
@@ -74,23 +78,19 @@ public class LayerMenu extends JMenu implements ActionListener {
 		/*
 		 * move selected shapes to highest layer
 		 */
-		int highestLayer = 0;
+		SCollection model = (SCollection) this.sview.getModel();
+		int highestLayer = model.getLayerMax();
+		
 		LinkedList<Shape> shapes = this.getSelectedShapes();
-		if(shapes.size() == 0) return;
-		for(Shape s : shapes) {
-			LayerAttributes la = (LayerAttributes) s.getAttributes(LayerAttributes.ID);
+		for(Shape shape : shapes) {
+			LayerAttributes la = (LayerAttributes) shape.getAttributes(LayerAttributes.ID);
 			if(la == null) {
 				la = new LayerAttributes();
-				s.addAttributes(la);
+				shape.addAttributes(la);
 			}
-			if(la.getLayer() < highestLayer)
-				highestLayer = la.getLayer();
+			la.setLayer(highestLayer);
 		}
 		
-		for(Shape shape : shapes) {
-			LayerAttributes latt = (LayerAttributes) shape.getAttributes(LayerAttributes.ID);
-			latt.setLayer(highestLayer);
-		}
 		this.sview.repaint();
 	}
 
@@ -98,23 +98,19 @@ public class LayerMenu extends JMenu implements ActionListener {
 		/*
 		 * move selected shapes to lowest layer
 		 */
-		int lowestLayer = 0;
+		SCollection model = (SCollection) this.sview.getModel();
+		int lowestLayer = model.getLayerMin();
+		
 		LinkedList<Shape> shapes = this.getSelectedShapes();
-		if(shapes.size() == 0) return;
-		for(Shape s : shapes) {
-			LayerAttributes la = (LayerAttributes) s.getAttributes(LayerAttributes.ID);
+		for(Shape shape : shapes) {
+			LayerAttributes la = (LayerAttributes) shape.getAttributes(LayerAttributes.ID);
 			if(la == null) {
 				la = new LayerAttributes();
-				s.addAttributes(la);
+				shape.addAttributes(la);
 			}
-			if(la.getLayer() < lowestLayer)
-				lowestLayer = la.getLayer();
+			la.setLayer(lowestLayer);
 		}
 		
-		for(Shape shape : shapes) {
-			LayerAttributes latt = (LayerAttributes) shape.getAttributes(LayerAttributes.ID);
-			latt.setLayer(lowestLayer);
-		}
 		this.sview.repaint();
 	}
 
@@ -122,9 +118,12 @@ public class LayerMenu extends JMenu implements ActionListener {
 		/*
 		 * reset all layer (set layer to 0)
 		 */
-		LinkedList<Shape> shapes = this.getSelectedShapes();
-		if(shapes.size() == 0) return;
-		for(Shape s : shapes) {
+		SCollection model = (SCollection) this.sview.getModel();
+		Iterator<Shape> iterator = model.iterator();
+		
+		Shape s;
+		while(iterator.hasNext()) {
+			s = iterator.next();
 			LayerAttributes la = (LayerAttributes) s.getAttributes(LayerAttributes.ID);
 			if(la == null) {
 				la = new LayerAttributes();
@@ -132,8 +131,8 @@ public class LayerMenu extends JMenu implements ActionListener {
 			}
 			la.setLayer(0);
 		}
-		this.sview.repaint();
 		
+		this.sview.repaint();
 	}
 
 	private void doDecraseLayer() {

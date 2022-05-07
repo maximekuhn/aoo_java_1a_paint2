@@ -80,7 +80,7 @@ public class FileMenu extends JMenu implements ActionListener {
 		/*
 		 * SAVE
 		 */
-		ShapesView tmpSView = new ShapesView(this.sview.getModel());
+		ShapesView tmpSView = new ShapesView(this.sview.getModel(), this.sview.getLayersView());
 		tmpSView.setSize(this.sview.getSize());
 		tmpSView.setBackground(this.sview.getBackground());
 		

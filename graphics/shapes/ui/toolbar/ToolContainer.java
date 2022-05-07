@@ -49,7 +49,7 @@ public abstract class ToolContainer {
 		return new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
 	}
 	
-	public Image cursorSize(String filename) {
+	public static Image cursorSize(String filename) {
 		try {
 			Image cursorImage = ImageIO.read(new File(filename));
 			cursorImage = cursorImage.getScaledInstance(24, 24, Image.SCALE_DEFAULT);
