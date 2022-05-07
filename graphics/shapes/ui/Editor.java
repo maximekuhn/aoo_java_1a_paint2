@@ -11,6 +11,7 @@ import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
+import graphics.shapes.STextBox;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -70,7 +71,7 @@ public class Editor extends JFrame
 		c.addAttributes(new SelectionAttributes());
 		this.model.add(c);
 		
-		SText t= new SText(new Point(100,100),"hello");
+		STextBox t= new STextBox(new Point(100,100),"hello");
 		t.addAttributes(new ColorAttributes(true,true,Color.YELLOW,Color.BLUE));
 		t.addAttributes(new FontAttributes());
 		t.addAttributes(new SelectionAttributes());

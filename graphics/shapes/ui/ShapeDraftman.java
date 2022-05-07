@@ -15,6 +15,7 @@ import graphics.shapes.SImage;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SSketch;
 import graphics.shapes.SText;
+import graphics.shapes.STextBox;
 import graphics.shapes.Shape;
 import graphics.shapes.ShapeVisitor;
 import graphics.shapes.attributes.ColorAttributes;
@@ -129,6 +130,43 @@ public class ShapeDraftman implements ShapeVisitor {
 		this.g2D.setFont(fa.font);
 		this.g2D.setColor(fa.fontColor);
 		this.g2D.drawString(st.getText(), st.getLoc().x, st.getLoc().y);
+		
+		this.g2D.setTransform(old);
+	}
+
+	@Override
+	public void visitTextBox(STextBox stb) {
+		RotationAttributes ra = (RotationAttributes) stb.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), stb.getBounds().x + stb.getBounds().width / 2, stb.getBounds().y + stb.getBounds().height / 2);
+		
+		
+		ColorAttributes ca = (ColorAttributes) stb.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
+		if(ca.filled) {
+			this.g2D.setColor(ca.filledColor);
+			this.g2D.fill(stb.getBounds());
+		}
+		if(ca.stroked) {
+			this.g2D.setColor(ca.strokedColor);
+			this.g2D.draw(stb.getBounds());
+		}
+		
+		SelectionAttributes sa = (SelectionAttributes) stb.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
+		if(sa.isSelected()) {
+			Rectangle bounds = stb.getBounds();
+			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
+			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+		}
+		
+		FontAttributes fa = (FontAttributes) stb.getAttributes(FontAttributes.ID);
+		if(fa == null) fa = DEFAULTFONTATTRIBUTES;
+		this.g2D.setFont(fa.font);
+		this.g2D.setColor(fa.fontColor);
+		this.g2D.drawString(stb.getText(), stb.getTextLoc().x, stb.getTextLoc().y);
 		
 		this.g2D.setTransform(old);
 	}

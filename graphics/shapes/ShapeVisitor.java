@@ -7,6 +7,8 @@ public interface ShapeVisitor {
 	public void visitCircle(SCircle sc);
 	
 	public void visitText(SText st);
+
+	public void visitTextBox(STextBox stb);
 	
 	public void visitCollection(SCollection sc);
 	
