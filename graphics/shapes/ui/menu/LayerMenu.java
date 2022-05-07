@@ -52,9 +52,9 @@ public class LayerMenu extends JMenu implements ActionListener {
 		this.lowestLayer.addActionListener(this);
 		this.highestLayer.addActionListener(this);
 		
-		// TODO : keyboard shortcuts (layers)
 		this.increaseLayer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_UP, KeyEvent.SHIFT_DOWN_MASK));
 		this.decreaseLayer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, KeyEvent.SHIFT_DOWN_MASK));
+		this.resetLayers.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.SHIFT_DOWN_MASK));
 		
 		this.add(this.increaseLayer);
 		this.add(this.decreaseLayer);
