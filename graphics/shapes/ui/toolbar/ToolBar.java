@@ -21,6 +21,7 @@ public class ToolBar extends JToolBar {
 	
 	private SelectionTools selectionTools;
 	private ShapesTools shapesTools;
+	private SettingsTools settingsTools;
 	
 	public ToolBar(ShapesView sview) {
 		super("Tools");
@@ -30,10 +31,13 @@ public class ToolBar extends JToolBar {
 		
 		this.selectionTools = new SelectionTools(this.sview, this);
 		this.shapesTools = new ShapesTools(this.sview, this);
+		this.settingsTools = new SettingsTools(this.sview, this);
 		
 		this.addContainer(this.selectionTools);
         this.addSeparator();
 		this.addContainer(this.shapesTools);
+		this.addSeparator();
+		this.addContainer(this.settingsTools);
 		
 		this.highlightButton(null);
 	}

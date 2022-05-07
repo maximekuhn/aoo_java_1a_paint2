@@ -40,14 +40,14 @@ public class LayersView extends View {
 		for(int i = 0; i < layerCount; i++) {
 			sv = new ShapesView(model.getShapesAtLayer(i));
 			sv.setSize(new Dimension(this.sview.getSize()));
-			sv.setBackground(Color.WHITE);
+			sv.setBackground(Color.CYAN);
 			bi = new BufferedImage(sv.getWidth(), sv.getHeight(), BufferedImage.TYPE_INT_RGB);
 			sv.paintComponent(bi.createGraphics());
 			
 			g2D.setColor(Color.ORANGE);
 			g2D.setStroke(new BasicStroke(3));
-			g2D.drawImage(new ImageIcon(bi).getImage().getScaledInstance(this.getWidth(), this.getHeight() / layerCount, Image.SCALE_SMOOTH), 0, i * 100, null);
-			g2D.drawRect(0, i*100, this.getWidth(), this.getHeight() / layerCount);
+			g2D.drawImage(new ImageIcon(bi).getImage().getScaledInstance(80, 100, Image.SCALE_SMOOTH), 0, i * 100, null);
+			g2D.drawRect(0, i*100, this.getWidth(), this.getHeight() / 10);
 		}
 		
 		
