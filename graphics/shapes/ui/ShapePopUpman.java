@@ -279,7 +279,7 @@ public class ShapePopUpman implements ShapeVisitor {
 	    		this.x = Integer.valueOf(this.tx.getText());
 	    		this.y = Integer.valueOf(this.ty.getText());
 	    		
-	    		//pk.setLocation(this.x, this.y); WTF
+	    		loc.setLocation(this.x, this.y);
 	    		sk.setLoc(loc);
 	    		sk.resize(this.width-sk.getBounds().width, this.height-sk.getBounds().height);	
 	    		
@@ -294,9 +294,9 @@ public class ShapePopUpman implements ShapeVisitor {
 	public void visitTextBox(STextBox stb) {
 		Point loc = stb.getLoc();
 		
-		creatSettingsFrame("Text Settings", 400, 250);
+		creatSettingsFrame("Text Box Settings", 400, 250);
 				
-		this.title = new JLabel("Text Settings");
+		this.title = new JLabel("Text Box Settings");
 		this.title.setBounds(60, 10, 110, 20);
 		this.popUp.getContentPane().add(this.title);
 		

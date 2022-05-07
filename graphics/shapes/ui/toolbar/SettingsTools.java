@@ -1,5 +1,9 @@
 package graphics.shapes.ui.toolbar;
 
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,7 +31,6 @@ public class SettingsTools extends ToolContainer implements ActionListener {
 		this.controller.setView(sview);
 		this.mainController = (MainController) this.sview.getController();
 		this.mainController.addController(this.controller);
-		System.out.println(this.sview);
 	}
 	
 	@Override
@@ -61,6 +64,12 @@ public class SettingsTools extends ToolContainer implements ActionListener {
 	private void doSettings() {
 		this.tb.highlightButton(this.shapesSettingsButton);
 		this.controller.setActionMode(SettingsActions.SETTINGS);
+		
+		Image cursorImage = cursorSize("src/pictures/settings.png");
+		if(cursorImage != null) {
+			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
+			this.getView().setCursor(customCursor);
+		}
 	}
 
 }
