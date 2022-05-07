@@ -279,7 +279,7 @@ public class ShapePopUpman implements ShapeVisitor {
 	    		this.x = Integer.valueOf(this.tx.getText());
 	    		this.y = Integer.valueOf(this.ty.getText());
 	    		
-	    		pk.setLocation(this.x, this.y);
+	    		//pk.setLocation(this.x, this.y); WTF
 	    		sk.setLoc(loc);
 	    		sk.resize(this.width-sk.getBounds().width, this.height-sk.getBounds().height);	
 	    		
