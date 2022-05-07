@@ -139,10 +139,6 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.title.setBounds(60, 10, 110, 20);
 		this.popUp.getContentPane().add(this.title);
 		
-		this.lText = new JLabel("Text :");
-		this.lText.setBounds(10, 40, 60, 20);
-		this.tText = new JTextArea();
-		this.tText.setBounds(61, 42, 200, 100);
 		this.tText.setText(String.valueOf(st.getText()));
 		this.popUp.getContentPane().add(this.lText);
 		this.popUp.getContentPane().add(this.tText);
@@ -179,7 +175,7 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitCollection(SCollection sc) {
-		Point pc = sc.getLoc();
+		Point loc = sc.getLoc();
 		
 		creatSettingsFrame("Collection Settings", 240, 200);
 		
@@ -195,8 +191,8 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.popUp.getContentPane().add(this.lHeight);
 		this.popUp.getContentPane().add(this.tHeight);
 		
-		this.tx.setText(String.valueOf(pc.x));
-		this.ty.setText(String.valueOf(pc.y));
+		this.tx.setText(String.valueOf(loc.x));
+		this.ty.setText(String.valueOf(loc.y));
 		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
@@ -205,8 +201,8 @@ public class ShapePopUpman implements ShapeVisitor {
 	    		this.x = Integer.valueOf(this.tx.getText());
 	    		this.y = Integer.valueOf(this.ty.getText());
 	    		
-	    		pc.setLocation(this.x, this.y);
-	    		sc.setLoc(pc);
+	    		loc.setLocation(this.x, this.y);
+	    		sc.setLoc(loc);
 	    		sc.resize(this.width-sc.getBounds().width, this.height-sc.getBounds().height);	    		
 	    		
 	    		this.popUp.dispose();
@@ -218,7 +214,7 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitImage(SImage si) {
-		Point pi = si.getLoc();
+		Point loc = si.getLoc();
 		
 		creatSettingsFrame("Image Settings", 240, 200);
 		
@@ -234,8 +230,8 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.popUp.getContentPane().add(this.lHeight);
 		this.popUp.getContentPane().add(this.tHeight);
 		
-		this.tx.setText(String.valueOf(pi.x));
-		this.ty.setText(String.valueOf(pi.y));
+		this.tx.setText(String.valueOf(loc.x));
+		this.ty.setText(String.valueOf(loc.y));
 		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
@@ -244,8 +240,8 @@ public class ShapePopUpman implements ShapeVisitor {
 	    		this.x = Integer.valueOf(this.tx.getText());
 	    		this.y = Integer.valueOf(this.ty.getText());
 	    		
-	    		pi.setLocation(this.x, this.y);
-	    		si.setLoc(pi);
+	    		loc.setLocation(this.x, this.y);
+	    		si.setLoc(loc);
 	    		si.resize(this.width-si.getBounds().width, this.height-si.getBounds().height);	    		
 	    		
 	    		this.popUp.dispose();
@@ -257,7 +253,7 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitSSketch(SSketch sk) {
-		Point pk = sk.getLoc();
+		Point loc = sk.getLoc();
 		
 		creatSettingsFrame("Sketch Settings", 240, 200);
 		
@@ -273,8 +269,8 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.popUp.getContentPane().add(this.lHeight);
 		this.popUp.getContentPane().add(this.tHeight);
 		
-		this.tx.setText(String.valueOf(pk.x));
-		this.ty.setText(String.valueOf(pk.y));
+		this.tx.setText(String.valueOf(loc.x));
+		this.ty.setText(String.valueOf(loc.y));
 		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
@@ -284,7 +280,7 @@ public class ShapePopUpman implements ShapeVisitor {
 	    		this.y = Integer.valueOf(this.ty.getText());
 	    		
 	    		pk.setLocation(this.x, this.y);
-	    		sk.setLoc(pk);
+	    		sk.setLoc(loc);
 	    		sk.resize(this.width-sk.getBounds().width, this.height-sk.getBounds().height);	
 	    		
 	    		this.popUp.dispose();
@@ -292,7 +288,50 @@ public class ShapePopUpman implements ShapeVisitor {
 			}
 		});
 		
-	}	
+	}
+	
+	@Override
+	public void visitTextBox(STextBox stb) {
+		Point loc = stb.getLoc();
+		
+		creatSettingsFrame("Text Settings", 400, 250);
+				
+		this.title = new JLabel("Text Settings");
+		this.title.setBounds(60, 10, 110, 20);
+		this.popUp.getContentPane().add(this.title);
+		
+		this.tText.setText(String.valueOf(stb.getText()));
+		this.popUp.getContentPane().add(this.lText);
+		this.popUp.getContentPane().add(this.tText);
+		
+		this.lx.setBounds(280, 40, 20, 20);
+		this.tx.setBounds(300, 42, 60, 20);
+		this.tx.setText(String.valueOf(stb.getLoc().x));
+		
+		this.ly.setBounds(280, 70, 20, 20);
+		this.ty.setBounds(300, 72, 60, 20);
+		this.ty.setText(String.valueOf(stb.getLoc().y));
+
+		this.bSave.setBounds(125, 170, 65, 30);
+		this.bExit.setBounds(194, 170, 65, 30);
+			
+		
+		this.bSave.addActionListener(e -> {
+			if(e.getSource().equals(this.bSave)) {
+				
+	    		String text = this.tText.getText();
+	    		this.x = Integer.valueOf(this.tx.getText());
+	    		this.y = Integer.valueOf(this.ty.getText());
+	    		
+	    		loc.setLocation(this.x, this.y);
+	    		stb.setLoc(loc);
+	    		stb.setText(text);
+	    		
+	    		this.popUp.dispose();
+	    		this.sview.repaint();
+			}
+		});
+	}
 	
 	public void creatSettingsFrame(String title, int w, int h) {
         
@@ -319,6 +358,11 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.lHeight.setBounds(10, 70, 60, 20);
 		this.tHeight = new JTextField(10);
 		this.tHeight.setBounds(70, 72, 60, 20);
+		
+		this.lText = new JLabel("Text :");
+		this.lText.setBounds(10, 40, 60, 20);
+		this.tText = new JTextArea();
+		this.tText.setBounds(61, 42, 200, 100);
         
 		this.lx = new JLabel("x :");
 		this.lx.setBounds(140, 40, 20, 20);
@@ -349,9 +393,4 @@ public class ShapePopUpman implements ShapeVisitor {
           
     }
 
-	@Override
-	public void visitTextBox(STextBox stb) {
-		// TODO Auto-generated method stub
-		
-	}
 }
