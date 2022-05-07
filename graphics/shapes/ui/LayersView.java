@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 
 import graphics.shapes.SCollection;
-import graphics.shapes.attributes.FontAttributes;
 import graphics.ui.View;
 
 public class LayersView extends View {
