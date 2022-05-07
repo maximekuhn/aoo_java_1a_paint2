@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import graphics.shapes.SCircle;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
+import graphics.shapes.STextBox;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -132,7 +133,7 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 	private void doAddText() {
 		this.tb.highlightButton(this.letterButton);
 		
-		SText st = new SText(new Point(0,0), "text");
+		STextBox st = new STextBox(new Point(0,0), "text");
 		st.addAttributes(new ColorAttributes(false, true, Color.BLACK, Color.BLACK));
 		st.addAttributes(new FontAttributes());
 		st.addAttributes(new SelectionAttributes());

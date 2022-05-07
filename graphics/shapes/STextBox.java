@@ -40,13 +40,23 @@ public class STextBox extends Shape {
 	public Point getTextLoc() {
 		FontAttributes fa = (FontAttributes) this.getAttributes(FontAttributes.ID);
 		if(fa == null) fa = new FontAttributes();
-		if (fa.align == 0) {
-			return new Point(this.rect.x + 1, this.rect.y + this.rect.height/2 + fa.getBounds(this.text).height/2);
-		} else if (fa.align == 1) {
-			return new Point(this.rect.x + this.rect.width/2 - fa.getBounds(this.text).width/2, this.rect.y + this.rect.height/2 + fa.getBounds(this.text).height/2);
+		int x = 0;
+		int y = 0;
+		if (fa.alignX == 0) {
+			x = this.rect.x + 2;
+		} else if (fa.alignX == 1) {
+			x = this.rect.x + this.rect.width/2 - fa.getBounds(this.text).width/2;
 		} else {
-			return new Point(this.rect.x + this.rect.width - fa.getBounds(this.text).width, this.rect.y + this.rect.height/2 + fa.getBounds(this.text).height/2);
+			x = this.rect.x + this.rect.width - fa.getBounds(this.text).width;
 		}
+		if (fa.alignY == 0) {
+			y = this.rect.y - fa.getBounds(this.text).height;
+		} else if (fa.alignY == 1) {
+			y = this.rect.y + this.rect.height/2 + fa.getBounds(this.text).height/2;
+		} else {
+			y = this.rect.y + this.rect.height;
+		}
+		return new Point(x, y);
 	}
 
 	@Override
@@ -83,7 +93,7 @@ public class STextBox extends Shape {
 		st.addAttributes(new SelectionAttributes(sa.isSelected()));
 		FontAttributes fa = (FontAttributes) this.getAttributes(FontAttributes.ID);
 		if(fa == null) fa = new FontAttributes();
-		st.addAttributes(new FontAttributes(fa.font, fa.fontColor, fa.fontSize, fa.align));
+		st.addAttributes(new FontAttributes(fa.font, fa.fontColor, fa.fontSize, fa.alignX, fa.alignY));
 		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = new RotationAttributes();
 		st.addAttributes(new RotationAttributes(ra.getAngle()));
@@ -95,6 +105,16 @@ public class STextBox extends Shape {
 
 	@Override
 	public void resize(int dx, int dy) {
+		FontAttributes fa = (FontAttributes) this.getAttributes(FontAttributes.ID);
+		if(fa == null) fa = new FontAttributes();
+		int width = fa.getBounds(this.text).width;
+		int height = fa.getBounds(this.text).height;
+		if ((int)this.rect.getWidth()+dx < width) {
+			dx = 0;
+		}
+		if ((int)this.rect.getHeight()+dy < height) {
+			dy = 0;
+		}
 		this.rect.setSize((int)this.rect.getWidth()+dx, (int)this.rect.getHeight()+dy);
 	}
 	
