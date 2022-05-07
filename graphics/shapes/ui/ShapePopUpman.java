@@ -16,6 +16,7 @@ import graphics.shapes.SImage;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SSketch;
 import graphics.shapes.SText;
+import graphics.shapes.STextBox;
 import graphics.shapes.ShapeVisitor;
 
 public class ShapePopUpman implements ShapeVisitor {
@@ -347,4 +348,10 @@ public class ShapePopUpman implements ShapeVisitor {
 		});
           
     }
+
+	@Override
+	public void visitTextBox(STextBox stb) {
+		// TODO Auto-generated method stub
+		
+	}
 }
