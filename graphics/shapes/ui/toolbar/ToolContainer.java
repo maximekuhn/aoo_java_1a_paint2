@@ -46,7 +46,7 @@ public abstract class ToolContainer {
 	}
 	
 	public ImageIcon imageSize(String filename) {
-		return new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+		return new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
 	}
 	
 	public Image cursorSize(String filename) {

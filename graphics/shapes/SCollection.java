@@ -2,6 +2,7 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -14,10 +15,18 @@ import graphics.shapes.attributes.SelectionAttributes;
 public class SCollection extends Shape {
 
 	private LinkedList<Shape> shapes;
+	private LinkedList<Float> floatDimx;
+	private LinkedList<Float> floatDimy;
+	private LinkedList<Float> floatPosx;
+	private LinkedList<Float> floatPosy;
 	
 	public SCollection() {
 		super();
 		this.shapes = new LinkedList<Shape>();
+		this.floatDimx = new LinkedList<>();
+		this.floatDimy = new LinkedList<>();
+		this.floatPosx = new LinkedList<>();
+		this.floatPosy = new LinkedList<>();
 	}
 	
 	@Override
@@ -35,14 +44,22 @@ public class SCollection extends Shape {
 	public void setLoc(Point p) {
 		int dx = p.x - this.getLoc().x;
 		int dy = p.y - this.getLoc().y;
-		for(Shape s : this.shapes)
+		for(Shape s : this.shapes) {
 			s.translate(dx, dy);
+			int index = this.shapes.indexOf(s);
+			this.floatPosx.set(index, this.floatPosx.get(index)+dx);
+			this.floatPosy.set(index, this.floatPosy.get(index)+dy);
+		}
 	}
 
 	@Override
 	public void translate(int dx, int dy) {
-		for(Shape s : this.shapes)
+		for(Shape s : this.shapes) {
 			s.translate(dx, dy);
+			int index = this.shapes.indexOf(s);
+			this.floatPosx.set(index, this.floatPosx.get(index)+dx);
+			this.floatPosy.set(index, this.floatPosy.get(index)+dy);
+		}
 	}
 
 	@Override
@@ -60,9 +77,17 @@ public class SCollection extends Shape {
 	
 	public void add(Shape s) {
 		this.shapes.add(s);
+		this.floatPosx.add((float)s.getLoc().x);
+		this.floatPosy.add((float)s.getLoc().y);
+		this.floatDimx.add((float)s.getBounds().width);
+		this.floatDimy.add((float)s.getBounds().height);
 	}
 	
 	public void remove(Shape s) {
+		this.floatPosx.remove(this.shapes.indexOf(s));
+		this.floatPosy.remove(this.shapes.indexOf(s));
+		this.floatDimx.remove(this.shapes.indexOf(s));
+		this.floatDimy.remove(this.shapes.indexOf(s));
 		this.shapes.remove(s);
 	}
 	
@@ -82,6 +107,9 @@ public class SCollection extends Shape {
 		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = new RotationAttributes();
 		sc.addAttributes(new RotationAttributes(ra.getAngle()));
+		LayerAttributes la = (LayerAttributes) this.getAttributes(LayerAttributes.ID);
+		if(la == null) la = new LayerAttributes();
+		sc.addAttributes(new LayerAttributes(la.getLayer()));
 		
 		Shape sCopy;
 		for(Shape shape : this.shapes) {
@@ -102,15 +130,16 @@ public class SCollection extends Shape {
 	@Override
 	public void resize(int dx, int dy) {
 		for(Shape s : this.shapes) {
-			s.resize((int)((float)s.getBounds().width/(float)this.getBounds().width)*dx, (int)((float)s.getBounds().height/(float)this.getBounds().height)*dy);
-			/* System.out.println(s.getBounds().width/this.getBounds().width);
-			System.out.println(dx);
-			System.out.println("--"); */
-			s.translate(dx, dy);
-			// s.translate(((s.getLoc().x-this.getLoc().x)/this.getBounds().width)*dx, ((s.getLoc().y-this.getLoc().y)/this.getBounds().height)*dy);
-		}
-		
+			int index = this.shapes.indexOf(s);
 
+			this.floatDimx.set(index, this.floatDimx.get(index) + (this.floatDimx.get(index)/(float)this.getBounds().width)*dx );
+			this.floatDimy.set(index, this.floatDimy.get(index) + (this.floatDimy.get(index)/(float)this.getBounds().height)*dy );
+			s.resize((int)(this.floatDimx.get(index)-s.getBounds().width) , (int)(this.floatDimy.get(index)-s.getBounds().height));
+			
+			this.floatPosx.set(index, this.floatPosx.get(index) + ((this.floatPosx.get(index)-(float)this.getLoc().x)/this.getBounds().width)*dx);
+			this.floatPosy.set(index, this.floatPosy.get(index) + ((this.floatPosy.get(index)-(float)this.getLoc().y)/this.getBounds().height)*dy);
+			s.translate((int)(this.floatPosx.get(index)-s.getLoc().getX()), (int)(this.floatPosy.get(index)-s.getLoc().getY()));
+		}
 	}
 	
 	public void sortByLayers() {
@@ -130,4 +159,47 @@ public class SCollection extends Shape {
 		});
 	}
 	
+	public int getLayersCount() {
+		int layerMax = this.getLayerMax();
+		int layerMin = this.getLayerMin();
+		
+		/*
+		 * layerMax
+		 * + 1 for layer 0
+		 * -1 * layerMin > 0
+		 */
+		
+		return layerMax + 1 - 1 * layerMin;
+	}
+	
+	public int getLayerMax() {
+		int layerMax = 0;
+		for(Shape s : this.shapes) {
+			LayerAttributes la = (LayerAttributes) s.getAttributes(LayerAttributes.ID);
+			if(la == null) la = new LayerAttributes();
+			if(la.getLayer() > layerMax) layerMax = la.getLayer();
+		}
+		return layerMax;
+	}
+	
+	public int getLayerMin() {
+		int layerMin = 0;
+		for(Shape s : this.shapes) {
+			LayerAttributes la = (LayerAttributes) s.getAttributes(LayerAttributes.ID);
+			if(la == null) la = new LayerAttributes();
+			if(la.getLayer() < layerMin) layerMin = la.getLayer();
+		}
+		return layerMin;
+	}
+	
+	public SCollection getShapesAtLayer(int layer) {
+		SCollection shapesAtLayer = new SCollection();
+		for(Shape s : this.shapes) {
+			LayerAttributes la = (LayerAttributes) s.getAttributes(LayerAttributes.ID);
+			if(la == null) la = new LayerAttributes();
+			if(la.getLayer() == layer) shapesAtLayer.add(s.copy());
+		}
+		return shapesAtLayer;
+	}
+
 }

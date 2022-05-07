@@ -1,4 +1,4 @@
-package graphics.shapes;
+	package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -44,6 +44,10 @@ public class SCircle extends Shape {
 	 
 	public int getRadius() {
 		return this.radius;
+	}
+	
+	public void setRadius(int radius) {
+		this.radius = radius;
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 
 import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
@@ -12,10 +13,14 @@ public class SSketch extends Shape {
 
 	private Point loc;
 	private LinkedList<Point> points;
+	private LinkedList<Double> doublePosx;
+	private LinkedList<Double> doublePosy;
 	
 	public SSketch(Point loc) {
 		this.loc = loc;
 		this.points = new LinkedList<>();
+		this.doublePosx = new LinkedList<>();
+		this.doublePosy = new LinkedList<>();
 		this.addPoint(this.loc);
 	}
 	
@@ -33,14 +38,22 @@ public class SSketch extends Shape {
 	public void setLoc(Point p) {
 		int dx = p.x - this.getLoc().x;
 		int dy = p.y - this.getLoc().y;
-		for(Point point : this.points)
+		for(Point point : this.points) {
 			point.translate(dx, dy);
+			int index = this.points.indexOf(p);
+			this.doublePosx.set(index, this.doublePosx.get(index)+dx);
+			this.doublePosy.set(index, this.doublePosy.get(index)+dy);
+		}
 	}
 
 	@Override
 	public void translate(int dx, int dy) {
-		for(Point p : this.points)
+		for(Point p : this.points) {
 			p.translate(dx, dy);
+			int index = this.points.indexOf(p);
+			this.doublePosx.set(index, this.doublePosx.get(index)+dx);
+			this.doublePosy.set(index, this.doublePosy.get(index)+dy);
+		}
 	}
 
 	@Override
@@ -71,6 +84,9 @@ public class SSketch extends Shape {
 		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = new RotationAttributes();
 		sketch.addAttributes(new RotationAttributes(ra.getAngle()));
+		LayerAttributes la = (LayerAttributes) this.getAttributes(LayerAttributes.ID);
+		if(la == null) la = new LayerAttributes();
+		sketch.addAttributes(new LayerAttributes(la.getLayer()));
 		
 		for(Point p : this.points) {
 			sketch.addPoint(new Point(p));
@@ -80,25 +96,23 @@ public class SSketch extends Shape {
 
 	@Override
 	public void resize(int dx, int dy) {
-		// TODO: fix resize
-		Point center = this.getCenter();
-		int width = this.getBounds().width;
-		int height = this.getBounds().height;
-		
+		int locX = this.getLoc().x;
+		int locY = this.getLoc().y;
+		int boundX = this.getBounds().width;
+		int boundY = this.getBounds().height;
 		for(Point p : this.points) {
-			if(width != 0)
-				p.x += (float) dx * (p.x - center.x) / width;
-			if(height != 0)
-				p.y += (float) dy * (p.y - center.y) / height;
+			int index = this.points.indexOf(p);
+			
+			this.doublePosx.set(index, this.doublePosx.get(index) + ((this.doublePosx.get(index)-locX)/boundX)*dx);
+			this.doublePosy.set(index, this.doublePosy.get(index) + ((this.doublePosy.get(index)-locY)/boundY)*dy);
+			p.translate((int)(this.doublePosx.get(index)-p.x), (int)(this.doublePosy.get(index)-p.y));
 		}
-	}
-	
-	private Point getCenter() {
-		return new Point((int) this.getBounds().getCenterX(), (int) this.getBounds().getCenterY());
 	}
 	
 	public void addPoint(Point p) {
 		this.points.add(p);
+		this.doublePosx.add((double)p.x);
+		this.doublePosy.add((double)p.y);
 	}
 	
 	public LinkedList<Point> getPoints(){
