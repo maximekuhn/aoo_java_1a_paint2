@@ -88,7 +88,7 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		this.controller.setShape(null);
 		this.controller.allowSketch();
 		
-		Image cursorImage = this.cursorSize("src/pictures/cursors/pencil_cursor.png");
+		Image cursorImage = cursorSize("src/pictures/cursors/pencil_cursor.png");
 		if(cursorImage != null) {
 			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
 			this.getView().setCursor(customCursor);
@@ -105,7 +105,7 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		this.controller.setShape(sr);
 		this.controller.disallowSketch();
 		
-		Image cursorImage = this.cursorSize("src/pictures/square.png");
+		Image cursorImage = cursorSize("src/pictures/square.png");
 		if(cursorImage != null) {
 			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
 			this.getView().setCursor(customCursor);
@@ -122,7 +122,7 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		this.controller.setShape(sc);
 		this.controller.disallowSketch();
 		
-		Image cursorImage = this.cursorSize("src/pictures/circle.png");
+		Image cursorImage = cursorSize("src/pictures/circle.png");
 		if(cursorImage != null) {
 			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
 			this.getView().setCursor(customCursor);
@@ -140,7 +140,7 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		this.controller.setShape(st);
 		this.controller.disallowSketch();
 		
-		Image cursorImage = this.cursorSize("src/pictures/letter.png");
+		Image cursorImage = cursorSize("src/pictures/letter.png");
 		if(cursorImage != null) {
 			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
 			this.getView().setCursor(customCursor);

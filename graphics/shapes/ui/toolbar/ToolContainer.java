@@ -52,7 +52,7 @@ public abstract class ToolContainer {
 	public static Image cursorSize(String filename) {
 		try {
 			Image cursorImage = ImageIO.read(new File(filename));
-			cursorImage = cursorImage.getScaledInstance(24, 24, Image.SCALE_DEFAULT);
+			cursorImage = cursorImage.getScaledInstance(24, 24, Image.SCALE_SMOOTH);
 			return cursorImage;
 		}
 		catch(IOException e1) {
