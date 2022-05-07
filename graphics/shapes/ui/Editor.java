@@ -47,7 +47,7 @@ public class Editor extends JFrame
 		this.getContentPane().add(this.lview, BorderLayout.EAST);
 		
 		this.sview = new ShapesView(this.model, this.lview);
-		this.sview.setPreferredSize(new Dimension(600,600));
+		this.sview.setPreferredSize(new Dimension(700,600));
 		this.sview.setBackground(Color.WHITE);
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
 		

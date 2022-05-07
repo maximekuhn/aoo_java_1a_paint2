@@ -52,10 +52,10 @@ public class ToolBar extends JToolBar {
 	
 	public void highlightButton(JButton b) {
 		for(JButton button : this.buttons) {
-			if(button.equals(b))
-				button.setBorder(BorderFactory.createLineBorder(HIGHLIGHT_BORDER_COLOR));
+			if(button.equals(b)) 
+				button.setBorder(BorderFactory.createLineBorder(HIGHLIGHT_BORDER_COLOR, 3));
 			else
-				button.setBorder(BorderFactory.createLineBorder(DEFAULT_BORDER_COLOR));
+				button.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
 		}
 	}
 }
