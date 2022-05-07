@@ -28,7 +28,6 @@ public class LayersView extends View {
 	@Override
 	protected void paintComponent(Graphics g) {
 		// TODO : fix scaling (stop using literals)
-		// TODO : display negative layers
 		
 		super.paintComponent(g);
 		

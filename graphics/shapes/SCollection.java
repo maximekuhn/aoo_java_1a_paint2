@@ -163,12 +163,6 @@ public class SCollection extends Shape {
 		int layerMax = this.getLayerMax();
 		int layerMin = this.getLayerMin();
 		
-		/*
-		 * layerMax
-		 * + 1 for layer 0
-		 * -1 * layerMin > 0
-		 */
-		
 		return layerMax + 1 - 1 * layerMin;
 	}
 	

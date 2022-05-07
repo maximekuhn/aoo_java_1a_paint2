@@ -23,7 +23,8 @@ public class LayerAttributes extends Attributes {
 	}
 	
 	public void decrementLayer() {
-		this.layer--;
+		// no negative layers
+		if(this.layer > 0) this.layer--;
 	}
 	
 	public void setLayer(int layer) {
