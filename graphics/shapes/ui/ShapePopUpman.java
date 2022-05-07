@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SImage;
+import graphics.shapes.SKotlin;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SSketch;
 import graphics.shapes.SText;
@@ -392,5 +393,11 @@ public class ShapePopUpman implements ShapeVisitor {
 		});
           
     }
+
+	@Override
+	public void visitSKotlin(SKotlin sk) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

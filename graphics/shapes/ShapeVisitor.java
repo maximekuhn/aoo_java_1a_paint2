@@ -15,4 +15,6 @@ public interface ShapeVisitor {
 	public void visitImage(SImage si);
 	
 	public void visitSSketch(SSketch sk);
+	
+	public void visitSKotlin(SKotlin sk);
 }
