@@ -39,6 +39,8 @@ public class Editor extends JFrame
 		
 		this.buildModel();
 		
+		this.setMinimumSize(new Dimension(400, 400));
+		
 		this.lview = new LayersView(this.model);
 		this.lview.setPreferredSize(new Dimension(300,600));
 		this.lview.setBackground(Color.WHITE);

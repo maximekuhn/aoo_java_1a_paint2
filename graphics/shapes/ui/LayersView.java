@@ -28,7 +28,8 @@ public class LayersView extends View {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO : fix scaling
+		// TODO : fix scaling (stop using literals)
+		// TODO : display negative layers
 		
 		super.paintComponent(g);
 		
@@ -40,21 +41,16 @@ public class LayersView extends View {
 		for(int i = 0; i < layerCount; i++) {
 			sv = new ShapesView(model.getShapesAtLayer(i));
 			sv.setSize(new Dimension(this.sview.getSize()));
-			sv.setBackground(Color.CYAN);
+			sv.setBackground(Color.WHITE);
 			bi = new BufferedImage(sv.getWidth(), sv.getHeight(), BufferedImage.TYPE_INT_RGB);
 			sv.paintComponent(bi.createGraphics());
 			
-			g2D.setColor(Color.ORANGE);
 			g2D.setStroke(new BasicStroke(3));
-			g2D.drawImage(new ImageIcon(bi).getImage().getScaledInstance(80, 100, Image.SCALE_SMOOTH), 0, i * 100, null);
-			g2D.drawRect(0, i*100, this.getWidth(), this.getHeight() / 10);
+			g2D.drawImage(new ImageIcon(bi).getImage().getScaledInstance(140, 80, Image.SCALE_SMOOTH), 5, i * 90 + 5, null);
+			g2D.drawRect(5, i * 90 + 5, 140, 80);
+			g2D.drawRect(0, i*90, this.getWidth(), 90);
+			g2D.drawString("Layer " + Integer.toString(i), this.getWidth() - 100, i * 90 + 50);
 		}
-		
-		
-		g2D.setColor(new Color(123, 24, 223));
-		g2D.setStroke(new BasicStroke(5));
-		g2D.drawRect(0, 0, this.getWidth(), this.getHeight());
-		
 	}
 	
 	@Override
