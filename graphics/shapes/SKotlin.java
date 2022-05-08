@@ -13,7 +13,7 @@ import graphics.shapes.attributes.SelectionAttributes;
  * Kotlin logo
  */
 public class SKotlin extends Shape {
-
+	
 	private Polygon kotlin;
 	private Point loc;
 	
@@ -59,6 +59,7 @@ public class SKotlin extends Shape {
 	@Override
 	public void setLoc(Point p) {
 		this.loc.setLocation(p);
+		this.buildPolygon();
 	}
 
 	@Override
@@ -98,7 +99,7 @@ public class SKotlin extends Shape {
 	@Override
 	public void resize(int dx, int dy) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	
 	public Polygon getPolygon() {
