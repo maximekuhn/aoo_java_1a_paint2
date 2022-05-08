@@ -26,6 +26,15 @@ public class STextBox extends Shape {
 	
 	public void setText(String text) {
 		this.text = text;
+		int dx = 0;
+		int dy = 0;
+		if (this.rect.getBounds().width < this.minBounds().width) {
+			dx = this.minBounds().width - this.rect.getBounds().width;
+		}
+		if (this.rect.getBounds().height < this.minBounds().height) {
+			dy = this.minBounds().height - this.rect.getBounds().height;
+		}
+		this.resize(dx, dy);
 	}
 	
 	@Override
