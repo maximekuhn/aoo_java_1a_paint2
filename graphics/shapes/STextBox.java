@@ -138,8 +138,8 @@ public class STextBox extends Shape {
 		ColorAttributes ca = (ColorAttributes) st.getAttributes(ColorAttributes.ID);
 		tmp.add(String.valueOf(ca.filled));
 		tmp.add(String.valueOf(ca.stroked));
-		tmp.add(String.valueOf(ca.filledColor));
-		tmp.add(String.valueOf(ca.strokedColor));
+		tmp.add(String.valueOf(ca.filledColor.getRGB()));
+		tmp.add(String.valueOf(ca.strokedColor.getRGB()));
 		
 		// selection attributes
 		SelectionAttributes sa = (SelectionAttributes) st.getAttributes(SelectionAttributes.ID);
@@ -156,7 +156,7 @@ public class STextBox extends Shape {
 		// font attributes
 		FontAttributes fa = (FontAttributes) st.getAttributes(FontAttributes.ID);
 		tmp.add(String.valueOf(fa.font));
-		tmp.add(String.valueOf(fa.fontColor));
+		tmp.add(String.valueOf(fa.fontColor.getRGB()));
 		
 		return tmp.toString();
 	}

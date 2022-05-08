@@ -89,8 +89,8 @@ public class SRectangle extends Shape {
 		ColorAttributes ca = (ColorAttributes) sr.getAttributes(ColorAttributes.ID);
 		tmp.add(String.valueOf(ca.filled));
 		tmp.add(String.valueOf(ca.stroked));
-		tmp.add(String.valueOf(ca.filledColor));
-		tmp.add(String.valueOf(ca.strokedColor));
+		tmp.add(String.valueOf(ca.filledColor.getRGB()));
+		tmp.add(String.valueOf(ca.strokedColor.getRGB()));
 		
 		// selection attributes
 		SelectionAttributes sa = (SelectionAttributes) sr.getAttributes(SelectionAttributes.ID);

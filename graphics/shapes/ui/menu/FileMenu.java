@@ -16,26 +16,34 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import graphics.shapes.SCollection;
 import graphics.shapes.SImage;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.ShapesView;
+import graphics.shapes.ui.menu.project_manager.ProjectOpener;
+import graphics.shapes.ui.menu.project_manager.ProjectSaver;
 
 public class FileMenu extends JMenu implements ActionListener {
 	
 	private static final String FILE = "File";
 	private static final String OPEN = "open";
 	private static final String SAVE = "save";
+	private static final String SAVE_PROJECT = "Save as project";
+	private static final String OPEN_PROJECT = "Open project";
 	private static final String QUIT = "quit";
 	
 	private static final String SAVE_EXTENSION = "png";
+	private static final String SAVE_PROJECT_EXTENSION = "aoo";
 	
 	private ShapesView sview;
 	
 	private JMenuItem open;
 	private JMenuItem save;
+	private JMenuItem openProject;
+	private JMenuItem saveProject;
 	private JMenuItem quit;
 	
 	public FileMenu(ShapesView sview) {
@@ -47,10 +55,14 @@ public class FileMenu extends JMenu implements ActionListener {
 	private void buildMenu() {
 		this.open = new JMenuItem(OPEN);
 		this.save = new JMenuItem(SAVE);
+		this.openProject = new JMenuItem(OPEN_PROJECT);
+		this.saveProject = new JMenuItem(SAVE_PROJECT);
 		this.quit = new JMenuItem(QUIT);
 		
 		this.open.addActionListener(this);
 		this.save.addActionListener(this);
+		this.openProject.addActionListener(this);
+		this.saveProject.addActionListener(this);
 		this.quit.addActionListener(this);
 		
 		// keyboard shortcuts
@@ -60,6 +72,9 @@ public class FileMenu extends JMenu implements ActionListener {
 		this.add(this.open);
 		this.add(this.save);
 		this.addSeparator();
+		this.add(this.openProject);
+		this.add(this.saveProject);
+		this.addSeparator();
 		this.add(this.quit);
 	}
 
@@ -68,9 +83,50 @@ public class FileMenu extends JMenu implements ActionListener {
 		if(e.getSource().equals(this.quit)) this.doExit();
 		else if(e.getSource().equals(this.open)) this.doOpen();
 		else if(e.getSource().equals(this.save)) this.doSave();
+		else if(e.getSource().equals(this.openProject)) this.doOpenProject();
+		else if(e.getSource().equals(this.saveProject)) this.doSaveProject();
 	}
 	
+	private void doSaveProject() {
+		// TODO Auto-generated method stub
+		/*
+		 * save as project (.aoo)
+		 */
+		JFileChooser fc = new JFileChooser();
+		fc.showSaveDialog(null);
+		File fileToSave = fc.getSelectedFile();
+		
+		if(fileToSave == null) return;
+		
+		
+		if(! fileToSave.toString().endsWith("." + SAVE_PROJECT_EXTENSION)) fileToSave = new File(fileToSave + "." + SAVE_PROJECT_EXTENSION);
+		ProjectSaver ps = new ProjectSaver(this.sview);
+		ps.save(fileToSave);
+	}
+
+	private void doOpenProject() {
+		// TODO Auto-generated method stub
+		/*
+		 * open project file (.aoo)
+		 */
+		JFileChooser fc = new JFileChooser();
+		FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter(
+				SAVE_PROJECT_EXTENSION + " files (*." + SAVE_PROJECT_EXTENSION + ")", SAVE_PROJECT_EXTENSION);
+		fc.setDialogTitle("Open project");
+		fc.setFileFilter(extensionFilter);
+		int result = fc.showOpenDialog(null);
+		File fileToOpen = fc.getSelectedFile();
+		
+		if(result == JFileChooser.CANCEL_OPTION || fileToOpen == null) return;
+		
+		ProjectOpener po = new ProjectOpener(this.sview);
+		po.open(fileToOpen);
+	}
+
 	private void doSave() {
+		/*
+		 * save as image (.png)
+		 */
 		JFileChooser fc = new JFileChooser();
 		fc.showSaveDialog(null);
 		File fileToSave = fc.getSelectedFile();
@@ -102,6 +158,9 @@ public class FileMenu extends JMenu implements ActionListener {
 	}
 
 	private void doOpen() {
+		/*
+		 * open image
+		 */
 		JFileChooser fc = new JFileChooser();
 		int result = fc.showOpenDialog(null);
 		File fileToOpen = fc.getSelectedFile();

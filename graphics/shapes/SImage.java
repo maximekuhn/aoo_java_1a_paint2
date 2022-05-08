@@ -23,6 +23,13 @@ public class SImage extends Shape {
 		this.path = path;
 	}
 	
+	public SImage() {
+		/*
+		 * should not be used,
+		 * usage is for opening a project file.
+		 */
+	}
+	
 	@Override
 	public Point getLoc() {
 		return new Point(this.rect.x, this.rect.y);
@@ -99,8 +106,8 @@ public class SImage extends Shape {
 		ColorAttributes ca = (ColorAttributes) si.getAttributes(ColorAttributes.ID);
 		tmp.add(String.valueOf(ca.filled));
 		tmp.add(String.valueOf(ca.stroked));
-		tmp.add(String.valueOf(ca.filledColor));
-		tmp.add(String.valueOf(ca.strokedColor));
+		tmp.add(String.valueOf(ca.filledColor.getRGB()));
+		tmp.add(String.valueOf(ca.strokedColor.getRGB()));
 		
 		// selection attributes
 		SelectionAttributes sa = (SelectionAttributes) si.getAttributes(SelectionAttributes.ID);

@@ -139,8 +139,8 @@ public class SSketch extends Shape {
 		ColorAttributes ca = (ColorAttributes) sk.getAttributes(ColorAttributes.ID);
 		tmp.add(String.valueOf(ca.filled));
 		tmp.add(String.valueOf(ca.stroked));
-		tmp.add(String.valueOf(ca.filledColor));
-		tmp.add(String.valueOf(ca.strokedColor));
+		tmp.add(String.valueOf(ca.filledColor.getRGB()));
+		tmp.add(String.valueOf(ca.strokedColor.getRGB()));
 		
 		// selection attributes
 		SelectionAttributes sa = (SelectionAttributes) sk.getAttributes(SelectionAttributes.ID);
