@@ -41,7 +41,7 @@ public class SImage extends Shape {
 
 	@Override
 	public void accept(ShapeVisitor v) {
-		v.visitImage(this);
+		v.visitSImage(this);
 	}
 	
 	public Image getImage() {

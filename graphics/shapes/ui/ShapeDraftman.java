@@ -198,7 +198,7 @@ public class ShapeDraftman implements ShapeVisitor {
 	}
 	
 	@Override
-	public void visitImage(SImage si) {
+	public void visitSImage(SImage si) {
 		RotationAttributes ra = (RotationAttributes) si.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
 		AffineTransform old = this.g2D.getTransform();

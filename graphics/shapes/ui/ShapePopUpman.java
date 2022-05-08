@@ -214,7 +214,7 @@ public class ShapePopUpman implements ShapeVisitor {
 	}
 
 	@Override
-	public void visitImage(SImage si) {
+	public void visitSImage(SImage si) {
 		Point loc = si.getLoc();
 		
 		creatSettingsFrame("Image Settings", 240, 200);

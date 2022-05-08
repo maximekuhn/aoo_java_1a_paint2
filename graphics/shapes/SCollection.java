@@ -143,6 +143,10 @@ public class SCollection extends Shape {
 	}
 	
 	public void sortByLayers() {
+		/*
+		 * ascendant sort
+		 * layer1 -> layer2 -> layer3
+		 */
 		this.shapes.sort(new Comparator<Shape>() {
 
 			@Override

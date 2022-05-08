@@ -98,8 +98,9 @@ public class SKotlin extends Shape {
 
 	@Override
 	public void resize(int dx, int dy) {
-		// TODO Auto-generated method stub
-
+		this.width += dx;
+		this.height += dy;
+		this.buildPolygon();
 	}
 	
 	public Polygon getPolygon() {
