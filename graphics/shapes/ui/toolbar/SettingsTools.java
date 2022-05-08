@@ -17,9 +17,9 @@ public class SettingsTools extends ToolContainer implements ActionListener {
 
 	private ToolBar tb;
 	
-	private JButton paintBucketButton;//clic G = peindre background clic D = peindre contour
-	private JButton chooseColorButton;//changer la couleur du paintbucket
-	private JButton shapesSettingsButton;//popup de reglage
+	private JButton paintBucketButton;
+	private JButton chooseColorButton;
+	private JButton shapesSettingsButton;
 
 	private SettingsController controller;
 	private MainController mainController;
@@ -59,6 +59,28 @@ public class SettingsTools extends ToolContainer implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		this.mainController.setController(this.controller);
 		if(e.getSource().equals(this.shapesSettingsButton)) this.doSettings();
+		else if(e.getSource().equals(this.chooseColorButton)) this.doChooseColor();
+		else if(e.getSource().equals(this.paintBucketButton)) this.doPaint();
+	}
+
+	private void doPaint() {
+		this.tb.highlightButton(this.paintBucketButton);
+		this.controller.setActionMode(SettingsActions.PAINT);
+		
+		Image cursorImage = cursorSize("src/pictures/paintbucket.png");
+		if(cursorImage != null) {
+			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
+			this.getView().setCursor(customCursor);
+		}
+		
+	}
+
+	private void doChooseColor() {
+		this.tb.highlightButton(this.chooseColorButton);
+		this.controller.setActionMode(SettingsActions.CHOOSECOLOR);
+		this.controller.chooseColor();
+		
+		this.doPaint();
 	}
 
 	private void doSettings() {
@@ -71,5 +93,5 @@ public class SettingsTools extends ToolContainer implements ActionListener {
 			this.getView().setCursor(customCursor);
 		}
 	}
-
+	
 }
