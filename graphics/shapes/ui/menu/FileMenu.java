@@ -110,7 +110,7 @@ public class FileMenu extends JMenu implements ActionListener {
 		
 		try {
 			Image img = ImageIO.read(fileToOpen);
-			SImage si = new SImage(new Point(0,0), img);
+			SImage si = new SImage(new Point(0,0), img, fileToOpen);
 			si.addAttributes(new SelectionAttributes());
 			si.addAttributes(new ColorAttributes(false, false, Color.BLACK, Color.BLACK));
 			((SCollection)this.sview.getModel()).add(si);

@@ -3,6 +3,8 @@ package graphics.shapes;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.File;
+import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.LayerAttributes;
@@ -13,10 +15,12 @@ public class SImage extends Shape {
 
 	private Rectangle rect;
 	private Image img;
+	private File path;
 	
-	public SImage(Point point, Image img) {
+	public SImage(Point point, Image img, File path) {
 		this.rect = new Rectangle(point.x, point.y, img.getWidth(null), img.getHeight(null));
 		this.img = img;
+		this.path = path;
 	}
 	
 	@Override
@@ -47,10 +51,14 @@ public class SImage extends Shape {
 	public Image getImage() {
 		return this.img;
 	}
+	
+	public File getPath() {
+		return this.path;
+	}
 
 	@Override
 	public Shape copy() {
-		SImage si = new SImage(this.getLoc(), this.img);
+		SImage si = new SImage(this.getLoc(), this.img, this.path);
 		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = new ColorAttributes();
 		si.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
@@ -72,6 +80,41 @@ public class SImage extends Shape {
 		
 	}
 	
-	
+	@Override
+	public String toString() {
+		/*
+		 * take copy, because copy always have all attributes
+		 * (no need to check)
+		 */
+		SImage si = (SImage) this.copy();
+		StringJoiner tmp = new StringJoiner(" ", "[ " , " ]");
+		
+		// basic
+		tmp.add(si.getClass().getName());
+		tmp.add(String.valueOf(si.getLoc().x));
+		tmp.add(String.valueOf(si.getLoc().y));
+		tmp.add(String.valueOf(si.getPath()));
+		
+		// color attributes
+		ColorAttributes ca = (ColorAttributes) si.getAttributes(ColorAttributes.ID);
+		tmp.add(String.valueOf(ca.filled));
+		tmp.add(String.valueOf(ca.stroked));
+		tmp.add(String.valueOf(ca.filledColor));
+		tmp.add(String.valueOf(ca.strokedColor));
+		
+		// selection attributes
+		SelectionAttributes sa = (SelectionAttributes) si.getAttributes(SelectionAttributes.ID);
+		tmp.add(String.valueOf(sa.isSelected()));
+		
+		// rotation attributes
+		RotationAttributes ra = (RotationAttributes) si.getAttributes(RotationAttributes.ID);
+		tmp.add(String.valueOf(ra.getAngle()));
+		
+		// layer attributes
+		LayerAttributes la = (LayerAttributes) si.getAttributes(LayerAttributes.ID);
+		tmp.add(String.valueOf(la.getLayer()));
+		
+		return tmp.toString();
+	}
 	
 }

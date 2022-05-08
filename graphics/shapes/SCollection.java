@@ -2,10 +2,10 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.LayerAttributes;
@@ -140,6 +140,46 @@ public class SCollection extends Shape {
 			this.floatPosy.set(index, this.floatPosy.get(index) + ((this.floatPosy.get(index)-(float)this.getLoc().y)/this.getBounds().height)*dy);
 			s.translate((int)(this.floatPosx.get(index)-s.getLoc().getX()), (int)(this.floatPosy.get(index)-s.getLoc().getY()));
 		}
+	}
+	
+	@Override
+	public String toString() {
+		/*
+		 * take copy, because copy always have all attributes
+		 * (no need to check)
+		 */
+		SCollection sc = (SCollection) this.copy();
+		StringJoiner tmp = new StringJoiner(" ", "[ " , " ]");
+		
+		// basic
+		tmp.add(sc.getClass().getName());
+		tmp.add(String.valueOf(sc.getLoc().x));
+		tmp.add(String.valueOf(sc.getLoc().y));
+		
+		// color attributes
+		ColorAttributes ca = (ColorAttributes) sc.getAttributes(ColorAttributes.ID);
+		tmp.add(String.valueOf(ca.filled));
+		tmp.add(String.valueOf(ca.stroked));
+		tmp.add(String.valueOf(ca.filledColor));
+		tmp.add(String.valueOf(ca.strokedColor));
+		
+		// selection attributes
+		SelectionAttributes sa = (SelectionAttributes) sc.getAttributes(SelectionAttributes.ID);
+		tmp.add(String.valueOf(sa.isSelected()));
+		
+		// rotation attributes
+		RotationAttributes ra = (RotationAttributes) sc.getAttributes(RotationAttributes.ID);
+		tmp.add(String.valueOf(ra.getAngle()));
+		
+		// layer attributes
+		LayerAttributes la = (LayerAttributes) sc.getAttributes(LayerAttributes.ID);
+		tmp.add(String.valueOf(la.getLayer()));
+		
+		// other shapes
+		for(Shape s : sc.shapes)
+			tmp.add(s.toString());
+		
+		return tmp.toString();
 	}
 	
 	public void sortByLayers() {
