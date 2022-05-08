@@ -11,8 +11,10 @@ import java.util.LinkedList;
 
 import graphics.shapes.SCollection;
 import graphics.shapes.SRectangle;
+import graphics.shapes.STextBox;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
+import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.toolbar.SelectionActions;
@@ -107,7 +109,33 @@ public class SelectionController extends Controller {
 		if(evt.getKeyCode() == 16) // shift
 			this.shiftDown = false;
 	}
+
+	public void keyTyped(KeyEvent e) {
+		if(this.actionMode.equals(SelectionActions.SELECT)) this.doWriteText(e);
+    }
 	
+	private void doWriteText(KeyEvent e) {
+		SCollection model = (SCollection) this.getModel();
+		Iterator<Shape> it = model.iterator();
+		
+		Shape s;
+		while(it.hasNext()) {
+			s = it.next();
+			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
+			if(sa == null) sa = new SelectionAttributes();
+			
+			if(sa.isSelected() && s.getClass().getName() == "graphics.shapes.STextBox") {
+				STextBox tb = (STextBox) s;
+				StringBuilder str = new StringBuilder();
+				str.append(tb.getText());
+				if ((int)e.getKeyChar() == 8) str.deleteCharAt(str.length()-1); 
+				else str.append(e.getKeyChar());
+				tb.setText(str.toString());
+			}
+		}
+		this.getView().repaint();
+	}
+
 	private void doCreateSelectionRectangle(MouseEvent e) {
 		SRectangle selectRect = new SRectangle(e.getPoint(), 0, 0);
 		selectRect.addAttributes(new SelectionAttributes());
