@@ -61,7 +61,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		creatSettingsFrame("Rectangle Settings", 240, 200);
 				
 		this.title = new JLabel("Rectangle Settings");
-		this.title.setBounds(60, 10, 110, 20);
+		this.title.setBounds(65, 10, 110, 20);
 		this.popUp.getContentPane().add(this.title);
 		
 		this.tWidth.setText(String.valueOf(r.width));
@@ -99,7 +99,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		creatSettingsFrame("Circle Settings", 240, 200);
 				
 		this.title = new JLabel("Circle Settings");
-		this.title.setBounds(60, 10, 110, 20);
+		this.title.setBounds(65, 10, 110, 20);
 		this.popUp.getContentPane().add(this.title);
 		
 		this.lRadius = new JLabel("Radius :");
@@ -137,7 +137,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		creatSettingsFrame("Text Settings", 400, 250);
 				
 		this.title = new JLabel("Text Settings");
-		this.title.setBounds(60, 10, 110, 20);
+		this.title.setBounds(145, 10, 110, 20);
 		this.popUp.getContentPane().add(this.title);
 		
 		this.tText.setText(String.valueOf(st.getText()));
@@ -181,7 +181,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		creatSettingsFrame("Collection Settings", 240, 200);
 		
 		this.title = new JLabel("Collection Settings");
-		this.title.setBounds(60, 10, 110, 20);
+		this.title.setBounds(65, 10, 110, 20);
 		this.popUp.getContentPane().add(this.title);
 		
 		this.tWidth.setText(String.valueOf(sc.getBounds().width));
@@ -220,7 +220,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		creatSettingsFrame("Image Settings", 240, 200);
 		
 		this.title = new JLabel("Image Settings");
-		this.title.setBounds(60, 10, 110, 20);
+		this.title.setBounds(65, 10, 110, 20);
 		this.popUp.getContentPane().add(this.title);
 		
 		this.tWidth.setText(String.valueOf(si.getBounds().width));
@@ -259,7 +259,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		creatSettingsFrame("Sketch Settings", 240, 200);
 		
 		this.title = new JLabel("Sketch Settings");
-		this.title.setBounds(60, 10, 110, 20);
+		this.title.setBounds(65, 10, 110, 20);
 		this.popUp.getContentPane().add(this.title);
 		
 		this.tWidth.setText(String.valueOf(sk.getBounds().width));
@@ -298,7 +298,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		creatSettingsFrame("Text Box Settings", 400, 250);
 				
 		this.title = new JLabel("Text Box Settings");
-		this.title.setBounds(60, 10, 110, 20);
+		this.title.setBounds(145, 10, 110, 20);
 		this.popUp.getContentPane().add(this.title);
 		
 		this.tText.setText(String.valueOf(stb.getText()));
