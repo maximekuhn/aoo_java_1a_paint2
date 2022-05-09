@@ -18,7 +18,7 @@ import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.ui.toolbar.SettingsActions;
 import graphics.ui.Controller;
 
-public class SettingsController extends Controller {
+public class SettingsController extends Controller implements ActionListener {
 	
 	
 	private ShapePopUpman popUpman;
@@ -26,11 +26,13 @@ public class SettingsController extends Controller {
 	
 	private SettingsActions actionMode = SettingsActions.PAINT;
 	
-	public Color c;
+	private JColorChooser colorChooser;
+	private Color color;
 
 	public SettingsController(Object newModel) {
 		super(newModel);
 		this.lastClick = new Point();
+		this.color = new ColorAttributes().filledColor;
 	}
 	
 	public void setActionMode(SettingsActions action) {
@@ -64,11 +66,11 @@ public class SettingsController extends Controller {
 		
 		if(SwingUtilities.isLeftMouseButton(e)) {
 			ca.filled = true;
-			ca.filledColor = c;
+			ca.filledColor = this.color;
 		}
 		else if(SwingUtilities.isRightMouseButton(e)) {
 			ca.stroked = true;
-			ca.strokedColor = c;
+			ca.strokedColor = this.color;
 		}
 		
 		this.getView().repaint();
@@ -97,30 +99,30 @@ public class SettingsController extends Controller {
 	public void chooseColor() {
 	    //this.color = JColorChooser.showDialog(null, "Pick your color", new ColorAttributes().filledColor);
 		
-		JColorChooser colorChooser = new JColorChooser();
+		this.colorChooser = new JColorChooser();
 	    
 	    //remove preview panel
-	    colorChooser.setPreviewPanel(new JPanel());
+		this.colorChooser.setPreviewPanel(new JPanel());
 	    
 	    //remove chooser panel 
-	    colorChooser.removeChooserPanel(colorChooser.getChooserPanels()[4]); //CMYK
-	    //colorChooser.removeChooserPanel(colorChooser.getChooserPanels()[3]); //RGB
-	    colorChooser.removeChooserPanel(colorChooser.getChooserPanels()[2]); //HSL
-	    colorChooser.removeChooserPanel(colorChooser.getChooserPanels()[1]); //HSV
-	    colorChooser.removeChooserPanel(colorChooser.getChooserPanels()[0]); //Swatch
-	    
-	    ActionListener okActionListener = new ActionListener() {
-	    	@Override
-			public void actionPerformed(ActionEvent e) {
-		       c = colorChooser.getColor();
-			}
-	    };
-
-	    JDialog d = colorChooser.createDialog(null, "Pick your color", true, colorChooser, okActionListener, null);
+		this.colorChooser.removeChooserPanel(this.colorChooser.getChooserPanels()[4]); //CMYK
+	    //this.colorChooser.removeChooserPanel(this.colorChooser.getChooserPanels()[3]); //RGB
+		this.colorChooser.removeChooserPanel(this.colorChooser.getChooserPanels()[2]); //HSL
+		this.colorChooser.removeChooserPanel(this.colorChooser.getChooserPanels()[1]); //HSV
+		this.colorChooser.removeChooserPanel(this.colorChooser.getChooserPanels()[0]); //Swatch
+		
+	    JDialog d = JColorChooser.createDialog(null, "Pick your color", true, this.colorChooser, this, null);
 	    
 	    d.setVisible(true);
 	}
 	
- 
+	public Color getColor() {
+		return this.color;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		 if(this.actionMode == SettingsActions.CHOOSECOLOR) this.color = this.colorChooser.getColor();
+	}
 
 }
