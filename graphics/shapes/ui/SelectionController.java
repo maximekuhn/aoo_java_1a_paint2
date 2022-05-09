@@ -57,7 +57,10 @@ public class SelectionController extends Controller {
 	{
 		this.lastClick.setLocation(e.getPoint());
 		
-		if(this.actionMode.equals(SelectionActions.SELECT)) this.doSelect(e);
+		if(this.actionMode.equals(SelectionActions.SELECT)) {
+			this.doSelect(e);
+			this.doTextCursor();
+		}
 		else if(this.actionMode.equals(SelectionActions.ERASE)) this.doErase(e);
 	}
 	
@@ -93,8 +96,7 @@ public class SelectionController extends Controller {
 
 	public void mouseMoved(MouseEvent e) {
 		this.cursorPos.setLocation(e.getPoint());
-		if(this.actionMode.equals(SelectionActions.SELECT)) this.doTextCursor();
-		else if(this.actionMode.equals(SelectionActions.RESIZE) && !this.handlerSelected) this.doResizeCursor();
+		if(this.actionMode.equals(SelectionActions.RESIZE) && !this.handlerSelected) this.doResizeCursor();
 	}
 	
 	@Override
@@ -396,8 +398,11 @@ public class SelectionController extends Controller {
 
 	private void doTextCursor() {
 		Shape s = this.getTarget();
-		if(s != null) 
-			if(s.getClass().getName() == "graphics.shapes.STextBox") this.getView().setCursor(new Cursor(Cursor.TEXT_CURSOR));
+		if(s != null) {
+			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
+			if(sa.isSelected() && s.getClass().getName() == "graphics.shapes.STextBox") 
+				this.getView().setCursor(new Cursor(Cursor.TEXT_CURSOR));
+		}
 		else this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 
