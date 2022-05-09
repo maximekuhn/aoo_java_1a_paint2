@@ -28,6 +28,7 @@ public class SettingsController extends Controller implements ActionListener {
 	private SettingsActions actionMode = SettingsActions.PAINT;
 	
 	private JColorChooser colorChooser;
+
 	
 	private Color color;
 
@@ -123,7 +124,7 @@ public class SettingsController extends Controller implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-       this.color = colorChooser.getColor();
+		 if(this.actionMode == SettingsActions.CHOOSECOLOR) this.color = this.colorChooser.getColor();
 	}
 
 }
