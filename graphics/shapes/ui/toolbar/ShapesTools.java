@@ -13,8 +13,8 @@ import javax.swing.JButton;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SRectangle;
-import graphics.shapes.SText;
 import graphics.shapes.STextBox;
+import graphics.shapes.STriangle;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -81,6 +81,24 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		else if(e.getSource().equals(this.circleButton)) this.doAddCircle();
 		else if(e.getSource().equals(this.letterButton)) this.doAddText();
 		else if(e.getSource().equals(this.pencilButton)) this.doPencil();
+		else if(e.getSource().equals(this.triangleButton)) this.doTriangle();
+	}
+
+	private void doTriangle() {
+		this.tb.highlightButton(this.triangleButton);
+		
+		STriangle st = new STriangle(new Point(0,0), 50, 50);
+		st.addAttributes(new ColorAttributes(true, true, Color.GREEN, Color.BLACK));
+		st.addAttributes(new SelectionAttributes(false));
+		
+		this.controller.setShape(st);
+		this.controller.disallowSketch();
+		
+		Image cursorImage = cursorSize("src/pictures/triangle.png");
+		if(cursorImage != null) {
+			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
+			this.getView().setCursor(customCursor);
+		}
 	}
 
 	private void doPencil() {

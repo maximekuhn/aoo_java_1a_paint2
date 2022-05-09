@@ -68,6 +68,11 @@ public class ProjectOpener {
 				if(className.equals(SRECTANGLE)) this.decryptSRectangle(line);
 				else if(className.equals(SCIRCLE)) this.decryptSCircle(line);
 				else if(className.equals(STEXTBOX)) this.decryptSTextBox(line);
+				else if(className.equals(STEXT)) this.decryptSText(line);
+				else if(className.equals(SKOTLIN)) this.decryptSKotlin(line);
+				else if(className.equals(SIMAGE)) this.decryptSImage(line);
+				else if(className.equals(SSKETCH)) this.decryptSSketch(line);
+				else if(className.equals(SCOLLECTION)) this.decryptSCollection(line);
 			}
 		} 
 		catch (IOException e) {
@@ -219,5 +224,110 @@ public class ProjectOpener {
 		
 		this.model.add(stb);
 		this.sview.repaint();
+	}
+	
+	private void decryptSText(String line) {
+		String[] settings = line.split(" ");
+		if(settings.length != 15) return;
+		
+		// point + text
+		int locX = Integer.parseInt(settings[2]);
+		int locY = Integer.parseInt(settings[3]);
+		String text = settings[4];
+		
+		SText st = new SText(new Point(locX, locY), text);
+		
+		// color attributes
+		boolean filled = Boolean.parseBoolean(settings[5]);
+		boolean stroked = Boolean.parseBoolean(settings[6]);
+		Color filledColor = this.decryptColor(settings[7]);
+		Color strokedColor = this.decryptColor(settings[8]);
+		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
+		st.addAttributes(ca);
+		
+		// selection attributes
+		boolean isSelected = Boolean.parseBoolean(settings[9]);
+		SelectionAttributes sa = new SelectionAttributes(isSelected);
+		st.addAttributes(sa);
+		
+		// rotation attributes
+		int angle = Integer.parseInt(settings[10]);
+		RotationAttributes ra = new RotationAttributes(angle);
+		st.addAttributes(ra);
+		
+		// layer attributes
+		int layer = Integer.parseInt(settings[11]);
+		LayerAttributes la = new LayerAttributes(layer);
+		st.addAttributes(la);
+		
+		// font attributes
+		Font font = this.decryptFont(settings[12]);
+		Color fontColor = this.decryptColor(settings[13]);
+		FontAttributes fa = new FontAttributes(font, fontColor);
+		st.addAttributes(fa);
+		
+		this.model.add(st);
+		this.sview.repaint();
+	}
+	
+	private void decryptSKotlin(String line) {
+		String[] settings = line.split(" ");
+		if(settings.length != 14) return;
+		
+		// point + width & height
+		int locX = Integer.parseInt(settings[2]);
+		int locY = Integer.parseInt(settings[3]);
+		int width = Integer.parseInt(settings[4]);
+		int height = Integer.parseInt(settings[5]);
+		
+		SKotlin sk = new SKotlin(new Point(locX, locY), width, height);
+		
+		// color attributes
+		boolean filled = Boolean.parseBoolean(settings[6]);
+		boolean stroked = Boolean.parseBoolean(settings[7]);
+		Color filledColor = this.decryptColor(settings[8]);
+		Color strokedColor = this.decryptColor(settings[9]);
+		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
+		sk.addAttributes(ca);
+		
+		// selection attributes
+		boolean isSelected = Boolean.parseBoolean(settings[10]);
+		SelectionAttributes sa = new SelectionAttributes(isSelected);
+		sk.addAttributes(sa);
+		
+		// rotation attributes
+		int angle = Integer.parseInt(settings[11]);
+		RotationAttributes ra = new RotationAttributes(angle);
+		sk.addAttributes(ra);
+		
+		// layer attributes
+		int layer = Integer.parseInt(settings[12]);
+		LayerAttributes la = new LayerAttributes(layer);
+		sk.addAttributes(la);
+		
+		this.model.add(sk);
+		this.sview.repaint();
+	}
+	
+	private void decryptSCollection(String line) {
+		// TODO Auto-generated method stub
+		String[] settings = line.split(" ");
+		
+		// location
+		int locX = Integer.parseInt(settings[2]);
+		int locY = Integer.parseInt(settings[3]);
+		
+		SCollection sc = new SCollection();
+		sc.setLoc(new Point(locX, locY));
+	}
+
+	private void decryptSSketch(String line) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void decryptSImage(String line) {
+		// TODO Auto-generated method stub
+		
 	}
 }

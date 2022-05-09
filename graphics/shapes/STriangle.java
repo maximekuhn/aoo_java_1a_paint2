@@ -32,18 +32,18 @@ public class STriangle extends Shape{
 	}
 	
 	private void buildPolygon() {
-		  this.nPoints = 3;
-		  this.xTriangle = new int[this.nPoints];
-		  this.yTriangle = new int[this.nPoints];
+		this.nPoints = 3;
+		this.xTriangle = new int[this.nPoints];
+		this.yTriangle = new int[this.nPoints];
 
-		  this.xTriangle[0] = this.loc.x + this.width / 2;
-		  this.yTriangle[0] = this.loc.y;
-		  this.xTriangle[1] = this.loc.x;
-		  this.yTriangle[1] = this.loc.y + this.height;
-		  this.xTriangle[2] = this.loc.x + this.width;
-		  this.yTriangle[2] = this.loc.x + this.width;
+		this.xTriangle[0] = this.loc.x + this.width / 2;
+		this.yTriangle[0] = this.loc.y;
+		this.xTriangle[1] = this.loc.x;
+		this.yTriangle[1] = this.loc.y + this.height;
+		this.xTriangle[2] = this.loc.x + this.width;
+		this.yTriangle[2] = this.loc.y + this.height;
 
-		  this.triangle = new Polygon(this.xTriangle, this.yTriangle, this.nPoints);
+		this.triangle = new Polygon(this.xTriangle, this.yTriangle, this.nPoints);
 		}
 
 	@Override
