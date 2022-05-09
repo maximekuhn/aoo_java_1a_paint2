@@ -93,7 +93,8 @@ public class SelectionController extends Controller {
 
 	public void mouseMoved(MouseEvent e) {
 		this.cursorPos.setLocation(e.getPoint());
-		if(this.actionMode.equals(SelectionActions.RESIZE) && !this.handlerSelected) doChangeCursor();
+		if(this.actionMode.equals(SelectionActions.SELECT)) this.doTextCursor();
+		else if(this.actionMode.equals(SelectionActions.RESIZE) && !this.handlerSelected) this.doResizeCursor();
 	}
 	
 	@Override
@@ -375,7 +376,7 @@ public class SelectionController extends Controller {
 		}
 	}
 
-	private void doChangeCursor() {
+	private void doResizeCursor() {
 		SCollection model = (SCollection) this.getModel();
 		Iterator<Shape> it = model.iterator();
 		while(it.hasNext()) {
@@ -383,16 +384,21 @@ public class SelectionController extends Controller {
 			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
 			if(sa.isSelected()) {
 				int hand = this.isHandlerSelected(s);
-				if (hand == 1) {
+				if (hand == 1) 
 					this.getView().setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
-				} else if (hand == 2) {
+				else if (hand == 2) 
 					this.getView().setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
-				} 
-				else {
+				else 
 					this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				}
 			}
 		}
+	}
+
+	private void doTextCursor() {
+		Shape s = this.getTarget();
+		if(s != null) 
+			if(s.getClass().getName() == "graphics.shapes.STextBox") this.getView().setCursor(new Cursor(Cursor.TEXT_CURSOR));
+		else this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 
 	private void unselectAll() {
