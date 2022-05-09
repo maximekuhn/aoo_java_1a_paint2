@@ -131,8 +131,17 @@ public class SelectionController extends Controller {
 				STextBox tb = (STextBox) s;
 				StringBuilder str = new StringBuilder();
 				str.append(tb.getText());
-				if ((int)e.getKeyChar() == 8) str.deleteCharAt(str.length()-1); 
-				else str.append(e.getKeyChar());
+				if ((int)e.getKeyChar() == 8)  {// backspace key
+					if (str.length() > 0) str.deleteCharAt(str.length()-1); 
+				}
+				else if ((int)e.getKeyChar() == 10) { // newline key
+					str.append(e.getKeyChar());
+					str.append(' ');
+				}
+				else {  // other key
+					if (str.toString().endsWith("\n ")) str.deleteCharAt(str.length()-1);
+					str.append(e.getKeyChar());
+				}
 				tb.setText(str.toString());
 			}
 		}

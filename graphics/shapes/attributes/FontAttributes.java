@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
 import java.awt.image.BufferedImage;
 
 public class FontAttributes extends Attributes {
@@ -65,7 +66,27 @@ public class FontAttributes extends Attributes {
 	
 	public Rectangle getBounds(String s) {
 		FontRenderContext frc = DEFAULT_GRAPHICS.getFontRenderContext();
-		return font.getStringBounds(s, frc).getBounds();
+		if (s.length() == 0) return font.getStringBounds("i", frc).getBounds();
+		else return font.getStringBounds(s, frc).getBounds();
+	}
+
+	public Rectangle getBoundsLines(String[] s) {
+		FontRenderContext frc = DEFAULT_GRAPHICS.getFontRenderContext();
+		int width = 0;
+		int height = 0;
+		for (String str : s) {
+			if (str.length() == 0) {
+				Rectangle sb = font.getStringBounds("i", frc).getBounds();
+				if (sb.getBounds().width > width) width = sb.getBounds().width;
+				height += sb.getBounds().height;
+			}
+			else {
+				Rectangle sb = font.getStringBounds(str, frc).getBounds();
+				if (sb.getBounds().width > width) width = sb.getBounds().width;
+				height += sb.getBounds().height;
+			}
+		}
+		return new Rectangle(0, 0, width, height);
 	}
 
 }

@@ -2,6 +2,7 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.LinkedList;
 import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
@@ -12,20 +13,20 @@ import graphics.shapes.attributes.SelectionAttributes;
 
 public class STextBox extends Shape {
 
-	private String text;
+	private String[] text;
 	private Rectangle rect;
 
 	public STextBox(Point loc, String text) {
-		this.text = text;
+		this.text = text.split("\\R");
 		this.rect = new Rectangle(loc.x, loc.y, minBounds().width, minBounds().height);
 	}
 
 	public String getText() {
-		return this.text;
+		return String.join(System.lineSeparator(), this.text);
 	}
 	
 	public void setText(String text) {
-		this.text = text;
+		this.text = text.split("\\R");
 		int dx = 0;
 		int dy = 0;
 		if (this.rect.getBounds().width < this.minBounds().width) {
@@ -47,24 +48,26 @@ public class STextBox extends Shape {
 		this.rect.setLocation(p);
 	}
 
-	public Point getTextLoc() {
+	public Point getTextLoc(int line) {
 		FontAttributes fa = (FontAttributes) this.getAttributes(FontAttributes.ID);
 		if(fa == null) fa = new FontAttributes();
 		int x = 0;
 		int y = 0;
+		if (line > this.text.length-1) line = this.text.length-1;
+		String str = this.text[line];
 		if (fa.alignX == 0) {
 			x = this.rect.x + 2;
 		} else if (fa.alignX == 1) {
-			x = this.rect.x + this.rect.width/2 - fa.getBounds(this.text).width/2;
+			x = this.rect.x + this.rect.width/2 - fa.getBounds(str).width/2;
 		} else {
-			x = this.rect.x + this.rect.width - fa.getBounds(this.text).width;
+			x = this.rect.x + this.rect.width - fa.getBounds(str).width;
 		}
 		if (fa.alignY == 0) {
-			y = this.rect.y - fa.getBounds(this.text).height;
+			y = this.rect.y - fa.getBounds(str).height*(line+1);
 		} else if (fa.alignY == 1) {
-			y = this.rect.y + this.rect.height/2 + fa.getBounds(this.text).height/2;
+			y = this.rect.y + this.rect.height/2 - (fa.getBounds(str).height*this.text.length)/2 + fa.getBounds(str).height*(line+1);
 		} else {
-			y = this.rect.y + this.rect.height;
+			y = this.rect.y + this.rect.height - fa.getBounds(str).height*(this.text.length-line-1);
 		}
 		return new Point(x, y);
 	}
@@ -82,8 +85,8 @@ public class STextBox extends Shape {
 	public Rectangle minBounds() {
 		FontAttributes fa = (FontAttributes) this.getAttributes(FontAttributes.ID);
 		if(fa == null) fa = new FontAttributes();
-		int width = fa.getBounds(this.text).width;
-		int height = fa.getBounds(this.text).height;
+		int width = fa.getBoundsLines(this.text).width;
+		int height = fa.getBoundsLines(this.text).height;
 		return new Rectangle(0, 0, width, height);
 	}
 
@@ -94,7 +97,7 @@ public class STextBox extends Shape {
 
 	@Override
 	public Shape copy() {
-		STextBox st = new STextBox(new Point(this.getLoc()), this.text);
+		STextBox st = new STextBox(new Point(this.getLoc()), String.join(System.lineSeparator(), this.text));
 		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = new ColorAttributes();
 		st.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
@@ -117,8 +120,8 @@ public class STextBox extends Shape {
 	public void resize(int dx, int dy) {
 		FontAttributes fa = (FontAttributes) this.getAttributes(FontAttributes.ID);
 		if(fa == null) fa = new FontAttributes();
-		int width = fa.getBounds(this.text).width;
-		int height = fa.getBounds(this.text).height;
+		int width = fa.getBoundsLines(this.text).width;
+		int height = fa.getBoundsLines(this.text).height;
 		if ((int)this.rect.getWidth()+dx < width) {
 			dx = 0;
 		}
