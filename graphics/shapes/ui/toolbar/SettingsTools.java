@@ -1,14 +1,18 @@
 package graphics.shapes.ui.toolbar;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.ui.MainController;
 import graphics.shapes.ui.SettingsController;
 import graphics.shapes.ui.ShapesView;
@@ -37,9 +41,24 @@ public class SettingsTools extends ToolContainer implements ActionListener {
 	protected void buildButtons() {
 		this.paintBucketButton = new JButton(imageSize("src/pictures/paintbucket.png"));
 		
-		this.chooseColorButton = new JButton(imageSize("src/pictures/chromatic.png"));
+		this.chooseColorButton = new JButton();
+		this.setChooseColorButtonIcon(new ColorAttributes().filledColor);
 		
 		this.shapesSettingsButton = new JButton(imageSize("src/pictures/settings.png"));
+	}
+	
+	public void setChooseColorButtonIcon(Color color) {
+		int width = this.paintBucketButton.getIcon().getIconWidth();
+		int height = this.paintBucketButton.getIcon().getIconHeight();
+		BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		
+		for(int x = 0; x < bi.getWidth(); x++) {
+			for(int y = 0; y < bi.getHeight(); y++) {
+				bi.setRGB(x, y, color.getRGB());
+			}
+		}
+		
+		this.chooseColorButton.setIcon((new ImageIcon(bi)));	
 	}
 	
 	@Override
@@ -80,6 +99,7 @@ public class SettingsTools extends ToolContainer implements ActionListener {
 		this.controller.setActionMode(SettingsActions.CHOOSECOLOR);
 		this.controller.chooseColor();
 		
+		this.setChooseColorButtonIcon(this.controller.getColor());
 		this.doPaint();
 	}
 

@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 
-import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -28,13 +27,12 @@ public class SettingsController extends Controller implements ActionListener {
 	private SettingsActions actionMode = SettingsActions.PAINT;
 	
 	private JColorChooser colorChooser;
-
-	
 	private Color color;
 
 	public SettingsController(Object newModel) {
 		super(newModel);
 		this.lastClick = new Point();
+		this.color = new ColorAttributes().filledColor;
 	}
 	
 	public void setActionMode(SettingsActions action) {
@@ -118,7 +116,7 @@ public class SettingsController extends Controller implements ActionListener {
 	    d.setVisible(true);
 	}
 	
-	public Color getColorChooser() {
+	public Color getColor() {
 		return this.color;
 	}
 	
