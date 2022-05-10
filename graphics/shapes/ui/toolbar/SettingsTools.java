@@ -86,7 +86,7 @@ public class SettingsTools extends ToolContainer implements ActionListener {
 		this.tb.highlightButton(this.paintBucketButton);
 		this.controller.setActionMode(SettingsActions.PAINT);
 		
-		Image cursorImage = cursorSize("src/pictures/paintbucket.png");
+		Image cursorImage = cursorSize("src/pictures/cursors/paintbucket_cursor.png");
 		if(cursorImage != null) {
 			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
 			this.getView().setCursor(customCursor);
@@ -107,7 +107,7 @@ public class SettingsTools extends ToolContainer implements ActionListener {
 		this.tb.highlightButton(this.shapesSettingsButton);
 		this.controller.setActionMode(SettingsActions.SETTINGS);
 		
-		Image cursorImage = cursorSize("src/pictures/settings.png");
+		Image cursorImage = cursorSize("src/pictures/cursors/settings_cursor.png");
 		if(cursorImage != null) {
 			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
 			this.getView().setCursor(customCursor);
