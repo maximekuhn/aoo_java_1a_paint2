@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -42,6 +43,8 @@ public class ShapePopUpman implements ShapeVisitor {
     private JTextArea tText;
     private JTextField tx;
     private JTextField ty;
+    
+    private JScrollPane scrolltxt;
     
     private JButton bSave;
     private JButton bExit;
@@ -143,7 +146,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		
 		this.tText.setText(String.valueOf(st.getText()));
 		this.popUp.getContentPane().add(this.lText);
-		this.popUp.getContentPane().add(this.tText);
+		this.popUp.getContentPane().add(this.scrolltxt);
 		
 		this.lx.setBounds(280, 40, 20, 20);
 		this.tx.setBounds(300, 42, 60, 20);
@@ -304,7 +307,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		
 		this.tText.setText(String.valueOf(stb.getText()));
 		this.popUp.getContentPane().add(this.lText);
-		this.popUp.getContentPane().add(this.tText);
+		this.popUp.getContentPane().add(this.scrolltxt);
 		
 		this.lx.setBounds(280, 40, 20, 20);
 		this.tx.setBounds(300, 42, 60, 20);
@@ -364,7 +367,9 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.lText = new JLabel("Text :");
 		this.lText.setBounds(10, 40, 60, 20);
 		this.tText = new JTextArea();
-		this.tText.setBounds(61, 42, 200, 100);
+		
+		this.scrolltxt = new JScrollPane(this.tText);
+		this.scrolltxt.setBounds(61, 42, 200, 100);
         
 		this.lx = new JLabel("x :");
 		this.lx.setBounds(140, 40, 20, 20);
