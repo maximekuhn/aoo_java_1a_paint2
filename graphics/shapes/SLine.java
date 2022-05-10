@@ -78,20 +78,20 @@ public class SLine extends Shape {
 
 	@Override
 	public Shape copy() {
-			STriangle tr = new STriangle(new Point(this.getLoc()), this.getBounds().width, this.getBounds().height);
+			SLine ln = new SLine(new Point(this.getLoc()), this.getBounds().width, this.getBounds().height);
 			ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
 			if(ca == null) ca = new ColorAttributes();
-			tr.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
+			ln.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
 			SelectionAttributes sa = (SelectionAttributes) this.getAttributes(SelectionAttributes.ID);
 			if(sa == null) sa = new SelectionAttributes();
-			tr.addAttributes(new SelectionAttributes(sa.isSelected()));
+			ln.addAttributes(new SelectionAttributes(sa.isSelected()));
 			RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
 			if(ra == null) ra = new RotationAttributes();
-			tr.addAttributes(new RotationAttributes(ra.getAngle()));
+			ln.addAttributes(new RotationAttributes(ra.getAngle()));
 			LayerAttributes la = (LayerAttributes) this.getAttributes(LayerAttributes.ID);
 			if(la == null) la = new LayerAttributes();
-			tr.addAttributes(new LayerAttributes(la.getLayer()));
-			return tr;
+			ln.addAttributes(new LayerAttributes(la.getLayer()));
+			return ln;
 	}
 
 	@Override
