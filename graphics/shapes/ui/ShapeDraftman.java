@@ -170,7 +170,7 @@ public class ShapeDraftman implements ShapeVisitor {
 		if(fa == null) fa = DEFAULTFONTATTRIBUTES;
 		this.g2D.setFont(fa.font);
 		this.g2D.setColor(fa.fontColor);
-		String[] lstr = stb.getText().split("\\R");
+		String[] lstr = stb.getText().split("\\R", -1);
 		for (int i = 0; i < lstr.length; i++) {
 			this.g2D.drawString(lstr[i], stb.getTextLoc(i).x, stb.getTextLoc(i).y);
 		}

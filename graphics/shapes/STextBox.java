@@ -2,7 +2,6 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.LinkedList;
 import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
@@ -17,7 +16,7 @@ public class STextBox extends Shape {
 	private Rectangle rect;
 
 	public STextBox(Point loc, String text) {
-		this.text = text.split("\\R");
+		this.text = text.split("\\R", -1);
 		this.rect = new Rectangle(loc.x, loc.y, minBounds().width, minBounds().height);
 	}
 
@@ -26,7 +25,7 @@ public class STextBox extends Shape {
 	}
 	
 	public void setText(String text) {
-		this.text = text.split("\\R");
+		this.text = text.split("\\R", -1);
 		int dx = 0;
 		int dy = 0;
 		if (this.rect.getBounds().width < this.minBounds().width) {
@@ -53,6 +52,7 @@ public class STextBox extends Shape {
 		if(fa == null) fa = new FontAttributes();
 		int x = 0;
 		int y = 0;
+		//if (this.text.isEmpty) this.text[0] = "";
 		if (line > this.text.length-1) line = this.text.length-1;
 		String str = this.text[line];
 		if (fa.alignX == 0) {

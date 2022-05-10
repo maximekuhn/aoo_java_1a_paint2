@@ -136,7 +136,7 @@ public class SelectionController extends Controller {
 				}
 				else if ((int)e.getKeyChar() == 10) { // newline key
 					str.append(e.getKeyChar());
-					str.append(' ');
+					//str.append(' ');
 				}
 				else {  // other key
 					if (str.toString().endsWith("\n ")) str.deleteCharAt(str.length()-1);
