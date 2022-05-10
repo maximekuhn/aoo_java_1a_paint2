@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
+import graphics.shapes.SCross;
 import graphics.shapes.SHexagon;
 import graphics.shapes.SImage;
 import graphics.shapes.SKotlin;
@@ -22,6 +23,7 @@ import graphics.shapes.SSketch;
 import graphics.shapes.SText;
 import graphics.shapes.STextBox;
 import graphics.shapes.STriangle;
+import graphics.shapes.STriangleRec;
 import graphics.shapes.ShapeVisitor;
 
 public class ShapePopUpman implements ShapeVisitor {
@@ -422,6 +424,18 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitSHexagon(SHexagon sh) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitSTriangleRec(STriangleRec strec) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitSCross(SCross scr) {
 		// TODO Auto-generated method stub
 		
 	}

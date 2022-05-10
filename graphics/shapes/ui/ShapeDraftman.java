@@ -11,6 +11,7 @@ import java.util.LinkedList;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
+import graphics.shapes.SCross;
 import graphics.shapes.SHexagon;
 import graphics.shapes.SImage;
 import graphics.shapes.SKotlin;
@@ -20,6 +21,7 @@ import graphics.shapes.SSketch;
 import graphics.shapes.SText;
 import graphics.shapes.STextBox;
 import graphics.shapes.STriangle;
+import graphics.shapes.STriangleRec;
 import graphics.shapes.Shape;
 import graphics.shapes.ShapeVisitor;
 import graphics.shapes.attributes.ColorAttributes;
@@ -390,6 +392,66 @@ public class ShapeDraftman implements ShapeVisitor {
 		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
 		if(sa.isSelected()) {
 			Rectangle bounds = sh.getBounds();
+			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
+			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+		}
+		
+		this.g2D.setTransform(old);
+}
+	
+	@Override
+	   public void visitSTriangleRec(STriangleRec strec){
+		RotationAttributes ra = (RotationAttributes) strec.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), strec.getBounds().x + strec.getBounds().width / 2, strec.getBounds().y + strec.getBounds().height / 2);
+		
+		ColorAttributes ca = (ColorAttributes) strec.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
+		if(ca.filled) {
+			this.g2D.setColor(ca.filledColor);
+			this.g2D.fillPolygon(strec.getPolygon());
+		}
+		if(ca.stroked) {
+			this.g2D.setColor(ca.strokedColor);
+			this.g2D.drawPolygon(strec.getPolygon());
+		}
+		
+		SelectionAttributes sa = (SelectionAttributes) strec.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
+		if(sa.isSelected()) {
+			Rectangle bounds = strec.getBounds();
+			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
+			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+		}
+		
+		this.g2D.setTransform(old);
+}
+	
+	@Override
+	   public void visitSCross(SCross scr){
+		RotationAttributes ra = (RotationAttributes) scr.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), scr.getBounds().x + scr.getBounds().width / 2, scr.getBounds().y + scr.getBounds().height / 2);
+		
+		ColorAttributes ca = (ColorAttributes) scr.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
+		if(ca.filled) {
+			this.g2D.setColor(ca.filledColor);
+			this.g2D.fillPolygon(scr.getPolygon());
+		}
+		if(ca.stroked) {
+			this.g2D.setColor(ca.strokedColor);
+			this.g2D.drawPolygon(scr.getPolygon());
+		}
+		
+		SelectionAttributes sa = (SelectionAttributes) scr.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
+		if(sa.isSelected()) {
+			Rectangle bounds = scr.getBounds();
 			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
 			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
 			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);

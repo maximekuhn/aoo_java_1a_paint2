@@ -23,4 +23,8 @@ public interface ShapeVisitor {
 	public void visitSLine(SLine sl);
 
 	public void visitSHexagon(SHexagon sh);
+	
+	public void visitSTriangleRec(STriangleRec strec);
+
+	public void visitSCross(SCross scr);
 }

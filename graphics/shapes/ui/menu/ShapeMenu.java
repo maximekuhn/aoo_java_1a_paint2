@@ -10,12 +10,14 @@ import javax.swing.JMenuItem;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
+import graphics.shapes.SCross;
 import graphics.shapes.SHexagon;
 import graphics.shapes.SKotlin;
 import graphics.shapes.SLine;
 import graphics.shapes.SRectangle;
 import graphics.shapes.STextBox;
 import graphics.shapes.STriangle;
+import graphics.shapes.STriangleRec;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
@@ -31,6 +33,8 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private static final String STRIANGLE = "Triangle";
 	private static final String SLINE = "Line";
 	private static final String SHEXAGON = "Hexagon";
+	private static final String STRIANGLEREC = "TriangleRec";
+	private static final String SCROSS = "Cross";
 	
 	private ShapesView sview;
 	
@@ -41,6 +45,8 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private JMenuItem striangle;
 	private JMenuItem sline;
 	private JMenuItem shexagon;
+	private JMenuItem strianglerec;
+	private JMenuItem scross;
 	
 	public ShapeMenu(ShapesView sview) {
 		super(SHAPE);
@@ -56,6 +62,8 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.striangle = new JMenuItem(STRIANGLE);
 		this.sline = new JMenuItem(SLINE);
 		this.shexagon = new JMenuItem(SHEXAGON);
+		this.strianglerec = new JMenuItem(STRIANGLEREC);
+		this.scross = new JMenuItem(SCROSS);
 		
 		// icons
 		this.scircle.setIcon(MenuBar.iconSize("src/pictures/circle.png"));
@@ -65,6 +73,8 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.striangle.setIcon(MenuBar.iconSize("src/pictures/triangle.png"));
 		this.sline.setIcon(MenuBar.iconSize("src/pictures/line.png"));
 		this.shexagon.setIcon(MenuBar.iconSize("src/pictures/hexagon.png"));
+		this.strianglerec.setIcon(MenuBar.iconSize("src/pictures/trianglerec.png"));
+		this.scross.setIcon(MenuBar.iconSize("src/pictures/cross.png"));
 		
 		this.scircle.addActionListener(this);
 		this.srectangle.addActionListener(this);
@@ -73,6 +83,8 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.striangle.addActionListener(this);
 		this.sline.addActionListener(this);
 		this.shexagon.addActionListener(this);
+		this.strianglerec.addActionListener(this);
+		this.scross.addActionListener(this);
 		
 		this.add(this.scircle);
 		this.add(this.srectangle);
@@ -81,6 +93,8 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.add(this.striangle);
 		this.add(this.sline);
 		this.add(this.shexagon);
+		this.add(this.strianglerec);
+		this.add(this.scross);
 	}
 	
 	@Override
@@ -92,6 +106,8 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		else if(e.getSource().equals(this.striangle)) this.doTriangle();
 		else if(e.getSource().equals(this.sline)) this.doLine();
 		else if(e.getSource().equals(this.shexagon)) this.doHexagon();
+		else if(e.getSource().equals(this.strianglerec)) this.doTriangleRec();
+		else if(e.getSource().equals(this.scross)) this.doCross();
 	}
 
 	private void doCircle() {
@@ -156,5 +172,23 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		model.add(sh);
 		this.sview.repaint();
 	}
+	
+	private void doTriangleRec() {
+		SCollection model = (SCollection) this.sview.getModel();
+		STriangleRec strec = new STriangleRec(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		strec.addAttributes(new SelectionAttributes());
+		strec.addAttributes(new ColorAttributes(true, true, Color.ORANGE, Color.BLACK));
+		model.add(strec);
+		this.sview.repaint();
+	}
 
+	private void doCross() {
+		SCollection model = (SCollection) this.sview.getModel();
+		SCross scr = new SCross(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		scr.addAttributes(new SelectionAttributes());
+		scr.addAttributes(new ColorAttributes(true, true, Color.RED, Color.BLACK));
+		model.add(scr);
+		this.sview.repaint();
+	}
+	
 }
