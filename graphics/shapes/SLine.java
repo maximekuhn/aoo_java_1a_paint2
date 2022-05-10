@@ -108,33 +108,33 @@ public class SLine extends Shape {
 		 * take copy, because copy always have all attributes
 		 * (no need to check)
 		 */
-		STriangle tr = (STriangle) this.copy();
+		SLine ln = (SLine) this.copy();
 		StringJoiner tmp = new StringJoiner(" ", "[ " , " ]");
 		
 		// basic
-		tmp.add(tr.getClass().getName());
-		tmp.add(String.valueOf(tr.getLoc().x));
-		tmp.add(String.valueOf(tr.getLoc().y));
-		tmp.add(String.valueOf(tr.getBounds().width));
-		tmp.add(String.valueOf(tr.getBounds().height));
+		tmp.add(ln.getClass().getName());
+		tmp.add(String.valueOf(ln.getLoc().x));
+		tmp.add(String.valueOf(ln.getLoc().y));
+		tmp.add(String.valueOf(ln.getBounds().width));
+		tmp.add(String.valueOf(ln.getBounds().height));
 		
 		// color attributes
-		ColorAttributes ca = (ColorAttributes) tr.getAttributes(ColorAttributes.ID);
+		ColorAttributes ca = (ColorAttributes) ln.getAttributes(ColorAttributes.ID);
 		tmp.add(String.valueOf(ca.filled));
 		tmp.add(String.valueOf(ca.stroked));
 		tmp.add(String.valueOf(ca.filledColor.getRGB()));
 		tmp.add(String.valueOf(ca.strokedColor.getRGB()));
 		
 		// selection attributes
-		SelectionAttributes sa = (SelectionAttributes) tr.getAttributes(SelectionAttributes.ID);
+		SelectionAttributes sa = (SelectionAttributes) ln.getAttributes(SelectionAttributes.ID);
 		tmp.add(String.valueOf(sa.isSelected()));
 		
 		// rotation attributes
-		RotationAttributes ra = (RotationAttributes) tr.getAttributes(RotationAttributes.ID);
+		RotationAttributes ra = (RotationAttributes) ln.getAttributes(RotationAttributes.ID);
 		tmp.add(String.valueOf(ra.getAngle()));
 		
 		// layer attributes
-		LayerAttributes la = (LayerAttributes) tr.getAttributes(LayerAttributes.ID);
+		LayerAttributes la = (LayerAttributes) ln.getAttributes(LayerAttributes.ID);
 		tmp.add(String.valueOf(la.getLayer()));
 		
 		return tmp.toString();
