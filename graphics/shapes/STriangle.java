@@ -57,9 +57,10 @@ public class STriangle extends Shape{
 		return this.loc;
 	}
 
-    public void translate(int x, int y){
-        triangle.translate(x,y);
-    }
+    public void translate(int dx, int dy) {
+		this.setLoc(new Point(this.loc.x + dx, this.loc.y + dy));
+		this.buildPolygon();
+	}
 
 
 	@Override
