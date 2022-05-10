@@ -151,7 +151,8 @@ public class SelectionController extends Controller {
 	private void doCreateSelectionRectangle(MouseEvent e) {
 		SRectangle selectRect = new SRectangle(e.getPoint(), 0, 0);
 		selectRect.addAttributes(new SelectionAttributes());
-		selectRect.addAttributes(new ColorAttributes(false, true, Color.BLACK, Color.RED));
+		Color selectRectColor = new Color(Color.RED.getRed(), Color.RED.getBlue(), Color.RED.getGreen(), 16); // transparent color
+		selectRect.addAttributes(new ColorAttributes(true, true, selectRectColor, Color.RED));
 		this.selectionRectangle = selectRect;
 		((SCollection) this.getModel()).add(this.selectionRectangle);
 	}
