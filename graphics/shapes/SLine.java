@@ -35,7 +35,7 @@ public class SLine extends Shape {
 		this.xLine[0] = this.loc.x;
 		this.yLine[0] = this.loc.y + height;
 		this.xLine[1] = this.loc.x + width;
-		this.yLine[1] = this.loc.y + height;
+		this.yLine[1] = this.loc.y;
 
 
 		this.line = new Polygon(this.xLine, this.yLine, this.nPoints);

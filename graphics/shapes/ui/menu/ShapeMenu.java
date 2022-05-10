@@ -11,6 +11,7 @@ import javax.swing.JMenuItem;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SKotlin;
+import graphics.shapes.SLine;
 import graphics.shapes.SRectangle;
 import graphics.shapes.STextBox;
 import graphics.shapes.STriangle;
@@ -27,6 +28,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private static final String STEXTBOX = "Text box";
 	private static final String SKOTLIN = "Kotlin logo";
 	private static final String STRIANGLE = "Triangle";
+	private static final String SLINE = "Line";
 	
 	private ShapesView sview;
 	
@@ -35,6 +37,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private JMenuItem stextbox;
 	private JMenuItem skotlin;
 	private JMenuItem striangle;
+	private JMenuItem sline;
 	
 	public ShapeMenu(ShapesView sview) {
 		super(SHAPE);
@@ -48,6 +51,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.stextbox = new JMenuItem(STEXTBOX);
 		this.skotlin = new JMenuItem(SKOTLIN);
 		this.striangle = new JMenuItem(STRIANGLE);
+		this.sline = new JMenuItem(SLINE);
 		
 		// icons
 		this.scircle.setIcon(MenuBar.iconSize("src/pictures/circle.png"));
@@ -55,18 +59,21 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.stextbox.setIcon(MenuBar.iconSize("src/pictures/letter.png"));
 		this.skotlin.setIcon(MenuBar.iconSize("src/pictures/kotlin.png"));
 		this.striangle.setIcon(MenuBar.iconSize("src/pictures/triangle.png"));
+		this.sline.setIcon(MenuBar.iconSize("src/pictures/line.png"));
 		
 		this.scircle.addActionListener(this);
 		this.srectangle.addActionListener(this);
 		this.stextbox.addActionListener(this);
 		this.skotlin.addActionListener(this);
 		this.striangle.addActionListener(this);
+		this.sline.addActionListener(this);
 		
 		this.add(this.scircle);
 		this.add(this.srectangle);
 		this.add(this.stextbox);
 		this.add(this.skotlin);
 		this.add(this.striangle);
+		this.add(this.sline);
 	}
 	
 	@Override
@@ -76,6 +83,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		else if(e.getSource().equals(this.stextbox)) this.doTextBox();
 		else if(e.getSource().equals(this.skotlin)) this.doKotlin();
 		else if(e.getSource().equals(this.striangle)) this.doTriangle();
+		else if(e.getSource().equals(this.sline)) this.doLine();
 	}
 
 	private void doCircle() {
@@ -120,6 +128,15 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		st.addAttributes(new SelectionAttributes());
 		st.addAttributes(new ColorAttributes(true, true, Color.GREEN, Color.BLACK));
 		model.add(st);
+		this.sview.repaint();
+	}
+	
+	private void doLine() {
+		SCollection model = (SCollection) this.sview.getModel();
+		SLine sh = new SLine(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		sh.addAttributes(new SelectionAttributes());
+		sh.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
+		model.add(sh);
 		this.sview.repaint();
 	}
 
