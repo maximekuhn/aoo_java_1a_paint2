@@ -18,5 +18,7 @@ public interface ShapeVisitor {
 	
 	public void visitSKotlin(SKotlin sk);
 
-	void visitSTriangle(STriangle st);
+	public void visitSTriangle(STriangle st);
+
+	public void visitSLine(SLine sl);
 }
