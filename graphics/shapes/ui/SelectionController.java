@@ -1,8 +1,8 @@
 package graphics.shapes.ui;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.awt.Cursor;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -14,7 +14,7 @@ import graphics.shapes.SRectangle;
 import graphics.shapes.STextBox;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
-import graphics.shapes.attributes.FontAttributes;
+import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 import graphics.shapes.ui.toolbar.SelectionActions;
@@ -151,7 +151,9 @@ public class SelectionController extends Controller {
 	private void doCreateSelectionRectangle(MouseEvent e) {
 		SRectangle selectRect = new SRectangle(e.getPoint(), 0, 0);
 		selectRect.addAttributes(new SelectionAttributes());
-		selectRect.addAttributes(new ColorAttributes(false, true, Color.BLACK, Color.RED));
+		Color selectRectColor = new Color(Color.RED.getRed(), Color.RED.getBlue(), Color.RED.getGreen(), 16); // transparent color
+		selectRect.addAttributes(new ColorAttributes(true, true, selectRectColor, Color.RED));
+		selectRect.addAttributes(new LayerAttributes(((SCollection) this.getModel()).getLayerMax()));
 		this.selectionRectangle = selectRect;
 		((SCollection) this.getModel()).add(this.selectionRectangle);
 	}
