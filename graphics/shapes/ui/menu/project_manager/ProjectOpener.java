@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import graphics.shapes.SCircle;
@@ -18,6 +20,7 @@ import graphics.shapes.SRectangle;
 import graphics.shapes.SSketch;
 import graphics.shapes.SText;
 import graphics.shapes.STextBox;
+import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.LayerAttributes;
@@ -28,8 +31,6 @@ import graphics.shapes.ui.ShapesView;
 public class ProjectOpener {
 	
 	// TODO : better errors handling
-	// TODO : empty collection before adding shapes
-	// TODO : use ShapeVisitor interface ???
 
 	private static final String SRECTANGLE = new SRectangle(new Point(0,0), 0, 0).getClass().getName();
 	private static final String SCIRCLE = new SCircle(new Point(0,0), 0).getClass().getName();
@@ -51,6 +52,8 @@ public class ProjectOpener {
 	public void open(File fileToOpen) {
 		// TODO Auto-generated method stub
 		try {
+			this.emptyModel();
+			SCollection model = (SCollection) this.sview.getModel();
 			List<String> lines = Files.readAllLines(fileToOpen.toPath(), StandardCharsets.UTF_8);
 			
 			// TODO : throw error (or pop-up) ?
@@ -61,19 +64,15 @@ public class ProjectOpener {
 			
 			// other lines = all shapes
 			if(lines.size() < 2) return;
+			
+			Shape shape;
 			for(int i = 1; i < lines.size(); i++) {
 				String line = lines.get(i);
-				String className = line.split(" ")[1];
-				
-				if(className.equals(SRECTANGLE)) this.decryptSRectangle(line);
-				else if(className.equals(SCIRCLE)) this.decryptSCircle(line);
-				else if(className.equals(STEXTBOX)) this.decryptSTextBox(line);
-				else if(className.equals(STEXT)) this.decryptSText(line);
-				else if(className.equals(SKOTLIN)) this.decryptSKotlin(line);
-				else if(className.equals(SIMAGE)) this.decryptSImage(line);
-				else if(className.equals(SSKETCH)) this.decryptSSketch(line);
-				else if(className.equals(SCOLLECTION)) this.decryptSCollection(line);
+				shape = this.decode(line);
+				if(shape != null) model.add(shape);
+				this.sview.repaint();
 			}
+			
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
@@ -81,6 +80,35 @@ public class ProjectOpener {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void emptyModel() {
+		SCollection model = (SCollection) this.sview.getModel();
+		Iterator<Shape> iterator = model.iterator();
+		
+		LinkedList<Shape> shapesToRemove = new LinkedList<>();
+		Shape shape;
+		while(iterator.hasNext()) {
+			shape = iterator.next();
+			shapesToRemove.add(shape);
+		}
+		
+		for(Shape s : shapesToRemove) model.remove(s);
+	}
+	
+	private Shape decode(String line) {
+		String className = line.split(" ")[1];
+		Shape shape = null;
+		if(className.equals(SRECTANGLE)) shape = this.decryptSRectangle(line);
+		else if(className.equals(SCIRCLE)) shape = this.decryptSCircle(line);
+		else if(className.equals(STEXTBOX)) shape = this.decryptSTextBox(line);
+		else if(className.equals(STEXT)) shape = this.decryptSText(line);
+		else if(className.equals(SKOTLIN)) shape = this.decryptSKotlin(line);
+		else if(className.equals(SIMAGE)) shape = this.decryptSImage(line);
+		else if(className.equals(SSKETCH)) shape = this.decryptSSketch(line);
+		else if(className.equals(SCOLLECTION)) shape = this.decryptSCollection(line);
+		
+		return shape;
 	}
 
 	private Color decryptColor(String line) {
@@ -105,9 +133,9 @@ public class ProjectOpener {
 		}
 	}
 	
-	private void decryptSRectangle(String line) {
+	private SRectangle decryptSRectangle(String line) {
 		String[] settings = line.split(" ");
-		if(settings.length != 14) return;
+		if(settings.length != 14) return null;
 		
 		// point + width & height
 		int locX = Integer.parseInt(settings[2]);
@@ -140,13 +168,12 @@ public class ProjectOpener {
 		LayerAttributes la = new LayerAttributes(layer);
 		sr.addAttributes(la);
 		
-		this.model.add(sr);
-		this.sview.repaint();
+		return sr;
 	}
 	
-	private void decryptSCircle(String line) {
+	private SCircle decryptSCircle(String line) {
 		String[] settings = line.split(" ");
-		if(settings.length != 13) return;
+		if(settings.length != 13) return null;
 		
 		// point + radius
 		int locX = Integer.parseInt(settings[2]);
@@ -178,18 +205,19 @@ public class ProjectOpener {
 		LayerAttributes la = new LayerAttributes(layer);
 		sc.addAttributes(la);
 		
-		this.model.add(sc);
-		this.sview.repaint();
+		return sc;
 	}
 	
-	private void decryptSTextBox(String line) {
+	private STextBox decryptSTextBox(String line) {
 		String[] settings = line.split(" ");
-		if(settings.length != 15) return;
+		if(settings.length != 15) return null;
 		
 		// point + text
 		int locX = Integer.parseInt(settings[2]);
 		int locY = Integer.parseInt(settings[3]);
 		String text = settings[4];
+		text = text.replace("\\w", " ");
+		text = text.replace("\\n", System.lineSeparator());
 		
 		STextBox stb = new STextBox(new Point(locX, locY), text);
 		
@@ -222,18 +250,18 @@ public class ProjectOpener {
 		FontAttributes fa = new FontAttributes(font, fontColor);
 		stb.addAttributes(fa);
 		
-		this.model.add(stb);
-		this.sview.repaint();
+		return stb;
 	}
 	
-	private void decryptSText(String line) {
+	private SText decryptSText(String line) {
 		String[] settings = line.split(" ");
-		if(settings.length != 15) return;
+		if(settings.length != 15) return null;
 		
 		// point + text
 		int locX = Integer.parseInt(settings[2]);
 		int locY = Integer.parseInt(settings[3]);
 		String text = settings[4];
+		text = text.replace("\\w", " ");
 		
 		SText st = new SText(new Point(locX, locY), text);
 		
@@ -266,13 +294,12 @@ public class ProjectOpener {
 		FontAttributes fa = new FontAttributes(font, fontColor);
 		st.addAttributes(fa);
 		
-		this.model.add(st);
-		this.sview.repaint();
+		return st;
 	}
 	
-	private void decryptSKotlin(String line) {
+	private SKotlin decryptSKotlin(String line) {
 		String[] settings = line.split(" ");
-		if(settings.length != 14) return;
+		if(settings.length != 14) return null;
 		
 		// point + width & height
 		int locX = Integer.parseInt(settings[2]);
@@ -305,29 +332,101 @@ public class ProjectOpener {
 		LayerAttributes la = new LayerAttributes(layer);
 		sk.addAttributes(la);
 		
-		this.model.add(sk);
-		this.sview.repaint();
+		return sk;
 	}
 	
-	private void decryptSCollection(String line) {
+	private SCollection decryptSCollection(String line) {
 		// TODO Auto-generated method stub
 		String[] settings = line.split(" ");
-		
 		// location
 		int locX = Integer.parseInt(settings[2]);
 		int locY = Integer.parseInt(settings[3]);
 		
 		SCollection sc = new SCollection();
-		sc.setLoc(new Point(locX, locY));
+		
+		// color attributes
+		boolean filled = Boolean.parseBoolean(settings[4]);
+		boolean stroked = Boolean.parseBoolean(settings[5]);
+		Color filledColor = this.decryptColor(settings[6]);
+		Color strokedColor = this.decryptColor(settings[7]);
+		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
+		sc.addAttributes(ca);
+		
+		// selection attributes
+		boolean isSelected = Boolean.parseBoolean(settings[8]);
+		SelectionAttributes sa = new SelectionAttributes(isSelected);
+		sc.addAttributes(sa);
+		
+		// rotation attributes
+		int angle = Integer.parseInt(settings[9]);
+		RotationAttributes ra = new RotationAttributes(angle);
+		sc.addAttributes(ra);
+		
+		// layer attributes
+		int layer = Integer.parseInt(settings[10]);
+		LayerAttributes la = new LayerAttributes(layer);
+		sc.addAttributes(la);
+		
+		// other shapes
+		int shapesCount = 0;
+		
+		List<String> shapes = this.getShapesFromSCollection(line);
+		
+		if(shapes != null) {
+			Shape shape;
+			for(String shapeLine : shapes) {
+				shape = this.decode(shapeLine);
+				if(shape != null) {
+					sc.add(shape);
+					shapesCount++;
+				}
+			}
+		}
+		
+		if(shapesCount > 0) {
+			sc.setLoc(new Point(locX, locY));
+			return sc;
+		}
+		
+		return null;
 	}
 
-	private void decryptSSketch(String line) {
-		// TODO Auto-generated method stub
+	private List<String> getShapesFromSCollection(String line) {
+		// TODO : getShapesFromSCollection (Project Opener)
+		LinkedList<String> shapes = new LinkedList<>();
 		
+		int beginIndex = 0;
+		int endIndex = 0;
+		for(int i = 1; i < line.length() - 1; i++) {
+			if(line.charAt(i) == '[') beginIndex = i;
+			else if(line.charAt(i) == ']') endIndex = i;
+			
+			if(endIndex > beginIndex) {
+				String shapeLine = this.getSubString(line, beginIndex, endIndex);
+				shapes.add(shapeLine);
+				beginIndex = endIndex;
+			}
+			
+		}
+		return shapes;
+	}
+	
+	private String getSubString(String line, int beginIndex, int endIndex) {
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i=beginIndex; i <= endIndex; i++) {
+			sb.append(line.charAt(i));
+		}
+		return sb.toString();
 	}
 
-	private void decryptSImage(String line) {
+	private SSketch decryptSSketch(String line) {
 		// TODO Auto-generated method stub
-		
+		return null;
+	}
+
+	private SImage decryptSImage(String line) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
