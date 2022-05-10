@@ -60,7 +60,7 @@ public class Editor extends JFrame
 		}
 		
 		this.lview = new LayersView(this.model);
-		this.lview.setPreferredSize(new Dimension(300,600));
+		this.lview.setPreferredSize(new Dimension(230,600));
 		this.lview.setBackground(new Color(245, 245, 245));
 		this.getContentPane().add(this.lview, BorderLayout.EAST);
 		

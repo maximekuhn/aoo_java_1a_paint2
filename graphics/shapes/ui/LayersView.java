@@ -43,11 +43,15 @@ public class LayersView extends View {
 			bi = new BufferedImage(sv.getWidth(), sv.getHeight(), BufferedImage.TYPE_INT_RGB);
 			sv.paintComponent(bi.createGraphics());
 			
-			g2D.setStroke(new BasicStroke(3));
+			g2D.setColor(new Color(80,80,80));
+			g2D.setStroke(new BasicStroke(2));
 			g2D.drawImage(new ImageIcon(bi).getImage().getScaledInstance(140, 80, Image.SCALE_SMOOTH), 5, i * 90 + 5, null);
 			g2D.drawRect(5, i * 90 + 5, 140, 80);
+			g2D.setColor(new Color(245,245,245));
+			g2D.setStroke(new BasicStroke(2));
 			g2D.drawRect(0, i*90, this.getWidth(), 90);
-			g2D.drawString("Layer " + Integer.toString(i), this.getWidth() - 100, i * 90 + 50);
+			g2D.setColor(new Color(0,0,0));
+			g2D.drawString("Layer " + Integer.toString(i), this.getWidth() - 70, i * 90 + 50);
 		}
 	}
 	
