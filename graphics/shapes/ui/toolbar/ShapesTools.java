@@ -97,7 +97,11 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		this.controller.setShape(sh);
 		this.controller.disallowSketch();
 	
-		
+		Image cursorImage = cursorSize("src/pictures/line.png");
+		if(cursorImage != null) {
+			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
+			this.getView().setCursor(customCursor);
+		}
 	}
 
 	private void doTriangle() {
