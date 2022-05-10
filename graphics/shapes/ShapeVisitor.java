@@ -21,4 +21,6 @@ public interface ShapeVisitor {
 	public void visitSTriangle(STriangle st);
 
 	public void visitSLine(SLine sl);
+
+	public void visitSHexagon(SHexagon sh);
 }
