@@ -34,17 +34,17 @@ public class SHexagon extends Shape {
 		this.xHexagon = new int[this.nPoints];
 		this.yHexagon = new int[this.nPoints];
 
-		this.xHexagon[0] = this.loc.x + this.width / 4;
+		this.xHexagon[0] = this.loc.x + (this.width * 1/5);
 		this.yHexagon[0] = this.loc.y;
-		this.xHexagon[1] = this.loc.x + this.width / 2;
+		this.xHexagon[1] = this.loc.x + (this.width * 4/5);
 		this.yHexagon[1] = this.loc.y;
 		this.xHexagon[2] = this.loc.x + this.width;
 		this.yHexagon[2] = this.loc.y + this.height / 2;
-		this.xHexagon[3] = this.loc.x + this.width / 2;
+		this.xHexagon[3] = this.loc.x + (this.width * 4/5);
 		this.yHexagon[3] = this.loc.y + this.height;
-		this.xHexagon[4] = this.loc.x + this.width / 4;
+		this.xHexagon[4] = this.loc.x + (this.width * 1/5);
 		this.yHexagon[4] = this.loc.y + this.height;
-		this.xHexagon[5] = this.loc.x + this.width;
+		this.xHexagon[5] = this.loc.x;
 		this.yHexagon[5] = this.loc.y + this.height / 2;
 
 		this.hexagon = new Polygon(this.xHexagon, this.yHexagon, this.nPoints);

@@ -10,6 +10,7 @@ import javax.swing.JMenuItem;
 
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
+import graphics.shapes.SHexagon;
 import graphics.shapes.SKotlin;
 import graphics.shapes.SLine;
 import graphics.shapes.SRectangle;
@@ -29,6 +30,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private static final String SKOTLIN = "Kotlin logo";
 	private static final String STRIANGLE = "Triangle";
 	private static final String SLINE = "Line";
+	private static final String SHEXAGON = "Hexagon";
 	
 	private ShapesView sview;
 	
@@ -38,6 +40,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private JMenuItem skotlin;
 	private JMenuItem striangle;
 	private JMenuItem sline;
+	private JMenuItem shexagon;
 	
 	public ShapeMenu(ShapesView sview) {
 		super(SHAPE);
@@ -52,6 +55,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.skotlin = new JMenuItem(SKOTLIN);
 		this.striangle = new JMenuItem(STRIANGLE);
 		this.sline = new JMenuItem(SLINE);
+		this.shexagon = new JMenuItem(SHEXAGON);
 		
 		// icons
 		this.scircle.setIcon(MenuBar.iconSize("src/pictures/circle.png"));
@@ -60,6 +64,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.skotlin.setIcon(MenuBar.iconSize("src/pictures/kotlin.png"));
 		this.striangle.setIcon(MenuBar.iconSize("src/pictures/triangle.png"));
 		this.sline.setIcon(MenuBar.iconSize("src/pictures/line.png"));
+		this.shexagon.setIcon(MenuBar.iconSize("src/pictures/hexagon.png"));
 		
 		this.scircle.addActionListener(this);
 		this.srectangle.addActionListener(this);
@@ -67,6 +72,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.skotlin.addActionListener(this);
 		this.striangle.addActionListener(this);
 		this.sline.addActionListener(this);
+		this.shexagon.addActionListener(this);
 		
 		this.add(this.scircle);
 		this.add(this.srectangle);
@@ -74,6 +80,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.add(this.skotlin);
 		this.add(this.striangle);
 		this.add(this.sline);
+		this.add(this.shexagon);
 	}
 	
 	@Override
@@ -84,6 +91,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		else if(e.getSource().equals(this.skotlin)) this.doKotlin();
 		else if(e.getSource().equals(this.striangle)) this.doTriangle();
 		else if(e.getSource().equals(this.sline)) this.doLine();
+		else if(e.getSource().equals(this.shexagon)) this.doHexagon();
 	}
 
 	private void doCircle() {
@@ -133,9 +141,18 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	
 	private void doLine() {
 		SCollection model = (SCollection) this.sview.getModel();
-		SLine sh = new SLine(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		SLine sl = new SLine(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		sl.addAttributes(new SelectionAttributes());
+		sl.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
+		model.add(sl);
+		this.sview.repaint();
+	}
+	
+	private void doHexagon() {
+		SCollection model = (SCollection) this.sview.getModel();
+		SHexagon sh = new SHexagon(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
 		sh.addAttributes(new SelectionAttributes());
-		sh.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
+		sh.addAttributes(new ColorAttributes(true, true, Color.RED, Color.BLACK));
 		model.add(sh);
 		this.sview.repaint();
 	}
