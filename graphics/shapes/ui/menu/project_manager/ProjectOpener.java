@@ -392,7 +392,6 @@ public class ProjectOpener {
 	}
 
 	private List<String> getShapesFromSCollection(String line) {
-		// TODO : getShapesFromSCollection (Project Opener)
 		LinkedList<String> shapes = new LinkedList<>();
 		
 		int beginIndex = 0;
