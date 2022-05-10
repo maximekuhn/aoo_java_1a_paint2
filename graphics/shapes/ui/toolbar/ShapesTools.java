@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import graphics.shapes.SCircle;
+import graphics.shapes.SCollection;
+import graphics.shapes.SLine;
 import graphics.shapes.SRectangle;
 import graphics.shapes.STextBox;
 import graphics.shapes.STriangle;
@@ -82,6 +84,24 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 		else if(e.getSource().equals(this.letterButton)) this.doAddText();
 		else if(e.getSource().equals(this.pencilButton)) this.doPencil();
 		else if(e.getSource().equals(this.triangleButton)) this.doTriangle();
+		else if(e.getSource().equals(this.lineButton)) this.doLine();
+	}
+
+	private void doLine() {
+		this.tb.highlightButton(this.lineButton);
+		
+		SLine sh = new SLine(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		sh.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
+		sh.addAttributes(new SelectionAttributes(false));
+		
+		this.controller.setShape(sh);
+		this.controller.disallowSketch();
+	
+		Image cursorImage = cursorSize("src/pictures/line.png");
+		if(cursorImage != null) {
+			Cursor customCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImage, new Point(0, 0), "customCursor");
+			this.getView().setCursor(customCursor);
+		}
 	}
 
 	private void doTriangle() {

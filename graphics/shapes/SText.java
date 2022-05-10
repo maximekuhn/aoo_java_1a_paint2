@@ -11,7 +11,7 @@ import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
 public class SText extends Shape {
-
+	
 	private String text;
 	private Point loc;
 	
@@ -97,7 +97,11 @@ public class SText extends Shape {
 		tmp.add(st.getClass().getName());
 		tmp.add(String.valueOf(st.getLoc().x));
 		tmp.add(String.valueOf(st.getLoc().y));
-		tmp.add(st.getText());
+		
+		// replace blank with \\w
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.text.replace(" ", "\\w"));
+		tmp.add(sb.toString());
 		
 		// color attributes
 		ColorAttributes ca = (ColorAttributes) st.getAttributes(ColorAttributes.ID);

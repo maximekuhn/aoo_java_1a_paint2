@@ -144,7 +144,16 @@ public class STextBox extends Shape {
 		tmp.add(st.getClass().getName());
 		tmp.add(String.valueOf(st.getLoc().x));
 		tmp.add(String.valueOf(st.getLoc().y));
-		tmp.add(st.getText());
+		
+		// text in one line (with separator)
+		// replace new line with \n and blank with \w
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < this.text.length; i++) {
+			sb.append(this.text[i].replace(" ", "\\w"));
+			if(i != this.text.length - 1)
+				sb.append("\\n");
+		}
+		tmp.add(sb.toString());
 		
 		// color attributes
 		ColorAttributes ca = (ColorAttributes) st.getAttributes(ColorAttributes.ID);
