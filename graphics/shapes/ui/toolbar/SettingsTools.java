@@ -40,11 +40,14 @@ public class SettingsTools extends ToolContainer implements ActionListener {
 	@Override
 	protected void buildButtons() {
 		this.paintBucketButton = new JButton(imageSize("src/pictures/paintbucket.png"));
+		this.paintBucketButton.setToolTipText("Left click to fill / Right click for strokes");
 		
 		this.chooseColorButton = new JButton();
+		this.chooseColorButton.setToolTipText("Choose color");
 		this.setChooseColorButtonIcon(new ColorAttributes().filledColor);
 		
 		this.shapesSettingsButton = new JButton(imageSize("src/pictures/settings.png"));
+		this.shapesSettingsButton.setToolTipText("Click on a shape for more settings");
 	}
 	
 	public void setChooseColorButtonIcon(Color color) {
