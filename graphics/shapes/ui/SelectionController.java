@@ -159,6 +159,7 @@ public class SelectionController extends Controller {
 	}
 	
 	private void doDraggingSelection(MouseEvent evt) {
+		if(this.selectionRectangle == null) return;
 		Rectangle bounds = new Rectangle(
 				this.selectionRectangle.getLoc().x,
 				this.selectionRectangle.getLoc().y,
