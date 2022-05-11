@@ -63,7 +63,7 @@ public class STextBox extends Shape {
 			x = this.rect.x + this.rect.width - fa.getBounds(str).width;
 		}
 		if (fa.alignY == 0) {
-			y = this.rect.y - fa.getBounds(str).height*(line+1);
+			y = this.rect.y + fa.getBounds(str).height*(line+1);
 		} else if (fa.alignY == 1) {
 			y = this.rect.y + this.rect.height/2 - (fa.getBounds(str).height*this.text.length)/2 + fa.getBounds(str).height*(line+1);
 		} else {
