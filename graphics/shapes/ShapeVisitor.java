@@ -29,4 +29,8 @@ public interface ShapeVisitor {
 	public void visitSCross(SCross scr);
 
 	public void visitEllipse(SEllipse se);
+
+	public void visitSPentagon(SPentagon spt);
+
+	public void visitSArrow(SArrow sar);
 }

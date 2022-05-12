@@ -8,12 +8,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import graphics.shapes.SArrow;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SCross;
+import graphics.shapes.SEllipse;
 import graphics.shapes.SHexagon;
 import graphics.shapes.SKotlin;
 import graphics.shapes.SLine;
+import graphics.shapes.SPentagon;
 import graphics.shapes.SRectangle;
 import graphics.shapes.STextBox;
 import graphics.shapes.STriangle;
@@ -35,6 +38,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private static final String SHEXAGON = "Hexagon";
 	private static final String STRIANGLEREC = "TriangleRec";
 	private static final String SCROSS = "Cross";
+	private static final String SELLIPSE = "Ellipse";
+	private static final String SPENTAGON = "Pentagon";
+	private static final String SARROW = "Arrow";
 	
 	private ShapesView sview;
 	
@@ -47,6 +53,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private JMenuItem shexagon;
 	private JMenuItem strianglerec;
 	private JMenuItem scross;
+	private JMenuItem sellipse;
+	private JMenuItem spentagon;
+	private JMenuItem sarrow;
 	
 	public ShapeMenu(ShapesView sview) {
 		super(SHAPE);
@@ -64,6 +73,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.shexagon = new JMenuItem(SHEXAGON);
 		this.strianglerec = new JMenuItem(STRIANGLEREC);
 		this.scross = new JMenuItem(SCROSS);
+		this.sellipse = new JMenuItem(SELLIPSE);
+		this.spentagon = new JMenuItem(SPENTAGON);
+		this.sarrow = new JMenuItem(SARROW);
 		
 		// icons
 		this.scircle.setIcon(MenuBar.iconSize("src/pictures/circle.png"));
@@ -75,6 +87,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.shexagon.setIcon(MenuBar.iconSize("src/pictures/hexagon.png"));
 		this.strianglerec.setIcon(MenuBar.iconSize("src/pictures/trianglerec.png"));
 		this.scross.setIcon(MenuBar.iconSize("src/pictures/cross.png"));
+		this.sellipse.setIcon(MenuBar.iconSize("src/pictures/ellipse.png"));
+		this.spentagon.setIcon(MenuBar.iconSize("src/pictures/pentagon.png"));
+		this.sarrow.setIcon(MenuBar.iconSize("src/pictures/arrow.png"));
 		
 		this.scircle.addActionListener(this);
 		this.srectangle.addActionListener(this);
@@ -85,6 +100,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.shexagon.addActionListener(this);
 		this.strianglerec.addActionListener(this);
 		this.scross.addActionListener(this);
+		this.sellipse.addActionListener(this);
+		this.spentagon.addActionListener(this);
+		this.sarrow.addActionListener(this);
 		
 		this.add(this.scircle);
 		this.add(this.srectangle);
@@ -95,6 +113,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.add(this.shexagon);
 		this.add(this.strianglerec);
 		this.add(this.scross);
+		this.add(this.sellipse);
+		this.add(this.spentagon);
+		this.add(this.sarrow);
 	}
 	
 	@Override
@@ -108,6 +129,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		else if(e.getSource().equals(this.shexagon)) this.doHexagon();
 		else if(e.getSource().equals(this.strianglerec)) this.doTriangleRec();
 		else if(e.getSource().equals(this.scross)) this.doCross();
+		else if(e.getSource().equals(this.sellipse)) this.doEllipse();
+		else if(e.getSource().equals(this.spentagon)) this.doPentagon();
+		else if(e.getSource().equals(this.sarrow)) this.doArrow();
 	}
 
 	private void doCircle() {
@@ -191,4 +215,31 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.sview.repaint();
 	}
 	
+	private void doEllipse() {
+		SCollection model = (SCollection) this.sview.getModel();
+		SEllipse se = new SEllipse(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		se.addAttributes(new SelectionAttributes());
+		se.addAttributes(new ColorAttributes(true, true, Color.MAGENTA, Color.BLACK));
+		model.add(se);
+		this.sview.repaint();
+	}
+	
+	
+	private void doPentagon() {
+		SCollection model = (SCollection) this.sview.getModel();
+		SPentagon spt = new SPentagon(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		spt.addAttributes(new SelectionAttributes());
+		spt.addAttributes(new ColorAttributes(true, true, Color.DARK_GRAY, Color.BLACK));
+		model.add(spt);
+		this.sview.repaint();
+	}
+	
+	private void doArrow() {
+		SCollection model = (SCollection) this.sview.getModel();
+		SArrow sar = new SArrow(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		sar.addAttributes(new SelectionAttributes());
+		sar.addAttributes(new ColorAttributes(true, true, Color.CYAN, Color.BLACK));
+		model.add(sar);
+		this.sview.repaint();
+	}
 }

@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import graphics.shapes.SArrow;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SCross;
@@ -19,6 +20,7 @@ import graphics.shapes.SHexagon;
 import graphics.shapes.SImage;
 import graphics.shapes.SKotlin;
 import graphics.shapes.SLine;
+import graphics.shapes.SPentagon;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SSketch;
 import graphics.shapes.SText;
@@ -443,6 +445,18 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitEllipse(SEllipse se) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitSPentagon(SPentagon spt) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitSArrow(SArrow sar) {
 		// TODO Auto-generated method stub
 		
 	}
