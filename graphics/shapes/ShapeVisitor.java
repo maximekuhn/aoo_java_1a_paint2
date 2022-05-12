@@ -27,4 +27,6 @@ public interface ShapeVisitor {
 	public void visitSTriangleRec(STriangleRec strec);
 
 	public void visitSCross(SCross scr);
+
+	public void visitEllipse(SEllipse se);
 }

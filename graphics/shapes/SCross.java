@@ -27,27 +27,50 @@ public class SCross extends Shape{
 		this.loc = loc;
 		this.width = width;
 		this.height = height;
-		this.nPoints = 6;
+		this.nPoints = 12;
 		this.buildPolygon();
 	}
 	
 	private void buildPolygon() {
-		this.nPoints = 6;
+		this.nPoints = 12;
 		this.xCross = new int[this.nPoints];
 		this.yCross = new int[this.nPoints];
 
-        this.xCross[0] = this.loc.x + this.width / 4;
-        this.yCross[0] = this.loc.y;
-        this.xCross[1] = this.loc.x + this.width / 2;
+        this.xCross[0] = this.loc.x;
+        this.yCross[0] = this.loc.y + this.height * 1/8;
+        
+        this.xCross[1] = this.loc.x + this.width * 1/5;
         this.yCross[1] = this.loc.y;
-        this.xCross[2] = this.loc.x + this.width;
-        this.yCross[2] = this.loc.y + this.height / 2;
-        this.xCross[3] = this.loc.x + this.width / 2;
-        this.yCross[3] = this.loc.y + this.height;
-        this.xCross[4] = this.loc.x + this.width / 4;
-        this.yCross[4] = this.loc.y + this.height;
-        this.xCross[5] = this.loc.x + this.width;
+        
+        this.xCross[2] = this.loc.x + this.width / 2;
+        this.yCross[2] = this.loc.y + this.height * 3/8;
+        
+        this.xCross[3] = this.loc.x + this.width * 4/5;
+        this.yCross[3] = this.loc.y;
+        
+        this.xCross[4] = this.loc.x + this.width;
+        this.yCross[4] = this.loc.y + this.height * 1/8;
+        
+        this.xCross[5] = this.loc.x + this.width * 5/8;
         this.yCross[5] = this.loc.y + this.height / 2;
+      
+        this.xCross[6] = this.loc.x + this.width;
+        this.yCross[6] = this.loc.y + this.height * 7/8;
+        
+        this.xCross[7] = this.loc.x + this.width * 7/8;
+        this.yCross[7] = this.loc.y + this.height;
+        
+        this.xCross[8] = this.loc.x + this.width / 2;
+        this.yCross[8] = this.loc.y + this.height * 5/8;
+        
+        this.xCross[9] = this.loc.x + this.width * 1/5;
+        this.yCross[9] = this.loc.y + this.height;
+        
+        this.xCross[10] = this.loc.x;
+        this.yCross[10] = this.loc.y + this.height * 7/8;
+        
+        this.xCross[11] = this.loc.x + this.width * 3/8 ;
+        this.yCross[11] = this.loc.y + this.height / 2;
 
 		this.cross = new Polygon(this.xCross, this.yCross, this.nPoints);
 		}
