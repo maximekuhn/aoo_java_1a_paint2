@@ -15,8 +15,6 @@ public class ShapesToolController extends Controller {
 	private Shape shapeToAdd;
 	private SSketch sketch;
 	private boolean sketchForbidden;
-	private long clicPressedTime;
-	private long clicReleasedTime;
 	
 	public ShapesToolController(Object newModel) {
 		super(newModel);
@@ -60,8 +58,6 @@ public class ShapesToolController extends Controller {
 			this.sketch = null;
 			this.getView().repaint();
 		}
-		this.clicReleasedTime = System.currentTimeMillis();
-		if (clicReleasedTime - clicPressedTime < 100) this.mouseClicked(e);
 	}
 	
 	@Override
@@ -73,7 +69,6 @@ public class ShapesToolController extends Controller {
 			this.sketch = sketch;
 			((SCollection) this.getModel()).add(this.sketch);
 		}
-		this.clicPressedTime = System.currentTimeMillis();
 	}
 
 }

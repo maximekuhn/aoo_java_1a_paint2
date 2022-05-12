@@ -26,8 +26,6 @@ public class SettingsController extends Controller implements ActionListener {
 	private SettingsActions actionMode = SettingsActions.PAINT;
 	private JColorChooser colorChooser;
 	private Color color;
-	private long clicPressedTime;
-	private long clicReleasedTime;
 
 	public SettingsController(Object newModel) {
 		super(newModel);
@@ -51,17 +49,6 @@ public class SettingsController extends Controller implements ActionListener {
 		if (this.actionMode.equals(SettingsActions.SETTINGS)) this.doSettings();
 		else if(this.actionMode.equals(SettingsActions.PAINT)) this.doPaint(e);
 		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		this.clicPressedTime = System.currentTimeMillis();
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		this.clicReleasedTime = System.currentTimeMillis();
-		if (clicReleasedTime - clicPressedTime < 100) this.mouseClicked(e);
 	}
 
 	private void doPaint(MouseEvent e) {

@@ -29,8 +29,6 @@ public class SelectionController extends Controller {
 	private boolean shiftDown;
 	private boolean handlerSelected;
 	private int handler;
-	private long clicPressedTime;
-	private long clicReleasedTime;
 
 	private static final int HANDLER_HITBOX = 16;
 	private static final int MIN_SHAPE_SIZE = 10;
@@ -70,7 +68,6 @@ public class SelectionController extends Controller {
 	public void mousePressed(MouseEvent e)
 	{
 		this.lastClick.setLocation(e.getPoint());
-		this.clicPressedTime = System.currentTimeMillis();
 		
 		if(this.actionMode.equals(SelectionActions.SELECT)) this.doCreateSelectionRectangle(e);
 	}
@@ -93,9 +90,6 @@ public class SelectionController extends Controller {
 			this.getView().repaint();
 		}
 		this.handlerSelected = false;
-		this.clicReleasedTime = System.currentTimeMillis();
-		if (clicReleasedTime - clicPressedTime < 100)
-			if(this.actionMode.equals(SelectionActions.SELECT) || this.actionMode.equals(SelectionActions.ERASE)) this.mouseClicked(e);
 	}
 
 	public void mouseMoved(MouseEvent e) {
