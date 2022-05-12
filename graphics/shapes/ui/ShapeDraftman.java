@@ -477,11 +477,11 @@ public class ShapeDraftman implements ShapeVisitor {
 		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
 		if(ca.filled) {
 			this.g2D.setColor(ca.filledColor);
-			this.g2D.fill(r);
+			this.g2D.fillOval(r.x, r.y,r.width, r.height);
 		}
 		if(ca.stroked) {
 			this.g2D.setColor(ca.strokedColor);
-			this.g2D.draw(r);
+			this.g2D.drawOval(r.x, r.y,r.width, r.height);
 		}
 		
 		SelectionAttributes sa = (SelectionAttributes) se.getAttributes(SelectionAttributes.ID);
@@ -489,8 +489,8 @@ public class ShapeDraftman implements ShapeVisitor {
 		if(sa.isSelected()) {
 			Rectangle bounds = se.getBounds();
 			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
-			this.g2D.drawOval(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
-			this.g2D.drawOval(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
 		}
 		
 		this.g2D.setTransform(old);

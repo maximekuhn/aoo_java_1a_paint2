@@ -217,7 +217,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	
 	private void doEllipse() {
 		SCollection model = (SCollection) this.sview.getModel();
-		SEllipse se = new SEllipse(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		SEllipse se = new SEllipse(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 100, 50);
 		se.addAttributes(new SelectionAttributes());
 		se.addAttributes(new ColorAttributes(true, true, Color.MAGENTA, Color.BLACK));
 		model.add(se);

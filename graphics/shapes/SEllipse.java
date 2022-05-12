@@ -12,8 +12,12 @@ import graphics.shapes.attributes.SelectionAttributes;
 public class SEllipse extends Shape {
 
 	private Rectangle ellipse;
+	private int width;
+	private int height;
 	
 	public SEllipse(Point point, int width, int height) {
+		this.width = width;
+		this.height = height;
 		this.ellipse = new Rectangle(point.x, point.y, width, height);
 	}
 
