@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SCross;
+import graphics.shapes.SEllipse;
 import graphics.shapes.SHexagon;
 import graphics.shapes.SImage;
 import graphics.shapes.SKotlin;
@@ -436,6 +437,12 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitSCross(SCross scr) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitEllipse(SEllipse se) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SCross;
+import graphics.shapes.SEllipse;
 import graphics.shapes.SHexagon;
 import graphics.shapes.SImage;
 import graphics.shapes.SKotlin;
@@ -459,4 +460,37 @@ public class ShapeDraftman implements ShapeVisitor {
 		
 		this.g2D.setTransform(old);
 }
+	
+
+	@Override
+	public void visitEllipse(SEllipse se) {
+		Rectangle r = se.getBounds();
+		
+		RotationAttributes ra = (RotationAttributes) se.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), se.getBounds().x + se.getBounds().width / 2, se.getBounds().y + se.getBounds().height / 2);
+		
+		ColorAttributes ca = (ColorAttributes) se.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
+		if(ca.filled) {
+			this.g2D.setColor(ca.filledColor);
+			this.g2D.fill(r);
+		}
+		if(ca.stroked) {
+			this.g2D.setColor(ca.strokedColor);
+			this.g2D.draw(r);
+		}
+		
+		SelectionAttributes sa = (SelectionAttributes) se.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
+		if(sa.isSelected()) {
+			Rectangle bounds = se.getBounds();
+			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
+			this.g2D.drawOval(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+			this.g2D.drawOval(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+		}
+		
+		this.g2D.setTransform(old);
+	}
 }
