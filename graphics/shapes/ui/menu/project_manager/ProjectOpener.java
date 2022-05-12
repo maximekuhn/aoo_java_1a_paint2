@@ -15,12 +15,16 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import graphics.shapes.SArrow;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
+import graphics.shapes.SCross;
+import graphics.shapes.SEllipse;
 import graphics.shapes.SHexagon;
 import graphics.shapes.SImage;
 import graphics.shapes.SKotlin;
 import graphics.shapes.SLine;
+import graphics.shapes.SPentagon;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SSketch;
 import graphics.shapes.SText;
@@ -51,13 +55,15 @@ public class ProjectOpener {
 	private static final String SHEXAGON = new SHexagon(new Point(0,0), 0, 0).getClass().getName();
 	private static final String STRIANGLEREC = new STriangleRec(new Point(0,0), 0, 0).getClass().getName();
 	private static final String SLINE = new SLine(new Point(0,0), 0, 0).getClass().getName();
+	private static final String SARROW = new SArrow(new Point(0,0), 0, 0).getClass().getName();
+	private static final String SCROSS = new SCross(new Point(0,0), 0, 0).getClass().getName();
+	private static final String SPENTAGON = new SPentagon(new Point(0,0), 0, 0).getClass().getName();
+	private static final String SELLIPSE = new SEllipse(new Point(0,0), 0, 0).getClass().getName();
 	
 	private ShapesView sview;
-	private SCollection model;
 	
 	public ProjectOpener(ShapesView sview) {
 		this.sview = sview;
-		this.model = (SCollection) this.sview.getModel();
 	}
 
 	public void open(File fileToOpen) {
@@ -122,8 +128,164 @@ public class ProjectOpener {
 		else if(className.equals(SHEXAGON)) shape = this.decodeSHexagon(line);
 		else if(className.equals(STRIANGLEREC)) shape = this.decodeSTriangleRec(line);
 		else if(className.equals(SLINE)) shape = this.decodeSLine(line);
+		else if(className.equals(SARROW)) shape = this.decodeSArrow(line);
+		else if(className.equals(SCROSS)) shape = this.decodeSCross(line);
+		else if(className.equals(SPENTAGON)) shape = this.decodeSPentagon(line);
+		else if(className.equals(SELLIPSE)) shape = this.decodeSEllipse(line);
 		
 		return shape;
+	}
+
+	private Shape decodeSEllipse(String line) {
+		String[] settings = line.split(" ");
+		if(settings.length != 14) return null;
+		
+		// point + width & height
+		int locX = Integer.parseInt(settings[2]);
+		int locY = Integer.parseInt(settings[3]);
+		int width = Integer.parseInt(settings[4]);
+		int height = Integer.parseInt(settings[5]);
+		
+		SEllipse se = new SEllipse(new Point(locX, locY), width, height);
+		
+		// color attributes
+		boolean filled = Boolean.parseBoolean(settings[6]);
+		boolean stroked = Boolean.parseBoolean(settings[7]);
+		Color filledColor = this.decryptColor(settings[8]);
+		Color strokedColor = this.decryptColor(settings[9]);
+		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
+		se.addAttributes(ca);
+		
+		// selection attributes
+		boolean isSelected = Boolean.parseBoolean(settings[10]);
+		SelectionAttributes sa = new SelectionAttributes(isSelected);
+		se.addAttributes(sa);
+		
+		// rotation attributes
+		int angle = Integer.parseInt(settings[11]);
+		RotationAttributes ra = new RotationAttributes(angle);
+		se.addAttributes(ra);
+		
+		// layer attributes
+		int layer = Integer.parseInt(settings[12]);
+		LayerAttributes la = new LayerAttributes(layer);
+		se.addAttributes(la);
+		
+		return se;
+	}
+
+	private Shape decodeSPentagon(String line) {
+		String[] settings = line.split(" ");
+		if(settings.length != 14) return null;
+		
+		// point + width & height
+		int locX = Integer.parseInt(settings[2]);
+		int locY = Integer.parseInt(settings[3]);
+		int width = Integer.parseInt(settings[4]);
+		int height = Integer.parseInt(settings[5]);
+		
+		SPentagon sp = new SPentagon(new Point(locX, locY), width, height);
+		
+		// color attributes
+		boolean filled = Boolean.parseBoolean(settings[6]);
+		boolean stroked = Boolean.parseBoolean(settings[7]);
+		Color filledColor = this.decryptColor(settings[8]);
+		Color strokedColor = this.decryptColor(settings[9]);
+		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
+		sp.addAttributes(ca);
+		
+		// selection attributes
+		boolean isSelected = Boolean.parseBoolean(settings[10]);
+		SelectionAttributes sa = new SelectionAttributes(isSelected);
+		sp.addAttributes(sa);
+		
+		// rotation attributes
+		int angle = Integer.parseInt(settings[11]);
+		RotationAttributes ra = new RotationAttributes(angle);
+		sp.addAttributes(ra);
+		
+		// layer attributes
+		int layer = Integer.parseInt(settings[12]);
+		LayerAttributes la = new LayerAttributes(layer);
+		sp.addAttributes(la);
+		
+		return sp;
+	}
+
+	private Shape decodeSCross(String line) {
+		String[] settings = line.split(" ");
+		if(settings.length != 14) return null;
+		
+		// point + width & height
+		int locX = Integer.parseInt(settings[2]);
+		int locY = Integer.parseInt(settings[3]);
+		int width = Integer.parseInt(settings[4]);
+		int height = Integer.parseInt(settings[5]);
+		
+		SCross sc = new SCross(new Point(locX, locY), width, height);
+		
+		// color attributes
+		boolean filled = Boolean.parseBoolean(settings[6]);
+		boolean stroked = Boolean.parseBoolean(settings[7]);
+		Color filledColor = this.decryptColor(settings[8]);
+		Color strokedColor = this.decryptColor(settings[9]);
+		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
+		sc.addAttributes(ca);
+		
+		// selection attributes
+		boolean isSelected = Boolean.parseBoolean(settings[10]);
+		SelectionAttributes sa = new SelectionAttributes(isSelected);
+		sc.addAttributes(sa);
+		
+		// rotation attributes
+		int angle = Integer.parseInt(settings[11]);
+		RotationAttributes ra = new RotationAttributes(angle);
+		sc.addAttributes(ra);
+		
+		// layer attributes
+		int layer = Integer.parseInt(settings[12]);
+		LayerAttributes la = new LayerAttributes(layer);
+		sc.addAttributes(la);
+		
+		return sc;
+	}
+
+	private Shape decodeSArrow(String line) {
+		String[] settings = line.split(" ");
+		if(settings.length != 14) return null;
+		
+		// point + width & height
+		int locX = Integer.parseInt(settings[2]);
+		int locY = Integer.parseInt(settings[3]);
+		int width = Integer.parseInt(settings[4]);
+		int height = Integer.parseInt(settings[5]);
+		
+		SArrow arrow = new SArrow(new Point(locX, locY), width, height);
+		
+		// color attributes
+		boolean filled = Boolean.parseBoolean(settings[6]);
+		boolean stroked = Boolean.parseBoolean(settings[7]);
+		Color filledColor = this.decryptColor(settings[8]);
+		Color strokedColor = this.decryptColor(settings[9]);
+		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
+		arrow.addAttributes(ca);
+		
+		// selection attributes
+		boolean isSelected = Boolean.parseBoolean(settings[10]);
+		SelectionAttributes sa = new SelectionAttributes(isSelected);
+		arrow.addAttributes(sa);
+		
+		// rotation attributes
+		int angle = Integer.parseInt(settings[11]);
+		RotationAttributes ra = new RotationAttributes(angle);
+		arrow.addAttributes(ra);
+		
+		// layer attributes
+		int layer = Integer.parseInt(settings[12]);
+		LayerAttributes la = new LayerAttributes(layer);
+		arrow.addAttributes(la);
+		
+		return arrow;
 	}
 
 	private Shape decodeSLine(String line) {
