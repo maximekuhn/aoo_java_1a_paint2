@@ -33,4 +33,14 @@ public interface ShapeVisitor {
 	public void visitSPentagon(SPentagon spt);
 
 	public void visitSArrow(SArrow sar);
+
+	public void visitSStar(SStar sst);
+
+	public void visitSParallelogram(SParallelogram spg);
+
+	public void visitSOctagon(SOctagon soc);
+
+	public void visitSTrapezium(STrapezium stp);
+
+	public void visitSTriangleScale(STriangleScale stc);
 }
