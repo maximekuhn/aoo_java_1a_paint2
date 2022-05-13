@@ -115,7 +115,7 @@ public class SelectionController extends Controller {
     }
 	
 	private void doWriteText(KeyEvent e) {
-		for (Shape s : getShapesSelected()) {
+		for (Shape s : this.getShapesSelected()) {
 			if(s.getClass().getName() == "graphics.shapes.STextBox") {
 				STextBox tb = (STextBox) s;
 				StringBuilder str = new StringBuilder();
@@ -210,7 +210,7 @@ public class SelectionController extends Controller {
 	}
 	
 	public void doRotation() {
-		for (Shape s : getShapesSelected()) {
+		for (Shape s : this.getShapesSelected()) {
 			RotationAttributes ra = (RotationAttributes) s.getAttributes(RotationAttributes.ID);
 			if(ra == null) {
 				ra = new RotationAttributes();
@@ -225,7 +225,7 @@ public class SelectionController extends Controller {
 		SCollection model = (SCollection) this.getModel();
 		LinkedList<Shape> shapesToGroup = new LinkedList<>();
 		
-		for (Shape s : getShapesSelected()) shapesToGroup.add(s);
+		for (Shape s : this.getShapesSelected()) shapesToGroup.add(s);
 		
 		SCollection group = new SCollection();
 		if(shapesToGroup.size() == 0) return;
@@ -247,7 +247,7 @@ public class SelectionController extends Controller {
 		LinkedList<Shape> separatedShapes = new LinkedList<>();
 		LinkedList<SCollection> SCollectionToRemove = new LinkedList<>();
 		
-		for (Shape shape : getShapesSelected()) {
+		for (Shape shape : this.getShapesSelected()) {
 			// check if shape is an SCollection using model
 			if(shape.getClass().getName().equals(model.getClass().getName())) {
 				SCollection sc = (SCollection) shape;
@@ -273,14 +273,14 @@ public class SelectionController extends Controller {
 	}
 
 	private void translateSelected(int dx, int dy) {
-		for (Shape s : getShapesSelected()) {
+		for (Shape s : this.getShapesSelected()) {
 			s.translate(dx, dy);
 			this.getView().repaint();
 		}
 	}
 
 	private void resizeSelected(int dx, int dy) {
-		for (Shape s : getShapesSelected()) {
+		for (Shape s : this.getShapesSelected()) {
 			if (!handlerSelected) {
 				this.handler = this.isHandlerSelected(s);
 				this.handlerSelected = true;
@@ -317,7 +317,7 @@ public class SelectionController extends Controller {
 	}
 
 	private void checkResizeCursor() {
-		for (Shape s : getShapesSelected()) {
+		for (Shape s : this.getShapesSelected()) {
 			int hand = this.isHandlerSelected(s);
 			if (hand == 1) this.getView().setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
 			else if (hand == 2) this.getView().setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
