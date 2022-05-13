@@ -151,8 +151,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[6]);
 		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decryptColor(settings[8]);
-		Color strokedColor = this.decryptColor(settings[9]);
+		Color filledColor = this.decodeColor(settings[8]);
+		Color strokedColor = this.decodeColor(settings[9]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		se.addAttributes(ca);
 		
@@ -189,8 +189,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[6]);
 		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decryptColor(settings[8]);
-		Color strokedColor = this.decryptColor(settings[9]);
+		Color filledColor = this.decodeColor(settings[8]);
+		Color strokedColor = this.decodeColor(settings[9]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		sp.addAttributes(ca);
 		
@@ -227,8 +227,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[6]);
 		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decryptColor(settings[8]);
-		Color strokedColor = this.decryptColor(settings[9]);
+		Color filledColor = this.decodeColor(settings[8]);
+		Color strokedColor = this.decodeColor(settings[9]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		sc.addAttributes(ca);
 		
@@ -265,8 +265,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[6]);
 		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decryptColor(settings[8]);
-		Color strokedColor = this.decryptColor(settings[9]);
+		Color filledColor = this.decodeColor(settings[8]);
+		Color strokedColor = this.decodeColor(settings[9]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		arrow.addAttributes(ca);
 		
@@ -303,8 +303,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[6]);
 		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decryptColor(settings[8]);
-		Color strokedColor = this.decryptColor(settings[9]);
+		Color filledColor = this.decodeColor(settings[8]);
+		Color strokedColor = this.decodeColor(settings[9]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		sl.addAttributes(ca);
 		
@@ -341,8 +341,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[6]);
 		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decryptColor(settings[8]);
-		Color strokedColor = this.decryptColor(settings[9]);
+		Color filledColor = this.decodeColor(settings[8]);
+		Color strokedColor = this.decodeColor(settings[9]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		str.addAttributes(ca);
 		
@@ -379,8 +379,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[6]);
 		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decryptColor(settings[8]);
-		Color strokedColor = this.decryptColor(settings[9]);
+		Color filledColor = this.decodeColor(settings[8]);
+		Color strokedColor = this.decodeColor(settings[9]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		sh.addAttributes(ca);
 		
@@ -417,8 +417,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[6]);
 		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decryptColor(settings[8]);
-		Color strokedColor = this.decryptColor(settings[9]);
+		Color filledColor = this.decodeColor(settings[8]);
+		Color strokedColor = this.decodeColor(settings[9]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		st.addAttributes(ca);
 		
@@ -440,16 +440,20 @@ public class ProjectOpener {
 		return st;
 	}
 
-	private Color decryptColor(String line) {
+	private Color decodeColor(String line) {
 		return new Color(Integer.parseInt(line));
 	}
 	
 	private Font decryptFont(String line) {
-		// TODO : decryptFont
-		return new FontAttributes().font;
+		String[] fontSettings = line.split(",");
+		String name = fontSettings[0];
+		int style = Integer.parseInt(fontSettings[1]);
+		int size = Integer.parseInt(fontSettings[2]);
+		
+		return new Font(name, style, size);
 	}
 
-	private void decryptDimension(String line) {
+	private void decodeDimension(String line) {
 		// TODO : fix this
 		try {
 			int width = Integer.parseInt(line.split(" ")[0]);
@@ -476,8 +480,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[6]);
 		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decryptColor(settings[8]);
-		Color strokedColor = this.decryptColor(settings[9]);
+		Color filledColor = this.decodeColor(settings[8]);
+		Color strokedColor = this.decodeColor(settings[9]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		sr.addAttributes(ca);
 		
@@ -513,8 +517,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[5]);
 		boolean stroked = Boolean.parseBoolean(settings[6]);
-		Color filledColor = this.decryptColor(settings[7]);
-		Color strokedColor = this.decryptColor(settings[8]);
+		Color filledColor = this.decodeColor(settings[7]);
+		Color strokedColor = this.decodeColor(settings[8]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		sc.addAttributes(ca);
 		
@@ -552,8 +556,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[5]);
 		boolean stroked = Boolean.parseBoolean(settings[6]);
-		Color filledColor = this.decryptColor(settings[7]);
-		Color strokedColor = this.decryptColor(settings[8]);
+		Color filledColor = this.decodeColor(settings[7]);
+		Color strokedColor = this.decodeColor(settings[8]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		stb.addAttributes(ca);
 		
@@ -574,7 +578,7 @@ public class ProjectOpener {
 		
 		// font attributes
 		Font font = this.decryptFont(settings[12]);
-		Color fontColor = this.decryptColor(settings[13]);
+		Color fontColor = this.decodeColor(settings[13]);
 		FontAttributes fa = new FontAttributes(font, fontColor);
 		stb.addAttributes(fa);
 		
@@ -596,8 +600,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[5]);
 		boolean stroked = Boolean.parseBoolean(settings[6]);
-		Color filledColor = this.decryptColor(settings[7]);
-		Color strokedColor = this.decryptColor(settings[8]);
+		Color filledColor = this.decodeColor(settings[7]);
+		Color strokedColor = this.decodeColor(settings[8]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		st.addAttributes(ca);
 		
@@ -618,7 +622,7 @@ public class ProjectOpener {
 		
 		// font attributes
 		Font font = this.decryptFont(settings[12]);
-		Color fontColor = this.decryptColor(settings[13]);
+		Color fontColor = this.decodeColor(settings[13]);
 		FontAttributes fa = new FontAttributes(font, fontColor);
 		st.addAttributes(fa);
 		
@@ -640,8 +644,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[6]);
 		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decryptColor(settings[8]);
-		Color strokedColor = this.decryptColor(settings[9]);
+		Color filledColor = this.decodeColor(settings[8]);
+		Color strokedColor = this.decodeColor(settings[9]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		sk.addAttributes(ca);
 		
@@ -675,8 +679,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[4]);
 		boolean stroked = Boolean.parseBoolean(settings[5]);
-		Color filledColor = this.decryptColor(settings[6]);
-		Color strokedColor = this.decryptColor(settings[7]);
+		Color filledColor = this.decodeColor(settings[6]);
+		Color strokedColor = this.decodeColor(settings[7]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		sc.addAttributes(ca);
 		
@@ -759,8 +763,8 @@ public class ProjectOpener {
 		// color attributes
 		boolean filled = Boolean.parseBoolean(settings[4]);
 		boolean stroked = Boolean.parseBoolean(settings[5]);
-		Color filledColor = this.decryptColor(settings[6]);
-		Color strokedColor = this.decryptColor(settings[7]);
+		Color filledColor = this.decodeColor(settings[6]);
+		Color strokedColor = this.decodeColor(settings[7]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		sk.addAttributes(ca);
 		
@@ -809,8 +813,8 @@ public class ProjectOpener {
 			// color attributes
 			boolean filled = Boolean.parseBoolean(settings[5]);
 			boolean stroked = Boolean.parseBoolean(settings[6]);
-			Color filledColor = this.decryptColor(settings[7]);
-			Color strokedColor = this.decryptColor(settings[8]);
+			Color filledColor = this.decodeColor(settings[7]);
+			Color strokedColor = this.decodeColor(settings[8]);
 			ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 			si.addAttributes(ca);
 			
