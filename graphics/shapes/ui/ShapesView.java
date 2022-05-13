@@ -1,9 +1,6 @@
 package graphics.shapes.ui;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 
 import graphics.shapes.SCollection;
 import graphics.ui.Controller;

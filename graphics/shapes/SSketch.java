@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
-import graphics.shapes.attributes.FontAttributes;
 import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;

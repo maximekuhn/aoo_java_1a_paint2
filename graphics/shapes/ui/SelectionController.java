@@ -346,24 +346,26 @@ public class SelectionController extends Controller {
 					this.handlerSelected = true;
 				}
 				if (handler==1) {
-					if (s.getBounds().width-dx < MIN_SHAPE_SIZE) {
+					if (s.getBounds().width-dx < MIN_SHAPE_SIZE) 
 						dx = 0;
-					}
-					if (s.getBounds().height-dy < MIN_SHAPE_SIZE ) {
+					if (s.getBounds().height-dy < MIN_SHAPE_SIZE ) 
 						dy = 0;
-					}
-					s.translate(dx, dy);
-					s.resize(-dx, -dy);
+					int dl = 0;
+					if (shiftDown)
+						dl = (s.getBounds().width - s.getBounds().height)/2;
+					s.translate(dx+dl, dy-dl);
+					s.resize(-dx-dl, -dy+dl);
 					this.getView().repaint();
 				}
 				else if (handler==2) {
-					if (s.getBounds().width+dx < MIN_SHAPE_SIZE) {
+					if (s.getBounds().width+dx < MIN_SHAPE_SIZE)
 						dx = 0;
-					}
-					if (s.getBounds().height+dy < MIN_SHAPE_SIZE) {
+					if (s.getBounds().height+dy < MIN_SHAPE_SIZE)
 						dy = 0;
-					}
-					s.resize(dx, dy);
+					int dl = 0;
+					if (shiftDown)
+						dl = (s.getBounds().width - s.getBounds().height)/2;
+					s.resize(dx-dl, dy+dl);
 					this.getView().repaint();
 				}
 			}
@@ -375,17 +377,12 @@ public class SelectionController extends Controller {
 		int xright = s.getBounds().x + s.getBounds().width;
 		int ytop = s.getBounds().y;
 		int ybottom = s.getBounds().y + s.getBounds().height;
-		if (this.cursorPos.x >= xleft-HANDLER_HITBOX && this.cursorPos.x <= xleft && this.cursorPos.y >= ytop-HANDLER_HITBOX && this.cursorPos.y <= ytop) {
-			// if top left handler is selected
-			return 1;
-		}
-		else if (this.cursorPos.x >= xright && this.cursorPos.x <= xright+HANDLER_HITBOX && this.cursorPos.y >= ybottom && this.cursorPos.y <= ybottom+HANDLER_HITBOX) {
-			// if bottom right handler is selected
-			return 2;
-		}
-		else {
+		if (this.cursorPos.x >= xleft-HANDLER_HITBOX && this.cursorPos.x <= xleft && this.cursorPos.y >= ytop-HANDLER_HITBOX && this.cursorPos.y <= ytop) 
+			return 1;  // if top left handler is selected
+		else if (this.cursorPos.x >= xright && this.cursorPos.x <= xright+HANDLER_HITBOX && this.cursorPos.y >= ybottom && this.cursorPos.y <= ybottom+HANDLER_HITBOX) 
+			return 2;  // if bottom right handler is selected
+		else
 			return 0;
-		}
 	}
 
 	private void doResizeCursor() {

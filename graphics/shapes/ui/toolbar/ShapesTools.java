@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import graphics.shapes.SArrow;
-import graphics.shapes.SCircle;
+import graphics.shapes.SEllipse;
 import graphics.shapes.SLine;
 import graphics.shapes.SRectangle;
 import graphics.shapes.STextBox;
@@ -172,11 +172,11 @@ public class ShapesTools extends ToolContainer implements ActionListener {
 	private void doAddCircle() {
 		this.tb.highlightButton(this.circleButton);
 		
-		SCircle sc = new SCircle(new Point(0,0), 50);
-		sc.addAttributes(new ColorAttributes(true, true, Color.ORANGE, Color.BLACK));
-		sc.addAttributes(new SelectionAttributes(false));
+		SEllipse se = new SEllipse(new Point(0,0), 50, 50);
+		se.addAttributes(new ColorAttributes(true, true, Color.ORANGE, Color.BLACK));
+		se.addAttributes(new SelectionAttributes(false));
 		
-		this.controller.setShape(sc);
+		this.controller.setShape(se);
 		this.controller.disallowSketch();
 		
 		Image cursorImage = cursorSize("src/pictures/circle.png");

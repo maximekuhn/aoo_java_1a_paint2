@@ -1,7 +1,6 @@
 package graphics.shapes.ui.toolbar;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
@@ -12,7 +11,6 @@ import graphics.shapes.ui.ShapesView;
 
 public class ToolBar extends JToolBar {
 	
-	private static final Color DEFAULT_BORDER_COLOR = Color.BLACK;
 	private static final Color HIGHLIGHT_BORDER_COLOR = Color.RED;
 	
 	private LinkedList<JButton> buttons;

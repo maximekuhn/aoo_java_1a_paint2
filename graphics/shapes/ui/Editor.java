@@ -11,8 +11,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
+import graphics.shapes.SEllipse;
 import graphics.shapes.SRectangle;
 import graphics.shapes.STextBox;
 import graphics.shapes.attributes.ColorAttributes;
@@ -86,10 +86,10 @@ public class Editor extends JFrame
 		r.addAttributes(new SelectionAttributes());
 		this.model.add(r);
 		
-		SCircle c = new SCircle(new Point(100,100),10);
-		c.addAttributes(new ColorAttributes(false,true,Color.BLUE,Color.BLUE));
-		c.addAttributes(new SelectionAttributes());
-		this.model.add(c);
+		SEllipse e = new SEllipse(new Point(100,100),10,10);
+		e.addAttributes(new ColorAttributes(false,true,Color.BLUE,Color.BLUE));
+		e.addAttributes(new SelectionAttributes());
+		this.model.add(e);
 		
 		
 		STextBox t= new STextBox(new Point(100,100),"hello");
@@ -104,10 +104,10 @@ public class Editor extends JFrame
 		r.addAttributes(new ColorAttributes(true,false,Color.MAGENTA,Color.BLUE));
 		r.addAttributes(new SelectionAttributes());
 		sc.add(r);
-		c = new SCircle(new Point(150,100),20);
-		c.addAttributes(new ColorAttributes(false,true,Color.BLUE,Color.DARK_GRAY));
-		c.addAttributes(new SelectionAttributes());
-		sc.add(c);
+		e = new SEllipse(new Point(150,100),20,20);
+		e.addAttributes(new ColorAttributes(false,true,Color.BLUE,Color.DARK_GRAY));
+		e.addAttributes(new SelectionAttributes());
+		sc.add(e);
 		this.model.add(sc);
 	}
 	
