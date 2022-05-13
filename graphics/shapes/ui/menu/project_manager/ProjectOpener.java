@@ -445,8 +445,12 @@ public class ProjectOpener {
 	}
 	
 	private Font decryptFont(String line) {
-		// TODO : decryptFont
-		return new FontAttributes().font;
+		String[] fontSettings = line.split(",");
+		String name = fontSettings[0];
+		int style = Integer.parseInt(fontSettings[1]);
+		int size = Integer.parseInt(fontSettings[2]);
+		
+		return new Font(name, style, size);
 	}
 
 	private void decryptDimension(String line) {
