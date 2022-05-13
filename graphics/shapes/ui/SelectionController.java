@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -59,7 +60,7 @@ public class SelectionController extends Controller {
 		
 		if(this.actionMode.equals(SelectionActions.SELECT)) {
 			this.doSelect(e);
-			this.doTextCursor();
+			this.checkTextCursor();
 		}
 		else if(this.actionMode.equals(SelectionActions.ERASE)) this.doErase(e);
 	}
@@ -94,19 +95,17 @@ public class SelectionController extends Controller {
 
 	public void mouseMoved(MouseEvent e) {
 		this.cursorPos.setLocation(e.getPoint());
-		if(this.actionMode.equals(SelectionActions.RESIZE) && !this.handlerSelected) this.doResizeCursor();
+		if(this.actionMode.equals(SelectionActions.RESIZE) && !this.handlerSelected) this.checkResizeCursor();
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent evt)
-	{
+	public void keyPressed(KeyEvent evt) {
 		if(evt.isShiftDown())
 			this.shiftDown = true;
 	}
 
 	@Override
-	public void keyReleased(KeyEvent evt)
-	{
+	public void keyReleased(KeyEvent evt) {
 		if(evt.getKeyCode() == 16) // shift
 			this.shiftDown = false;
 	}
@@ -116,30 +115,15 @@ public class SelectionController extends Controller {
     }
 	
 	private void doWriteText(KeyEvent e) {
-		SCollection model = (SCollection) this.getModel();
-		Iterator<Shape> it = model.iterator();
-		
-		Shape s;
-		while(it.hasNext()) {
-			s = it.next();
-			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-			if(sa == null) sa = new SelectionAttributes();
-			
-			if(sa.isSelected() && s.getClass().getName() == "graphics.shapes.STextBox") {
+		for (Shape s : getShapesSelected()) {
+			if(s.getClass().getName() == "graphics.shapes.STextBox") {
 				STextBox tb = (STextBox) s;
 				StringBuilder str = new StringBuilder();
 				str.append(tb.getText());
-				if ((int)e.getKeyChar() == 8)  {// backspace key
+				if ((int)e.getKeyChar() == 8)  // backspace key
 					if (str.length() > 0) str.deleteCharAt(str.length()-1); 
-				}
-				else if ((int)e.getKeyChar() == 10) { // newline key
-					str.append(e.getKeyChar());
-					//str.append(' ');
-				}
-				else {  // other key
-					if (str.toString().endsWith("\n ")) str.deleteCharAt(str.length()-1);
-					str.append(e.getKeyChar());
-				}
+				else str.append(e.getKeyChar());
+	
 				tb.setText(str.toString());
 			}
 		}
@@ -163,10 +147,9 @@ public class SelectionController extends Controller {
 				this.selectionRectangle.getLoc().y,
 				evt.getPoint().x - this.selectionRectangle.getLoc().x,
 				evt.getPoint().y - this.selectionRectangle.getLoc().y);
-	
-	this.selectionRectangle.setBounds(bounds);
-	this.doSelectWithSelectionRectangle();
-	this.getView().repaint();
+		this.selectionRectangle.setBounds(bounds);
+		this.doSelectWithSelectionRectangle();
+		this.getView().repaint();
 	}
 	
 	private void doSelectWithSelectionRectangle() {
@@ -227,40 +210,22 @@ public class SelectionController extends Controller {
 	}
 	
 	public void doRotation() {
-		SCollection model = (SCollection) this.getModel();
-		Iterator<Shape> it = model.iterator();
-		
-		Shape s;
-		while(it.hasNext()) {
-			s = it.next();
-			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-			if(sa == null) sa = new SelectionAttributes();
-			
-			if(sa.isSelected()) {
-				RotationAttributes ra = (RotationAttributes) s.getAttributes(RotationAttributes.ID);
-				if(ra == null) {
-					ra = new RotationAttributes();
-					s.addAttributes(ra);
-				}
-				ra.rotate90Right();
+		for (Shape s : getShapesSelected()) {
+			RotationAttributes ra = (RotationAttributes) s.getAttributes(RotationAttributes.ID);
+			if(ra == null) {
+				ra = new RotationAttributes();
+				s.addAttributes(ra);
 			}
+			ra.rotate90Right();
 		}
 		this.getView().repaint();
 	}
 	
 	public void doGroup() {
 		SCollection model = (SCollection) this.getModel();
-		Iterator<Shape> it = model.iterator();
-		
 		LinkedList<Shape> shapesToGroup = new LinkedList<>();
 		
-		Shape s;
-		while(it.hasNext()) {
-			s = it.next();
-			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-			if(sa == null) sa = new SelectionAttributes();
-			if(sa.isSelected()) shapesToGroup.add(s);
-		}
+		for (Shape s : getShapesSelected()) shapesToGroup.add(s);
 		
 		SCollection group = new SCollection();
 		if(shapesToGroup.size() == 0) return;
@@ -272,7 +237,6 @@ public class SelectionController extends Controller {
 			satt.unselect();
 		}
 		group.addAttributes(new SelectionAttributes(true));
-		
 		model.add(group);
 		
 		this.getView().repaint();
@@ -280,36 +244,25 @@ public class SelectionController extends Controller {
 	
 	public void doUngroup() {
 		SCollection model = (SCollection) this.getModel();
-		Iterator<Shape> iterator = model.iterator();
-		
 		LinkedList<Shape> separatedShapes = new LinkedList<>();
 		LinkedList<SCollection> SCollectionToRemove = new LinkedList<>();
 		
-		Shape shape;
-		while(iterator.hasNext()) {
-			shape = iterator.next();
-			
-			SelectionAttributes sa = (SelectionAttributes) shape.getAttributes(SelectionAttributes.ID);
-			if(sa == null) sa = new SelectionAttributes();
-			
-			if(sa.isSelected()) {
-				// check if shape is an SCollection using model
-				if(shape.getClass().getName().equals(model.getClass().getName())) {
-					SCollection sc = (SCollection) shape;
-					Iterator<Shape> it = sc.iterator();
-					LinkedList<Shape> shapesToRemoveFromSC = new LinkedList<>();
-					Shape s;
-					while(it.hasNext()) {
-						s = it.next();
-						separatedShapes.add(s);
-					}
-					for(Shape str : shapesToRemoveFromSC)
-						sc.remove(str);
-					SCollectionToRemove.add(sc);
+		for (Shape shape : getShapesSelected()) {
+			// check if shape is an SCollection using model
+			if(shape.getClass().getName().equals(model.getClass().getName())) {
+				SCollection sc = (SCollection) shape;
+				Iterator<Shape> it = sc.iterator();
+				LinkedList<Shape> shapesToRemoveFromSC = new LinkedList<>();
+				Shape s;
+				while(it.hasNext()) {
+					s = it.next();
+					separatedShapes.add(s);
 				}
+				for(Shape str : shapesToRemoveFromSC)
+					sc.remove(str);
+				SCollectionToRemove.add(sc);
 			}
 		}
-		
 		for(Shape sh : separatedShapes)
 			model.add(sh);
 		
@@ -320,55 +273,34 @@ public class SelectionController extends Controller {
 	}
 
 	private void translateSelected(int dx, int dy) {
-		SCollection model = (SCollection) this.getModel();
-		Iterator<Shape> it = model.iterator();
-		
-		while(it.hasNext()) {
-			Shape s = it.next();
-			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-			if(sa.isSelected()) {
-				s.translate(dx, dy);
-				this.getView().repaint();
-			}
+		for (Shape s : getShapesSelected()) {
+			s.translate(dx, dy);
+			this.getView().repaint();
 		}
 	}
 
 	private void resizeSelected(int dx, int dy) {
-		SCollection model = (SCollection) this.getModel();
-		Iterator<Shape> it = model.iterator();
-		
-		while(it.hasNext()) {
-			Shape s = it.next();
-			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-			if(sa.isSelected()) {
-				if (!handlerSelected) {
-					this.handler = this.isHandlerSelected(s);
-					this.handlerSelected = true;
-				}
-				if (handler==1) {
-					if (s.getBounds().width-dx < MIN_SHAPE_SIZE) 
-						dx = 0;
-					if (s.getBounds().height-dy < MIN_SHAPE_SIZE ) 
-						dy = 0;
-					int dl = 0;
-					if (shiftDown)
-						dl = (s.getBounds().width - s.getBounds().height)/2;
-					s.translate(dx+dl, dy-dl);
-					s.resize(-dx-dl, -dy+dl);
-					this.getView().repaint();
-				}
-				else if (handler==2) {
-					if (s.getBounds().width+dx < MIN_SHAPE_SIZE)
-						dx = 0;
-					if (s.getBounds().height+dy < MIN_SHAPE_SIZE)
-						dy = 0;
-					int dl = 0;
-					if (shiftDown)
-						dl = (s.getBounds().width - s.getBounds().height)/2;
-					s.resize(dx-dl, dy+dl);
-					this.getView().repaint();
-				}
+		for (Shape s : getShapesSelected()) {
+			if (!handlerSelected) {
+				this.handler = this.isHandlerSelected(s);
+				this.handlerSelected = true;
 			}
+			if (handler==1) {
+				if (s.getBounds().width-dx < MIN_SHAPE_SIZE) dx = 0;
+				if (s.getBounds().height-dy < MIN_SHAPE_SIZE ) dy = 0;
+				int dl = 0;
+				if (shiftDown) dl = (s.getBounds().width - s.getBounds().height)/2;
+				s.translate(dx+dl, dy-dl);
+				s.resize(-dx-dl, -dy+dl);
+			}
+			else if (handler==2) {
+				if (s.getBounds().width+dx < MIN_SHAPE_SIZE) dx = 0;
+				if (s.getBounds().height+dy < MIN_SHAPE_SIZE) dy = 0;
+				int dl = 0;
+				if (shiftDown) dl = (s.getBounds().width - s.getBounds().height)/2;
+				s.resize(dx-dl, dy+dl);
+			}
+			this.getView().repaint();
 		}
 	}
 
@@ -381,29 +313,19 @@ public class SelectionController extends Controller {
 			return 1;  // if top left handler is selected
 		else if (this.cursorPos.x >= xright && this.cursorPos.x <= xright+HANDLER_HITBOX && this.cursorPos.y >= ybottom && this.cursorPos.y <= ybottom+HANDLER_HITBOX) 
 			return 2;  // if bottom right handler is selected
-		else
-			return 0;
+		else return 0;
 	}
 
-	private void doResizeCursor() {
-		SCollection model = (SCollection) this.getModel();
-		Iterator<Shape> it = model.iterator();
-		while(it.hasNext()) {
-			Shape s = it.next();
-			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
-			if(sa.isSelected()) {
-				int hand = this.isHandlerSelected(s);
-				if (hand == 1) 
-					this.getView().setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
-				else if (hand == 2) 
-					this.getView().setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
-				else 
-					this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-			}
+	private void checkResizeCursor() {
+		for (Shape s : getShapesSelected()) {
+			int hand = this.isHandlerSelected(s);
+			if (hand == 1) this.getView().setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
+			else if (hand == 2) this.getView().setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
+			else this.getView().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		}
 	}
 
-	private void doTextCursor() {
+	private void checkTextCursor() {
 		Shape s = this.getTarget();
 		if(s != null) {
 			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
@@ -434,6 +356,19 @@ public class SelectionController extends Controller {
 				return s;
 		}
 		return null;
+	}
+
+	private ArrayList<Shape> getShapesSelected() {
+		SCollection model = (SCollection) this.getModel();
+		Iterator<Shape> it = model.iterator();
+		ArrayList<Shape> listSelected = new ArrayList<>();
+		while(it.hasNext()) {
+			Shape s = it.next();
+			SelectionAttributes sa = (SelectionAttributes) s.getAttributes(SelectionAttributes.ID);
+			if(sa == null) sa = new SelectionAttributes();
+			if(sa.isSelected()) listSelected.add(s);
+		}
+		return listSelected;
 	}
 
 }
