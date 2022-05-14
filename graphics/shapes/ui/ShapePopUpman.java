@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -33,6 +34,7 @@ import graphics.shapes.STrapezium;
 import graphics.shapes.STriangle;
 import graphics.shapes.STriangleRec;
 import graphics.shapes.STriangleScale;
+import graphics.shapes.Shape;
 import graphics.shapes.ShapeVisitor;
 
 public class ShapePopUpman implements ShapeVisitor {
@@ -87,19 +89,22 @@ public class ShapePopUpman implements ShapeVisitor {
 		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
-	    		this.width = Integer.valueOf(this.tWidth.getText());
-	    		this.height = Integer.valueOf(this.tHeight.getText());
-	    		this.x = Integer.valueOf(this.tx.getText());
-	    		this.y = Integer.valueOf(this.ty.getText());
-	    		
-	    		r.setBounds(this.x, this.y, this.width, this.height);
-	    		sr.setBounds(r);
-	    		
-	    		this.popUp.dispose();
-	    		this.sview.repaint();
+				try {
+					this.width = Integer.valueOf(this.tWidth.getText());
+		    		this.height = Integer.valueOf(this.tHeight.getText());
+		    		this.x = Integer.valueOf(this.tx.getText());
+		    		this.y = Integer.valueOf(this.ty.getText());
+		    		
+		    		r.setBounds(this.x, this.y, this.width, this.height);
+		    		sr.setBounds(r);
+		    		
+		    		this.popUp.dispose();
+		    		this.sview.repaint();
+				} catch (Exception e1) {
+					creatErrorPopup("Error : integer expected");
+				}
 			}
 		});
-
 	}
 
 	@Override
@@ -122,19 +127,22 @@ public class ShapePopUpman implements ShapeVisitor {
 		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
-	    		int radius = Integer.valueOf(this.tRadius.getText());
-	    		this.x = Integer.valueOf(this.tx.getText());
-	    		this.y = Integer.valueOf(this.ty.getText());
-	    		
-	    		loc.setLocation(this.x, this.y);
-	    		sc.setLoc(loc);
-	    		sc.setRadius(radius);
-	    		
-	    		this.popUp.dispose();
-	    		this.sview.repaint();
+				try {
+		    		int radius = Integer.valueOf(this.tRadius.getText());
+		    		this.x = Integer.valueOf(this.tx.getText());
+		    		this.y = Integer.valueOf(this.ty.getText());
+		    		
+		    		loc.setLocation(this.x, this.y);
+		    		sc.setLoc(loc);
+		    		sc.setRadius(radius);
+		    		
+		    		this.popUp.dispose();
+		    		this.sview.repaint();
+				} catch (Exception e1) {
+					creatErrorPopup("Error : integer expected");
+				}
 			}
 		});
-		
 	}
 
 	@Override
@@ -156,20 +164,22 @@ public class ShapePopUpman implements ShapeVisitor {
 			
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
-				
-	    		String text = this.tText.getText();
-	    		this.x = Integer.valueOf(this.tx.getText());
-	    		this.y = Integer.valueOf(this.ty.getText());
-	    		
-	    		loc.setLocation(this.x, this.y);
-	    		st.setLoc(loc);
-	    		st.setText(text);
-	    		
-	    		this.popUp.dispose();
-	    		this.sview.repaint();
+				try {
+					String text = this.tText.getText();
+		    		this.x = Integer.valueOf(this.tx.getText());
+		    		this.y = Integer.valueOf(this.ty.getText());
+		    		
+		    		loc.setLocation(this.x, this.y);
+		    		st.setLoc(loc);
+		    		st.setText(text);
+		    		
+		    		this.popUp.dispose();
+		    		this.sview.repaint();
+				} catch (Exception e1) {
+					creatErrorPopup("Error : integer expected for x and y");
+				}	
 			}
-		});
-			
+		});		
 	}
 
 	@Override
@@ -188,20 +198,23 @@ public class ShapePopUpman implements ShapeVisitor {
 		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
-	    		this.width = Integer.valueOf(this.tWidth.getText());
-	    		this.height = Integer.valueOf(this.tHeight.getText());
-	    		this.x = Integer.valueOf(this.tx.getText());
-	    		this.y = Integer.valueOf(this.ty.getText());
-	    		
-	    		loc.setLocation(this.x, this.y);
-	    		sc.setLoc(loc);
-	    		sc.resize(this.width-sc.getBounds().width, this.height-sc.getBounds().height);	    		
-	    		
-	    		this.popUp.dispose();
-	    		this.sview.repaint();
+				try {
+					this.width = Integer.valueOf(this.tWidth.getText());
+		    		this.height = Integer.valueOf(this.tHeight.getText());
+		    		this.x = Integer.valueOf(this.tx.getText());
+		    		this.y = Integer.valueOf(this.ty.getText());
+		    		
+		    		loc.setLocation(this.x, this.y);
+		    		sc.setLoc(loc);
+		    		sc.resize(this.width-sc.getBounds().width, this.height-sc.getBounds().height);	    		
+		    		
+		    		this.popUp.dispose();
+		    		this.sview.repaint();
+				} catch (Exception e1) {
+					creatErrorPopup("Error : integer expected");
+				}
 			}
 		});
-		
 	}
 
 	@Override
@@ -220,20 +233,23 @@ public class ShapePopUpman implements ShapeVisitor {
 		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
-	    		this.width = Integer.valueOf(this.tWidth.getText());
-	    		this.height = Integer.valueOf(this.tHeight.getText());
-	    		this.x = Integer.valueOf(this.tx.getText());
-	    		this.y = Integer.valueOf(this.ty.getText());
-	    		
-	    		loc.setLocation(this.x, this.y);
-	    		si.setLoc(loc);
-	    		si.resize(this.width-si.getBounds().width, this.height-si.getBounds().height);	    		
-	    		
-	    		this.popUp.dispose();
-	    		this.sview.repaint();
+				try {
+					this.width = Integer.valueOf(this.tWidth.getText());
+		    		this.height = Integer.valueOf(this.tHeight.getText());
+		    		this.x = Integer.valueOf(this.tx.getText());
+		    		this.y = Integer.valueOf(this.ty.getText());
+		    		
+		    		loc.setLocation(this.x, this.y);
+		    		si.setLoc(loc);
+		    		si.resize(this.width-si.getBounds().width, this.height-si.getBounds().height);	    		
+		    		
+		    		this.popUp.dispose();
+		    		this.sview.repaint();
+				} catch (Exception e1) {
+					creatErrorPopup("Error : integer expected");
+				}
 			}
 		});
-	
 	}
 
 	@Override
@@ -252,20 +268,23 @@ public class ShapePopUpman implements ShapeVisitor {
 		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
-	    		this.width = Integer.valueOf(this.tWidth.getText());
-	    		this.height = Integer.valueOf(this.tHeight.getText());
-	    		this.x = Integer.valueOf(this.tx.getText());
-	    		this.y = Integer.valueOf(this.ty.getText());
-	    		
-	    		loc.setLocation(this.x, this.y);
-	    		sk.setLoc(loc);
-	    		sk.resize(this.width-sk.getBounds().width, this.height-sk.getBounds().height);	
-	    		
-	    		this.popUp.dispose();
-	    		this.sview.repaint();
+				try {
+					this.width = Integer.valueOf(this.tWidth.getText());
+		    		this.height = Integer.valueOf(this.tHeight.getText());
+		    		this.x = Integer.valueOf(this.tx.getText());
+		    		this.y = Integer.valueOf(this.ty.getText());
+		    		
+		    		loc.setLocation(this.x, this.y);
+		    		sk.setLoc(loc);
+		    		sk.resize(this.width-sk.getBounds().width, this.height-sk.getBounds().height);	
+		    		
+		    		this.popUp.dispose();
+		    		this.sview.repaint();
+				} catch (Exception e1) {
+					creatErrorPopup("Error : integer expected");
+				}
 			}
 		});
-		
 	}
 	
 	@Override
@@ -288,113 +307,127 @@ public class ShapePopUpman implements ShapeVisitor {
 		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
-				
-	    		String text = this.tText.getText();
-	    		this.x = Integer.valueOf(this.tx.getText());
-	    		this.y = Integer.valueOf(this.ty.getText());
-	    		
-	    		loc.setLocation(this.x, this.y);
-	    		stb.setLoc(loc);
-	    		stb.setText(text);
-	    		
-	    		this.popUp.dispose();
-	    		this.sview.repaint();
+				try {
+					String text = this.tText.getText();
+		    		this.x = Integer.valueOf(this.tx.getText());
+		    		this.y = Integer.valueOf(this.ty.getText());
+		    		
+		    		loc.setLocation(this.x, this.y);
+		    		stb.setLoc(loc);
+		    		stb.setText(text);
+		    		
+		    		this.popUp.dispose();
+		    		this.sview.repaint();
+				} catch (Exception e1) {
+					creatErrorPopup("Error : integer expected for x and y");
+				}
 			}
 		});
 	}
 
 	@Override
 	public void visitSKotlin(SKotlin sk) {
-		// TODO Auto-generated method stub
-		
+		creatPolygonPopUp("Kotlin Settings", sk);
 	}
 
 	@Override
 	public void visitSTriangle(STriangle st) {
-		// TODO Auto-generated method stub
-		
+		creatPolygonPopUp("Triangle Settings", st);
 	}
 
 	@Override
 	public void visitSLine(SLine sl) {
-		// TODO Auto-generated method stub
-		
+		creatPolygonPopUp("Line Settings", sl);
 	}
 
 	@Override
-	public void visitSHexagon(SHexagon sh) {
-		// TODO Auto-generated method stub
-		
+	public void visitSHexagon(SHexagon sh) {		
+		creatPolygonPopUp("Hexagon Settings", sh);
 	}
 
 	@Override
 	public void visitSTriangleRec(STriangleRec strec) {
-		// TODO Auto-generated method stub
-		
+		creatPolygonPopUp("Trianlge Rec Settings", strec);
+		this.title.setBounds(50, 10, 135, 20);
 	}
 
 	@Override
 	public void visitSCross(SCross scr) {
-		// TODO Auto-generated method stub
-		
+		creatPolygonPopUp("Cross Settings", scr);
 	}
 
 	@Override
 	public void visitEllipse(SEllipse se) {
-		// TODO Auto-generated method stub
+		Rectangle  re = se.getBounds();
+		
+		creatSettingsFrame("Ellipse Settings", 240, 200);
+		
+		addSizeSettings(10, 40, 60, 20);
+		this.tWidth.setText(String.valueOf(re.width));		
+		this.tHeight.setText(String.valueOf(re.height));		
+		
+		addLocSettings(140, 40, 20, 20);
+		this.tx.setText(String.valueOf(re.x));
+		this.ty.setText(String.valueOf(re.y));
+		
+		this.bSave.addActionListener(e -> {
+			if(e.getSource().equals(this.bSave)) {
+				try {
+					this.width = Integer.valueOf(this.tWidth.getText());
+		    		this.height = Integer.valueOf(this.tHeight.getText());
+		    		this.x = Integer.valueOf(this.tx.getText());
+		    		this.y = Integer.valueOf(this.ty.getText());
+		    		
+		    		re.setBounds(this.x, this.y, this.width, this.height);
+		    		se.setBounds(re);
+		    		
+		    		this.popUp.dispose();
+		    		this.sview.repaint();
+				} catch (Exception e1) {
+					creatErrorPopup("Error : integer expected");
+				}
+			}
+		});
 		
 	}
 
 	@Override
 	public void visitSPentagon(SPentagon spt) {
-		// TODO Auto-generated method stub
-		
+		creatPolygonPopUp("Pentagon Settings", spt);
 	}
 
 	@Override
 	public void visitSArrow(SArrow sar) {
-		// TODO Auto-generated method stub
-		
+		creatPolygonPopUp("Arrow Settings", sar);
 	}
 
 	@Override
 	public void visitSStar(SStar sst) {
-		// TODO Auto-generated method stub
-		
+		creatPolygonPopUp("Star Settings", sst);
 	}
 
 	@Override
 	public void visitSParallelogram(SParallelogram spg) {
-		// TODO Auto-generated method stub
-		
+		creatPolygonPopUp("Parallelogram Settings", spg);
+		this.title.setBounds(50, 10, 135, 20);
 	}
 
 	@Override
 	public void visitSOctagon(SOctagon soc) {
-		// TODO Auto-generated method stub
-		
+		creatPolygonPopUp("Octagon Settings", soc);
 	}
 
 	@Override
 	public void visitSTrapezium(STrapezium stp) {
-		// TODO Auto-generated method stub
-		
+		creatPolygonPopUp("Trapezium Settings", stp);
+		this.title.setBounds(50, 10, 135, 20);
 	}
 
 	@Override
 	public void visitSTriangleScale(STriangleScale stc) {
-		// TODO Auto-generated method stub
-		
+		creatPolygonPopUp("Triangle Scale Settings", stc);
+		this.title.setBounds(50, 10, 135, 20);
 	}
-
-
-	@Override
-	public void visitSRhombus(SRhombus srh) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	
 	public void creatSettingsFrame(String title, int w, int h) {
         if(this.popUp == null) {
@@ -429,6 +462,11 @@ public class ShapePopUpman implements ShapeVisitor {
 			}
 		});   
     }
+	
+	@Override
+	public void visitSRhombus(SRhombus srh) {
+		creatPolygonPopUp("Rhombus Settings", srh);
+	}
 	
 	public void addLocSettings(int dx, int dy, int w, int h) {
 		this.lx = new JLabel("x :");
@@ -475,5 +513,43 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.popUp.add(this.lText);
 		this.popUp.add(this.scrolltxt);
 	}
+	
+	public void creatPolygonPopUp(String title, Shape p) {
+		Point loc = p.getLoc();
+		
+		creatSettingsFrame(title, 240, 200);
+		
+		addSizeSettings(10, 40, 60, 20);
+		this.tWidth.setText(String.valueOf(p.getBounds().width));		
+		this.tHeight.setText(String.valueOf(p.getBounds().height));		
+		
+		addLocSettings(140, 40, 20, 20);
+		this.tx.setText(String.valueOf(p.getBounds().x));
+		this.ty.setText(String.valueOf(p.getBounds().y));
+		
+		this.bSave.addActionListener(e -> {
+			if(e.getSource().equals(this.bSave)) {
+				try {
+					this.width = Integer.valueOf(this.tWidth.getText());
+		    		this.height = Integer.valueOf(this.tHeight.getText());
+		    		this.x = Integer.valueOf(this.tx.getText());
+		    		this.y = Integer.valueOf(this.ty.getText());
+		    		
+		    		loc.setLocation(this.x, this.y);
+		    		p.setLoc(loc);
+		    		p.resize(this.width-p.getBounds().width, this.height-p.getBounds().height);
+		    		
+		    		this.popUp.dispose();
+		    		this.sview.repaint();
+				} catch (Exception e1) {
+					creatErrorPopup("Error : integer expected");
+				}
+			}
+		});
+	}
+	
+	public static void creatErrorPopup(String errorMessage){
+        JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 	
 }
