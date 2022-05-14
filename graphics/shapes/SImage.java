@@ -64,6 +64,10 @@ public class SImage extends Shape {
 	public File getPath() {
 		return this.path;
 	}
+	
+	public void setPath(File path) {
+		this.path = path;
+	}
 
 	@Override
 	public Shape copy() {

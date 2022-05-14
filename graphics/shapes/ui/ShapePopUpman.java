@@ -2,6 +2,7 @@ package graphics.shapes.ui;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -75,36 +76,7 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitRectangle(SRectangle sr) {
-		Rectangle r = sr.getBounds();
-
-		creatSettingsFrame("Rectangle Settings", 240, 200);
-		
-		addSizeSettings(10, 40, 60, 20);
-		this.tWidth.setText(String.valueOf(r.width));		
-		this.tHeight.setText(String.valueOf(r.height));		
-		
-		addLocSettings(140, 40, 20, 20);
-		this.tx.setText(String.valueOf(r.x));
-		this.ty.setText(String.valueOf(r.y));
-		
-		this.bSave.addActionListener(e -> {
-			if(e.getSource().equals(this.bSave)) {
-				try {
-					this.width = Integer.valueOf(this.tWidth.getText());
-		    		this.height = Integer.valueOf(this.tHeight.getText());
-		    		this.x = Integer.valueOf(this.tx.getText());
-		    		this.y = Integer.valueOf(this.ty.getText());
-		    		
-		    		r.setBounds(this.x, this.y, this.width, this.height);
-		    		sr.setBounds(r);
-		    		
-		    		this.popUp.dispose();
-		    		this.sview.repaint();
-				} catch (Exception e1) {
-					creatErrorPopup("Error : integer expected");
-				}
-			}
-		});
+		creatShapePopUp("Rectangle Settings", sr);
 	}
 
 	@Override
@@ -184,37 +156,7 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitCollection(SCollection sc) {
-		Point loc = sc.getLoc();
-		
-		creatSettingsFrame("Collection Settings", 240, 200);
-		
-		addSizeSettings(10, 40, 60, 20);
-		this.tWidth.setText(String.valueOf(sc.getBounds().width));
-		this.tHeight.setText(String.valueOf(sc.getBounds().height));
-		
-		addLocSettings(140, 40, 20, 20);
-		this.tx.setText(String.valueOf(loc.x));
-		this.ty.setText(String.valueOf(loc.y));
-		
-		this.bSave.addActionListener(e -> {
-			if(e.getSource().equals(this.bSave)) {
-				try {
-					this.width = Integer.valueOf(this.tWidth.getText());
-		    		this.height = Integer.valueOf(this.tHeight.getText());
-		    		this.x = Integer.valueOf(this.tx.getText());
-		    		this.y = Integer.valueOf(this.ty.getText());
-		    		
-		    		loc.setLocation(this.x, this.y);
-		    		sc.setLoc(loc);
-		    		sc.resize(this.width-sc.getBounds().width, this.height-sc.getBounds().height);	    		
-		    		
-		    		this.popUp.dispose();
-		    		this.sview.repaint();
-				} catch (Exception e1) {
-					creatErrorPopup("Error : integer expected");
-				}
-			}
-		});
+		creatShapePopUp("Collection Settings", sc);
 	}
 
 	@Override
@@ -254,37 +196,7 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitSSketch(SSketch sk) {
-		Point loc = sk.getLoc();
-		
-		creatSettingsFrame("Sketch Settings", 240, 200);
-		
-		addSizeSettings(10, 40, 60, 20);
-		this.tWidth.setText(String.valueOf(sk.getBounds().width));
-		this.tHeight.setText(String.valueOf(sk.getBounds().height));
-		
-		addLocSettings(140, 40, 20, 20);
-		this.tx.setText(String.valueOf(loc.x));
-		this.ty.setText(String.valueOf(loc.y));
-		
-		this.bSave.addActionListener(e -> {
-			if(e.getSource().equals(this.bSave)) {
-				try {
-					this.width = Integer.valueOf(this.tWidth.getText());
-		    		this.height = Integer.valueOf(this.tHeight.getText());
-		    		this.x = Integer.valueOf(this.tx.getText());
-		    		this.y = Integer.valueOf(this.ty.getText());
-		    		
-		    		loc.setLocation(this.x, this.y);
-		    		sk.setLoc(loc);
-		    		sk.resize(this.width-sk.getBounds().width, this.height-sk.getBounds().height);	
-		    		
-		    		this.popUp.dispose();
-		    		this.sview.repaint();
-				} catch (Exception e1) {
-					creatErrorPopup("Error : integer expected");
-				}
-			}
-		});
+		creatShapePopUp("Sketch Settings", sk);
 	}
 	
 	@Override
@@ -327,106 +239,81 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitSKotlin(SKotlin sk) {
-		creatPolygonPopUp("Kotlin Settings", sk);
+		creatShapePopUp("Kotlin Settings", sk);
 	}
 
 	@Override
 	public void visitSTriangle(STriangle st) {
-		creatPolygonPopUp("Triangle Settings", st);
+		creatShapePopUp("Triangle Settings", st);
 	}
 
 	@Override
 	public void visitSLine(SLine sl) {
-		creatPolygonPopUp("Line Settings", sl);
+		creatShapePopUp("Line Settings", sl);
 	}
 
 	@Override
 	public void visitSHexagon(SHexagon sh) {		
-		creatPolygonPopUp("Hexagon Settings", sh);
+		creatShapePopUp("Hexagon Settings", sh);
 	}
 
 	@Override
 	public void visitSTriangleRec(STriangleRec strec) {
-		creatPolygonPopUp("Trianlge Rec Settings", strec);
+		creatShapePopUp("Trianlge Rec Settings", strec);
 		this.title.setBounds(50, 10, 135, 20);
 	}
 
 	@Override
 	public void visitSCross(SCross scr) {
-		creatPolygonPopUp("Cross Settings", scr);
+		creatShapePopUp("Cross Settings", scr);
 	}
 
 	@Override
 	public void visitEllipse(SEllipse se) {
-		Rectangle  re = se.getBounds();
-		
-		creatSettingsFrame("Ellipse Settings", 240, 200);
-		
-		addSizeSettings(10, 40, 60, 20);
-		this.tWidth.setText(String.valueOf(re.width));		
-		this.tHeight.setText(String.valueOf(re.height));		
-		
-		addLocSettings(140, 40, 20, 20);
-		this.tx.setText(String.valueOf(re.x));
-		this.ty.setText(String.valueOf(re.y));
-		
-		this.bSave.addActionListener(e -> {
-			if(e.getSource().equals(this.bSave)) {
-				try {
-					this.width = Integer.valueOf(this.tWidth.getText());
-		    		this.height = Integer.valueOf(this.tHeight.getText());
-		    		this.x = Integer.valueOf(this.tx.getText());
-		    		this.y = Integer.valueOf(this.ty.getText());
-		    		
-		    		re.setBounds(this.x, this.y, this.width, this.height);
-		    		se.setBounds(re);
-		    		
-		    		this.popUp.dispose();
-		    		this.sview.repaint();
-				} catch (Exception e1) {
-					creatErrorPopup("Error : integer expected");
-				}
-			}
-		});
-		
+		creatShapePopUp("Ellipse Settings", se);		
 	}
 
 	@Override
 	public void visitSPentagon(SPentagon spt) {
-		creatPolygonPopUp("Pentagon Settings", spt);
+		creatShapePopUp("Pentagon Settings", spt);
 	}
 
 	@Override
 	public void visitSArrow(SArrow sar) {
-		creatPolygonPopUp("Arrow Settings", sar);
+		creatShapePopUp("Arrow Settings", sar);
 	}
 
 	@Override
 	public void visitSStar(SStar sst) {
-		creatPolygonPopUp("Star Settings", sst);
+		creatShapePopUp("Star Settings", sst);
 	}
 
 	@Override
 	public void visitSParallelogram(SParallelogram spg) {
-		creatPolygonPopUp("Parallelogram Settings", spg);
+		creatShapePopUp("Parallelogram Settings", spg);
 		this.title.setBounds(50, 10, 135, 20);
 	}
 
 	@Override
 	public void visitSOctagon(SOctagon soc) {
-		creatPolygonPopUp("Octagon Settings", soc);
+		creatShapePopUp("Octagon Settings", soc);
 	}
 
 	@Override
 	public void visitSTrapezium(STrapezium stp) {
-		creatPolygonPopUp("Trapezium Settings", stp);
+		creatShapePopUp("Trapezium Settings", stp);
 		this.title.setBounds(50, 10, 135, 20);
 	}
 
 	@Override
 	public void visitSTriangleScale(STriangleScale stc) {
-		creatPolygonPopUp("Triangle Scale Settings", stc);
+		creatShapePopUp("Triangle Scale Settings", stc);
 		this.title.setBounds(50, 10, 135, 20);
+	}
+	
+	@Override
+	public void visitSRhombus(SRhombus srh) {
+		creatShapePopUp("Rhombus Settings", srh);
 	}
 	
 	public void creatSettingsFrame(String title, int w, int h) {
@@ -462,12 +349,7 @@ public class ShapePopUpman implements ShapeVisitor {
 			}
 		});   
     }
-	
-	@Override
-	public void visitSRhombus(SRhombus srh) {
-		creatPolygonPopUp("Rhombus Settings", srh);
-	}
-	
+		
 	public void addLocSettings(int dx, int dy, int w, int h) {
 		this.lx = new JLabel("x :");
 		this.lx.setBounds(dx, dy, w, h);
@@ -514,18 +396,18 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.popUp.add(this.scrolltxt);
 	}
 	
-	public void creatPolygonPopUp(String title, Shape p) {
-		Point loc = p.getLoc();
+	public void creatShapePopUp(String title, Shape s) {
+		Point loc = s.getLoc();
 		
 		creatSettingsFrame(title, 240, 200);
 		
 		addSizeSettings(10, 40, 60, 20);
-		this.tWidth.setText(String.valueOf(p.getBounds().width));		
-		this.tHeight.setText(String.valueOf(p.getBounds().height));		
+		this.tWidth.setText(String.valueOf(s.getBounds().width));		
+		this.tHeight.setText(String.valueOf(s.getBounds().height));		
 		
 		addLocSettings(140, 40, 20, 20);
-		this.tx.setText(String.valueOf(p.getBounds().x));
-		this.ty.setText(String.valueOf(p.getBounds().y));
+		this.tx.setText(String.valueOf(s.getBounds().x));
+		this.ty.setText(String.valueOf(s.getBounds().y));
 		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
@@ -536,8 +418,8 @@ public class ShapePopUpman implements ShapeVisitor {
 		    		this.y = Integer.valueOf(this.ty.getText());
 		    		
 		    		loc.setLocation(this.x, this.y);
-		    		p.setLoc(loc);
-		    		p.resize(this.width-p.getBounds().width, this.height-p.getBounds().height);
+		    		s.setLoc(loc);
+		    		s.resize(this.width-s.getBounds().width, this.height-s.getBounds().height);
 		    		
 		    		this.popUp.dispose();
 		    		this.sview.repaint();
