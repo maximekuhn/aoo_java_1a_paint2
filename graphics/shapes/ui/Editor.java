@@ -91,7 +91,6 @@ public class Editor extends JFrame
 		e.addAttributes(new SelectionAttributes());
 		this.model.add(e);
 		
-		
 		STextBox t= new STextBox(new Point(100,100),"hello");
 		t.addAttributes(new ColorAttributes(true,true,Color.YELLOW,Color.BLUE));
 		t.addAttributes(new FontAttributes());

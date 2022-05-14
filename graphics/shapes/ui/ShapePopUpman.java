@@ -1,10 +1,11 @@
 package graphics.shapes.ui;
 
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
-import java.awt.Rectangle;
-import java.io.File;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -37,6 +38,7 @@ import graphics.shapes.STriangleRec;
 import graphics.shapes.STriangleScale;
 import graphics.shapes.Shape;
 import graphics.shapes.ShapeVisitor;
+import graphics.shapes.attributes.FontAttributes;
 
 public class ShapePopUpman implements ShapeVisitor {
 	
@@ -59,6 +61,13 @@ public class ShapePopUpman implements ShapeVisitor {
     private JTextArea tText;
     private JTextField tx;
     private JTextField ty;
+    
+    private FontAttributes fa;
+    private final String[] fontsName = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+    private final Integer[] sizeFont = new Integer[95];
+    private JComboBox<String> fontsBox;
+    private JComboBox<Integer> sizeBox; 
+    private Font font;
     
     private JScrollPane scrolltxt;
     
@@ -121,7 +130,7 @@ public class ShapePopUpman implements ShapeVisitor {
 	public void visitText(SText st) {
 		Point loc = st.getLoc();
 		
-		creatSettingsFrame("Text Settings", 400, 250);
+		creatSettingsFrame("Text Settings", 600, 250);
 		this.title.setBounds(145, 10, 110, 20);
 		
 		addTextSettings(10, 40, 60, 20);
@@ -130,17 +139,45 @@ public class ShapePopUpman implements ShapeVisitor {
 		addLocSettings(280, 40, 20, 20);
 		this.tx.setText(String.valueOf(st.getLoc().x));
 		this.ty.setText(String.valueOf(st.getLoc().y));
-
+		
+		this.fa = (FontAttributes) st.getAttributes(FontAttributes.ID);
+		if(this.fa == null) {
+			this.fa = new FontAttributes();
+			st.addAttributes(this.fa);
+		}
+		
+		this.fontsBox = new JComboBox<>(this.fontsName);
+		this.fontsBox.setEditable(true);
+		this.fontsBox.setSelectedItem(this.fa.font.getName());
+		this.fontsBox.setBounds(400, 40, 170, 30);
+		this.popUp.add(this.fontsBox);
+		
+		int smin = 6;
+		for(int i = 0;  i < this.sizeFont.length; i++) {
+			this.sizeFont[i] = smin;
+			smin++;
+		}
+		
+		this.sizeBox = new JComboBox<>(this.sizeFont);
+		this.sizeBox.setEditable(true);
+		this.sizeBox.setSelectedItem(this.fa.font.getSize());
+		this.sizeBox.setBounds(400, 80, 170, 30);
+		this.popUp.add(this.sizeBox);
+		
 		this.bSave.setBounds(125, 170, 65, 30);
-		this.bExit.setBounds(194, 170, 65, 30);
-			
+		this.bExit.setBounds(194, 170, 65, 30);	
+		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
 				try {
 					String text = this.tText.getText();
+					String fontName = (String) this.fontsBox.getSelectedItem();
+					int size = (int) this.sizeBox.getSelectedItem();
 		    		this.x = Integer.valueOf(this.tx.getText());
 		    		this.y = Integer.valueOf(this.ty.getText());
 		    		
+		    		this.font = new Font(fontName, Font.PLAIN, size);
+		    		this.fa.font = this.font;
 		    		loc.setLocation(this.x, this.y);
 		    		st.setLoc(loc);
 		    		st.setText(text);
@@ -148,10 +185,10 @@ public class ShapePopUpman implements ShapeVisitor {
 		    		this.popUp.dispose();
 		    		this.sview.repaint();
 				} catch (Exception e1) {
-					creatErrorPopup("Error : integer expected for x and y");
-				}	
+					creatErrorPopup("Error : integer expected for x, y and size");
+				}
 			}
-		});		
+		});	
 	}
 
 	@Override
@@ -161,37 +198,7 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitSImage(SImage si) {
-		Point loc = si.getLoc();
-		
-		creatSettingsFrame("Image Settings", 240, 200);
-
-		addSizeSettings(10, 40, 60, 20);
-		this.tWidth.setText(String.valueOf(si.getBounds().width));		
-		this.tHeight.setText(String.valueOf(si.getBounds().height));
-		
-		addLocSettings(140, 40, 20, 20);
-		this.tx.setText(String.valueOf(loc.x));
-		this.ty.setText(String.valueOf(loc.y));
-		
-		this.bSave.addActionListener(e -> {
-			if(e.getSource().equals(this.bSave)) {
-				try {
-					this.width = Integer.valueOf(this.tWidth.getText());
-		    		this.height = Integer.valueOf(this.tHeight.getText());
-		    		this.x = Integer.valueOf(this.tx.getText());
-		    		this.y = Integer.valueOf(this.ty.getText());
-		    		
-		    		loc.setLocation(this.x, this.y);
-		    		si.setLoc(loc);
-		    		si.resize(this.width-si.getBounds().width, this.height-si.getBounds().height);	    		
-		    		
-		    		this.popUp.dispose();
-		    		this.sview.repaint();
-				} catch (Exception e1) {
-					creatErrorPopup("Error : integer expected");
-				}
-			}
-		});
+		creatShapePopUp("Image Settings", si);
 	}
 
 	@Override
@@ -203,7 +210,7 @@ public class ShapePopUpman implements ShapeVisitor {
 	public void visitTextBox(STextBox stb) {
 		Point loc = stb.getLoc();
 		
-		creatSettingsFrame("Text Box Settings", 400, 250);
+		creatSettingsFrame("Text Box Settings", 600, 250);
 		this.title.setBounds(145, 10, 110, 20);
 		
 		addTextSettings(10, 40, 60, 20);
@@ -212,18 +219,45 @@ public class ShapePopUpman implements ShapeVisitor {
 		addLocSettings(280, 40, 20, 20);
 		this.tx.setText(String.valueOf(stb.getLoc().x));
 		this.ty.setText(String.valueOf(stb.getLoc().y));
-
+		
+		this.fa = (FontAttributes) stb.getAttributes(FontAttributes.ID);
+		if(this.fa == null) {
+			this.fa = new FontAttributes();
+			stb.addAttributes(this.fa);
+		}
+		
+		this.fontsBox = new JComboBox<>(this.fontsName);
+		this.fontsBox.setEditable(true);
+		this.fontsBox.setSelectedItem(this.fa.font.getName());
+		this.fontsBox.setBounds(400, 40, 170, 30);
+		this.popUp.add(this.fontsBox);
+		
+		int smin = 6;
+		for(int i = 0;  i < this.sizeFont.length; i++) {
+			this.sizeFont[i] = smin;
+			smin++;
+		}
+		
+		this.sizeBox = new JComboBox<>(this.sizeFont);
+		this.sizeBox.setEditable(true);
+		this.sizeBox.setSelectedItem(this.fa.font.getSize());
+		this.sizeBox.setBounds(400, 80, 170, 30);
+		this.popUp.add(this.sizeBox);
+		
 		this.bSave.setBounds(125, 170, 65, 30);
-		this.bExit.setBounds(194, 170, 65, 30);
-			
+		this.bExit.setBounds(194, 170, 65, 30);	
 		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
 				try {
 					String text = this.tText.getText();
+					String fontName = (String) this.fontsBox.getSelectedItem();
+					int size = (int) this.sizeBox.getSelectedItem();
 		    		this.x = Integer.valueOf(this.tx.getText());
 		    		this.y = Integer.valueOf(this.ty.getText());
 		    		
+		    		this.font = new Font(fontName, Font.PLAIN, size);
+		    		this.fa.font = this.font;
 		    		loc.setLocation(this.x, this.y);
 		    		stb.setLoc(loc);
 		    		stb.setText(text);
@@ -231,7 +265,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		    		this.popUp.dispose();
 		    		this.sview.repaint();
 				} catch (Exception e1) {
-					creatErrorPopup("Error : integer expected for x and y");
+					creatErrorPopup("Error : integer expected for x, y and size");
 				}
 			}
 		});
