@@ -125,7 +125,7 @@ public class SText extends Shape {
 		// font attributes
 		FontAttributes fa = (FontAttributes) st.getAttributes(FontAttributes.ID);
 		StringJoiner sj = new StringJoiner(",");
-		sj.add(fa.font.getName());
+		sj.add(fa.font.getName().replace(" ", "\\w"));
 		sj.add(String.valueOf(fa.font.getStyle()));
 		sj.add(String.valueOf(fa.font.getSize()));
 		tmp.add(sj.toString());

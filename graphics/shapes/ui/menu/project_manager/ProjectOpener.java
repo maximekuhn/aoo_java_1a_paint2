@@ -161,7 +161,7 @@ public class ProjectOpener {
 	
 	private Font decodeFont(String line) {
 		String[] fontSettings = line.split(",");
-		String name = fontSettings[0];
+		String name = fontSettings[0].replace("\\w", " ");
 		int style = Integer.parseInt(fontSettings[1]);
 		int size = Integer.parseInt(fontSettings[2]);
 		
