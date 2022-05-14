@@ -24,13 +24,19 @@ import graphics.shapes.SHexagon;
 import graphics.shapes.SImage;
 import graphics.shapes.SKotlin;
 import graphics.shapes.SLine;
+import graphics.shapes.SOctagon;
+import graphics.shapes.SParallelogram;
 import graphics.shapes.SPentagon;
 import graphics.shapes.SRectangle;
+import graphics.shapes.SRhombus;
 import graphics.shapes.SSketch;
+import graphics.shapes.SStar;
 import graphics.shapes.SText;
 import graphics.shapes.STextBox;
+import graphics.shapes.STrapezium;
 import graphics.shapes.STriangle;
 import graphics.shapes.STriangleRec;
+import graphics.shapes.STriangleScale;
 import graphics.shapes.Shape;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
@@ -59,6 +65,12 @@ public class ProjectOpener {
 	private static final String SCROSS = new SCross(new Point(0,0), 0, 0).getClass().getName();
 	private static final String SPENTAGON = new SPentagon(new Point(0,0), 0, 0).getClass().getName();
 	private static final String SELLIPSE = new SEllipse(new Point(0,0), 0, 0).getClass().getName();
+	private static final String SSTAR = new SStar(new Point(0,0), 0, 0).getClass().getName();
+	private static final String SPARALLELOGRAM = new SParallelogram(new Point(0,0), 0, 0).getClass().getName();
+	private static final String SOCTAGON = new SOctagon(new Point(0,0), 0, 0).getClass().getName();
+	private static final String STRAPEZIUM = new STrapezium(new Point(0,0), 0, 0).getClass().getName();
+	private static final String STRIANGLESCALE = new STriangleScale(new Point(0,0), 0, 0).getClass().getName();
+	private static final String SRHOMBUS = new SRhombus(new Point(0,0), 0, 0).getClass().getName();
 	
 	private ShapesView sview;
 	
@@ -67,7 +79,6 @@ public class ProjectOpener {
 	}
 
 	public void open(File fileToOpen) {
-		// TODO Auto-generated method stub
 		try {
 			this.emptyModel();
 			SCollection model = (SCollection) this.sview.getModel();
@@ -132,319 +143,21 @@ public class ProjectOpener {
 		else if(className.equals(SCROSS)) shape = this.decodeSCross(line);
 		else if(className.equals(SPENTAGON)) shape = this.decodeSPentagon(line);
 		else if(className.equals(SELLIPSE)) shape = this.decodeSEllipse(line);
+		else if(className.equals(SSTAR)) shape = this.decodeSStar(line);
+		else if(className.equals(SPARALLELOGRAM)) shape = this.decodeSParallelogram(line);
+		else if(className.equals(SOCTAGON)) shape = this.decodeSOctagon(line);
+		else if(className.equals(STRAPEZIUM)) shape = this.decodeSTrapezium(line);
+		else if(className.equals(STRIANGLESCALE)) shape = this.decodeSTriangleScale(line);
+		else if(className.equals(SRHOMBUS)) shape = this.decodeSRhombus(line);
 		
 		return shape;
-	}
-
-	private Shape decodeSEllipse(String line) {
-		String[] settings = line.split(" ");
-		if(settings.length != 14) return null;
-		
-		// point + width & height
-		int locX = Integer.parseInt(settings[2]);
-		int locY = Integer.parseInt(settings[3]);
-		int width = Integer.parseInt(settings[4]);
-		int height = Integer.parseInt(settings[5]);
-		
-		SEllipse se = new SEllipse(new Point(locX, locY), width, height);
-		
-		// color attributes
-		boolean filled = Boolean.parseBoolean(settings[6]);
-		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decodeColor(settings[8]);
-		Color strokedColor = this.decodeColor(settings[9]);
-		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
-		se.addAttributes(ca);
-		
-		// selection attributes
-		boolean isSelected = Boolean.parseBoolean(settings[10]);
-		SelectionAttributes sa = new SelectionAttributes(isSelected);
-		se.addAttributes(sa);
-		
-		// rotation attributes
-		int angle = Integer.parseInt(settings[11]);
-		RotationAttributes ra = new RotationAttributes(angle);
-		se.addAttributes(ra);
-		
-		// layer attributes
-		int layer = Integer.parseInt(settings[12]);
-		LayerAttributes la = new LayerAttributes(layer);
-		se.addAttributes(la);
-		
-		return se;
-	}
-
-	private Shape decodeSPentagon(String line) {
-		String[] settings = line.split(" ");
-		if(settings.length != 14) return null;
-		
-		// point + width & height
-		int locX = Integer.parseInt(settings[2]);
-		int locY = Integer.parseInt(settings[3]);
-		int width = Integer.parseInt(settings[4]);
-		int height = Integer.parseInt(settings[5]);
-		
-		SPentagon sp = new SPentagon(new Point(locX, locY), width, height);
-		
-		// color attributes
-		boolean filled = Boolean.parseBoolean(settings[6]);
-		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decodeColor(settings[8]);
-		Color strokedColor = this.decodeColor(settings[9]);
-		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
-		sp.addAttributes(ca);
-		
-		// selection attributes
-		boolean isSelected = Boolean.parseBoolean(settings[10]);
-		SelectionAttributes sa = new SelectionAttributes(isSelected);
-		sp.addAttributes(sa);
-		
-		// rotation attributes
-		int angle = Integer.parseInt(settings[11]);
-		RotationAttributes ra = new RotationAttributes(angle);
-		sp.addAttributes(ra);
-		
-		// layer attributes
-		int layer = Integer.parseInt(settings[12]);
-		LayerAttributes la = new LayerAttributes(layer);
-		sp.addAttributes(la);
-		
-		return sp;
-	}
-
-	private Shape decodeSCross(String line) {
-		String[] settings = line.split(" ");
-		if(settings.length != 14) return null;
-		
-		// point + width & height
-		int locX = Integer.parseInt(settings[2]);
-		int locY = Integer.parseInt(settings[3]);
-		int width = Integer.parseInt(settings[4]);
-		int height = Integer.parseInt(settings[5]);
-		
-		SCross sc = new SCross(new Point(locX, locY), width, height);
-		
-		// color attributes
-		boolean filled = Boolean.parseBoolean(settings[6]);
-		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decodeColor(settings[8]);
-		Color strokedColor = this.decodeColor(settings[9]);
-		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
-		sc.addAttributes(ca);
-		
-		// selection attributes
-		boolean isSelected = Boolean.parseBoolean(settings[10]);
-		SelectionAttributes sa = new SelectionAttributes(isSelected);
-		sc.addAttributes(sa);
-		
-		// rotation attributes
-		int angle = Integer.parseInt(settings[11]);
-		RotationAttributes ra = new RotationAttributes(angle);
-		sc.addAttributes(ra);
-		
-		// layer attributes
-		int layer = Integer.parseInt(settings[12]);
-		LayerAttributes la = new LayerAttributes(layer);
-		sc.addAttributes(la);
-		
-		return sc;
-	}
-
-	private Shape decodeSArrow(String line) {
-		String[] settings = line.split(" ");
-		if(settings.length != 14) return null;
-		
-		// point + width & height
-		int locX = Integer.parseInt(settings[2]);
-		int locY = Integer.parseInt(settings[3]);
-		int width = Integer.parseInt(settings[4]);
-		int height = Integer.parseInt(settings[5]);
-		
-		SArrow arrow = new SArrow(new Point(locX, locY), width, height);
-		
-		// color attributes
-		boolean filled = Boolean.parseBoolean(settings[6]);
-		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decodeColor(settings[8]);
-		Color strokedColor = this.decodeColor(settings[9]);
-		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
-		arrow.addAttributes(ca);
-		
-		// selection attributes
-		boolean isSelected = Boolean.parseBoolean(settings[10]);
-		SelectionAttributes sa = new SelectionAttributes(isSelected);
-		arrow.addAttributes(sa);
-		
-		// rotation attributes
-		int angle = Integer.parseInt(settings[11]);
-		RotationAttributes ra = new RotationAttributes(angle);
-		arrow.addAttributes(ra);
-		
-		// layer attributes
-		int layer = Integer.parseInt(settings[12]);
-		LayerAttributes la = new LayerAttributes(layer);
-		arrow.addAttributes(la);
-		
-		return arrow;
-	}
-
-	private Shape decodeSLine(String line) {
-		String[] settings = line.split(" ");
-		if(settings.length != 14) return null;
-		
-		// point + width & height
-		int locX = Integer.parseInt(settings[2]);
-		int locY = Integer.parseInt(settings[3]);
-		int width = Integer.parseInt(settings[4]);
-		int height = Integer.parseInt(settings[5]);
-		
-		SLine sl = new SLine(new Point(locX, locY), width, height);
-		
-		// color attributes
-		boolean filled = Boolean.parseBoolean(settings[6]);
-		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decodeColor(settings[8]);
-		Color strokedColor = this.decodeColor(settings[9]);
-		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
-		sl.addAttributes(ca);
-		
-		// selection attributes
-		boolean isSelected = Boolean.parseBoolean(settings[10]);
-		SelectionAttributes sa = new SelectionAttributes(isSelected);
-		sl.addAttributes(sa);
-		
-		// rotation attributes
-		int angle = Integer.parseInt(settings[11]);
-		RotationAttributes ra = new RotationAttributes(angle);
-		sl.addAttributes(ra);
-		
-		// layer attributes
-		int layer = Integer.parseInt(settings[12]);
-		LayerAttributes la = new LayerAttributes(layer);
-		sl.addAttributes(la);
-		
-		return sl;
-	}
-
-	private Shape decodeSTriangleRec(String line) {
-		String[] settings = line.split(" ");
-		if(settings.length != 14) return null;
-		
-		// point + width & height
-		int locX = Integer.parseInt(settings[2]);
-		int locY = Integer.parseInt(settings[3]);
-		int width = Integer.parseInt(settings[4]);
-		int height = Integer.parseInt(settings[5]);
-		
-		STriangleRec str = new STriangleRec(new Point(locX, locY), width, height);
-		
-		// color attributes
-		boolean filled = Boolean.parseBoolean(settings[6]);
-		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decodeColor(settings[8]);
-		Color strokedColor = this.decodeColor(settings[9]);
-		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
-		str.addAttributes(ca);
-		
-		// selection attributes
-		boolean isSelected = Boolean.parseBoolean(settings[10]);
-		SelectionAttributes sa = new SelectionAttributes(isSelected);
-		str.addAttributes(sa);
-		
-		// rotation attributes
-		int angle = Integer.parseInt(settings[11]);
-		RotationAttributes ra = new RotationAttributes(angle);
-		str.addAttributes(ra);
-		
-		// layer attributes
-		int layer = Integer.parseInt(settings[12]);
-		LayerAttributes la = new LayerAttributes(layer);
-		str.addAttributes(la);
-		
-		return str;
-	}
-
-	private Shape decodeSHexagon(String line) {
-		String[] settings = line.split(" ");
-		if(settings.length != 14) return null;
-		
-		// point + width & height
-		int locX = Integer.parseInt(settings[2]);
-		int locY = Integer.parseInt(settings[3]);
-		int width = Integer.parseInt(settings[4]);
-		int height = Integer.parseInt(settings[5]);
-		
-		SHexagon sh = new SHexagon(new Point(locX, locY), width, height);
-		
-		// color attributes
-		boolean filled = Boolean.parseBoolean(settings[6]);
-		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decodeColor(settings[8]);
-		Color strokedColor = this.decodeColor(settings[9]);
-		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
-		sh.addAttributes(ca);
-		
-		// selection attributes
-		boolean isSelected = Boolean.parseBoolean(settings[10]);
-		SelectionAttributes sa = new SelectionAttributes(isSelected);
-		sh.addAttributes(sa);
-		
-		// rotation attributes
-		int angle = Integer.parseInt(settings[11]);
-		RotationAttributes ra = new RotationAttributes(angle);
-		sh.addAttributes(ra);
-		
-		// layer attributes
-		int layer = Integer.parseInt(settings[12]);
-		LayerAttributes la = new LayerAttributes(layer);
-		sh.addAttributes(la);
-		
-		return sh;
-	}
-
-	private Shape decodeSTriangle(String line) {
-		String[] settings = line.split(" ");
-		if(settings.length != 14) return null;
-		
-		// point + width & height
-		int locX = Integer.parseInt(settings[2]);
-		int locY = Integer.parseInt(settings[3]);
-		int width = Integer.parseInt(settings[4]);
-		int height = Integer.parseInt(settings[5]);
-		
-		STriangle st = new STriangle(new Point(locX, locY), width, height);
-		
-		// color attributes
-		boolean filled = Boolean.parseBoolean(settings[6]);
-		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decodeColor(settings[8]);
-		Color strokedColor = this.decodeColor(settings[9]);
-		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
-		st.addAttributes(ca);
-		
-		// selection attributes
-		boolean isSelected = Boolean.parseBoolean(settings[10]);
-		SelectionAttributes sa = new SelectionAttributes(isSelected);
-		st.addAttributes(sa);
-		
-		// rotation attributes
-		int angle = Integer.parseInt(settings[11]);
-		RotationAttributes ra = new RotationAttributes(angle);
-		st.addAttributes(ra);
-		
-		// layer attributes
-		int layer = Integer.parseInt(settings[12]);
-		LayerAttributes la = new LayerAttributes(layer);
-		st.addAttributes(la);
-		
-		return st;
 	}
 
 	private Color decodeColor(String line) {
 		return new Color(Integer.parseInt(line));
 	}
 	
-	private Font decryptFont(String line) {
+	private Font decodeFont(String line) {
 		String[] fontSettings = line.split(",");
 		String name = fontSettings[0];
 		int style = Integer.parseInt(fontSettings[1]);
@@ -465,7 +178,14 @@ public class ProjectOpener {
 		}
 	}
 	
-	private SRectangle decodeSRectangle(String line) {
+	
+	
+	
+	/* ---        --- */
+	/* --- SHAPES --- */
+	/* ---        --- */
+	
+	private Shape decodeSRectangle(String line) {
 		String[] settings = line.split(" ");
 		if(settings.length != 14) return null;
 		
@@ -503,7 +223,7 @@ public class ProjectOpener {
 		return sr;
 	}
 	
-	private SCircle decodeSCircle(String line) {
+	private Shape decodeSCircle(String line) {
 		String[] settings = line.split(" ");
 		if(settings.length != 13) return null;
 		
@@ -540,7 +260,8 @@ public class ProjectOpener {
 		return sc;
 	}
 	
-	private STextBox decodeSTextBox(String line) {
+	
+	private Shape decodeSTextBox(String line) {
 		String[] settings = line.split(" ");
 		if(settings.length != 15) return null;
 		
@@ -577,7 +298,7 @@ public class ProjectOpener {
 		stb.addAttributes(la);
 		
 		// font attributes
-		Font font = this.decryptFont(settings[12]);
+		Font font = this.decodeFont(settings[12]);
 		Color fontColor = this.decodeColor(settings[13]);
 		FontAttributes fa = new FontAttributes(font, fontColor);
 		stb.addAttributes(fa);
@@ -585,7 +306,7 @@ public class ProjectOpener {
 		return stb;
 	}
 	
-	private SText decodetSText(String line) {
+	private Shape decodetSText(String line) {
 		String[] settings = line.split(" ");
 		if(settings.length != 15) return null;
 		
@@ -621,7 +342,7 @@ public class ProjectOpener {
 		st.addAttributes(la);
 		
 		// font attributes
-		Font font = this.decryptFont(settings[12]);
+		Font font = this.decodeFont(settings[12]);
 		Color fontColor = this.decodeColor(settings[13]);
 		FontAttributes fa = new FontAttributes(font, fontColor);
 		st.addAttributes(fa);
@@ -629,46 +350,8 @@ public class ProjectOpener {
 		return st;
 	}
 	
-	private SKotlin decodeSKotlin(String line) {
-		String[] settings = line.split(" ");
-		if(settings.length != 14) return null;
-		
-		// point + width & height
-		int locX = Integer.parseInt(settings[2]);
-		int locY = Integer.parseInt(settings[3]);
-		int width = Integer.parseInt(settings[4]);
-		int height = Integer.parseInt(settings[5]);
-		
-		SKotlin sk = new SKotlin(new Point(locX, locY), width, height);
-		
-		// color attributes
-		boolean filled = Boolean.parseBoolean(settings[6]);
-		boolean stroked = Boolean.parseBoolean(settings[7]);
-		Color filledColor = this.decodeColor(settings[8]);
-		Color strokedColor = this.decodeColor(settings[9]);
-		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
-		sk.addAttributes(ca);
-		
-		// selection attributes
-		boolean isSelected = Boolean.parseBoolean(settings[10]);
-		SelectionAttributes sa = new SelectionAttributes(isSelected);
-		sk.addAttributes(sa);
-		
-		// rotation attributes
-		int angle = Integer.parseInt(settings[11]);
-		RotationAttributes ra = new RotationAttributes(angle);
-		sk.addAttributes(ra);
-		
-		// layer attributes
-		int layer = Integer.parseInt(settings[12]);
-		LayerAttributes la = new LayerAttributes(layer);
-		sk.addAttributes(la);
-		
-		return sk;
-	}
 	
-	private SCollection decodeSCollection(String line) {
-		// TODO Auto-generated method stub
+	private Shape decodeSCollection(String line) {
 		String[] settings = line.split(" ");
 		// location
 		int locX = Integer.parseInt(settings[2]);
@@ -751,7 +434,7 @@ public class ProjectOpener {
 		return sb.toString();
 	}
 
-	private SSketch decodeSSketch(String line) {
+	private Shape decodeSSketch(String line) {
 		String[] settings = line.split(" ");
 		
 		// point
@@ -796,7 +479,7 @@ public class ProjectOpener {
 		return sk;
 	}
 
-	private SImage decodeSImage(String line) {
+	private Shape decodeSImage(String line) {
 		String[] settings = line.split(" ");
 		if(settings.length != 13) return null;
 		
@@ -839,5 +522,130 @@ public class ProjectOpener {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	
+	
+	
+	/* ---          --- */
+	/* --- POLYGONS --- */
+	/* ---          --- */
+	
+	private Shape decodePolygon(String line) {
+		String[] settings = line.split(" ");
+		if(settings.length != 14) return null;
+		
+		String className = settings[1];
+		
+		// point + width & height
+		int locX = Integer.parseInt(settings[2]);
+		int locY = Integer.parseInt(settings[3]);
+		int width = Integer.parseInt(settings[4]);
+		int height = Integer.parseInt(settings[5]);
+		
+		Shape shape;
+		if(className.equals(SKOTLIN)) shape = new SKotlin(new Point(locX, locY), width, height);
+		else if(className.equals(STRIANGLE)) shape = new STriangle(new Point(locX, locY), width, height);
+		else if(className.equals(SLINE)) shape = new SLine(new Point(locX, locY), width, height);
+		else if(className.equals(SHEXAGON)) shape = new SHexagon(new Point(locX, locY), width, height);
+		else if(className.equals(STRIANGLEREC)) shape = new STriangleRec(new Point(locX, locY), width, height);
+		else if(className.equals(SCROSS)) shape = new SCross(new Point(locX, locY), width, height);
+		else if(className.equals(SELLIPSE)) shape = new SEllipse(new Point(locX, locY), width, height);
+		else if(className.equals(SPENTAGON)) shape = new SPentagon(new Point(locX, locY), width, height);
+		else if(className.equals(SARROW)) shape = new SArrow(new Point(locX, locY), width, height);
+		else if(className.equals(SSTAR)) shape = new SStar(new Point(locX, locY), width, height);
+		else if(className.equals(SPARALLELOGRAM)) shape = new SParallelogram(new Point(locX, locY), width, height);
+		else if(className.equals(SOCTAGON)) shape = new SOctagon(new Point(locX, locY), width, height);
+		else if(className.equals(STRAPEZIUM)) shape = new STrapezium(new Point(locX, locY), width, height);
+		else if(className.equals(STRIANGLESCALE)) shape = new STriangleScale(new Point(locX, locY), width, height);
+		else if(className.equals(SRHOMBUS)) shape = new SRhombus(new Point(locX, locY), width, height);
+		else shape = null;
+		
+		if(shape == null) return null;
+		
+		// color attributes
+		boolean filled = Boolean.parseBoolean(settings[6]);
+		boolean stroked = Boolean.parseBoolean(settings[7]);
+		Color filledColor = this.decodeColor(settings[8]);
+		Color strokedColor = this.decodeColor(settings[9]);
+		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
+		shape.addAttributes(ca);
+		
+		// selection attributes
+		boolean isSelected = Boolean.parseBoolean(settings[10]);
+		SelectionAttributes sa = new SelectionAttributes(isSelected);
+		shape.addAttributes(sa);
+		
+		// rotation attributes
+		int angle = Integer.parseInt(settings[11]);
+		RotationAttributes ra = new RotationAttributes(angle);
+		shape.addAttributes(ra);
+		
+		// layer attributes
+		int layer = Integer.parseInt(settings[12]);
+		LayerAttributes la = new LayerAttributes(layer);
+		shape.addAttributes(la);
+		
+		return shape;
+	}
+	
+	private Shape decodeSRhombus(String line) {
+		return this.decodePolygon(line);
+	}
+
+	private Shape decodeSTriangleScale(String line) {
+		return this.decodePolygon(line);
+	}
+
+	private Shape decodeSTrapezium(String line) {
+		return this.decodePolygon(line);
+	}
+
+	private Shape decodeSOctagon(String line) {
+		return this.decodePolygon(line);
+	}
+
+	private Shape decodeSParallelogram(String line) {
+		return this.decodePolygon(line);
+	}
+
+	private Shape decodeSStar(String line) {
+		return this.decodePolygon(line);
+	}
+
+	private Shape decodeSEllipse(String line) {
+		return this.decodePolygon(line);
+	}
+
+	private Shape decodeSPentagon(String line) {
+		return this.decodePolygon(line);
+	}
+
+	private Shape decodeSCross(String line) {
+		return this.decodePolygon(line);
+	}
+
+	private Shape decodeSArrow(String line) {
+		return this.decodePolygon(line);
+	}
+
+	private Shape decodeSLine(String line) {
+		return this.decodePolygon(line);
+	}
+
+	private Shape decodeSTriangleRec(String line) {
+		return this.decodePolygon(line);
+	}
+
+	private Shape decodeSHexagon(String line) {
+		return this.decodePolygon(line);
+	}
+
+	private Shape decodeSTriangle(String line) {
+		return this.decodePolygon(line);
+	}
+	
+	private Shape decodeSKotlin(String line) {
+		return this.decodePolygon(line);
 	}
 }
