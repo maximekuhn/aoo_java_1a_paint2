@@ -386,7 +386,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		// TODO Auto-generated method stub
 		
 	}
-<<<<<<< HEAD
+
 
 	@Override
 	public void visitSRhombus(SRhombus srh) {
@@ -394,7 +394,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		
 	}
 
-=======
+
 	
 	public void creatSettingsFrame(String title, int w, int h) {
         if(this.popUp == null) {
@@ -476,5 +476,4 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.popUp.add(this.scrolltxt);
 	}
 	
->>>>>>> 1c8ee176093e6a09764484d73f4cc1843200f537
 }
