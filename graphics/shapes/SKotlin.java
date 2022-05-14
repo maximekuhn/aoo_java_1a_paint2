@@ -2,76 +2,36 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-/*
- * Kotlin logo
- */
-public class SKotlin extends Shape {
-	
-	private Polygon kotlin;
-	private Point loc;
-	
-	private int nPoints;
-	private int[] xKotlin;
-	private int[] yKotlin;
-	
-	private int width;
-	private int height;
-	
+public class SKotlin extends SPolygon {
+
 	public SKotlin(Point loc, int width, int height) {
-		this.loc = loc;
-		this.width = width;
-		this.height = height;
+		super(loc, width, height);
+	}
+
+	@Override
+	public void buildPolygon() {
 		this.nPoints = 5;
-		this.buildPolygon();
-	}
-	
-	private void buildPolygon() {
-		this.nPoints = 5;
-		this.xKotlin = new int[this.nPoints];
-		this.yKotlin = new int[this.nPoints];
+		this.xPolygon = new int[this.nPoints];
+		this.yPolygon = new int[this.nPoints];
 		
-		this.xKotlin[0] = this.loc.x;
-		this.yKotlin[0] = this.loc.y;
-		this.xKotlin[1] = this.loc.x + this.width;
-		this.yKotlin[1] = this.loc.y;
-		this.xKotlin[2] = this.loc.x + this.width / 2;
-		this.yKotlin[2] = this.loc.y + this.height / 2;
-		this.xKotlin[3] = this.loc.x + this.width;
-		this.yKotlin[3] = this.loc.y + this.height;
-		this.xKotlin[4] = this.loc.x;
-		this.yKotlin[4] = this.loc.y + this.height;
+		this.xPolygon[0] = this.getLoc().x;
+		this.yPolygon[0] = this.getLoc().y;
+		this.xPolygon[1] = this.getLoc().x + this.width;
+		this.yPolygon[1] = this.getLoc().y;
+		this.xPolygon[2] = this.getLoc().x + this.width / 2;
+		this.yPolygon[2] = this.getLoc().y + this.height /2;
+		this.xPolygon[3] = this.getLoc().x + this.width;
+		this.yPolygon[3] = this.getLoc().y + this.height;
+		this.xPolygon[4] = this.getLoc().x;
+		this.yPolygon[4] = this.getLoc().y + this.height;
 		
-		this.kotlin = new Polygon(this.xKotlin, this.yKotlin, this.nPoints);
-	}
-	
-	@Override
-	public Point getLoc() {
-		return this.loc;
-	}
-
-	@Override
-	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		this.buildPolygon();
-	}
-
-	@Override
-	public void translate(int dx, int dy) {
-		this.setLoc(new Point(this.loc.x + dx, this.loc.y + dy));
-		this.buildPolygon();
-	}
-
-	@Override
-	public Rectangle getBounds() {
-		return this.kotlin.getBounds();
+		this.polygon = new Polygon(this.xPolygon, this.yPolygon, this.nPoints);
 	}
 
 	@Override
@@ -97,53 +57,5 @@ public class SKotlin extends Shape {
 		return sk;
 	}
 
-	@Override
-	public void resize(int dx, int dy) {
-		this.width += dx;
-		this.height += dy;
-		this.buildPolygon();
-	}
-	
-	public Polygon getPolygon() {
-		return this.kotlin;
-	}
-	
-	@Override
-	public String toString() {
-		/*
-		 * take copy, because copy always have all attributes
-		 * (no need to check)
-		 */
-		SKotlin sk = (SKotlin) this.copy();
-		StringJoiner tmp = new StringJoiner(" ", "[ " , " ]");
-		
-		// basic
-		tmp.add(sk.getClass().getName());
-		tmp.add(String.valueOf(sk.getLoc().x));
-		tmp.add(String.valueOf(sk.getLoc().y));
-		tmp.add(String.valueOf(sk.getBounds().width));
-		tmp.add(String.valueOf(sk.getBounds().height));
-		
-		// color attributes
-		ColorAttributes ca = (ColorAttributes) sk.getAttributes(ColorAttributes.ID);
-		tmp.add(String.valueOf(ca.filled));
-		tmp.add(String.valueOf(ca.stroked));
-		tmp.add(String.valueOf(ca.filledColor.getRGB()));
-		tmp.add(String.valueOf(ca.strokedColor.getRGB()));
-		
-		// selection attributes
-		SelectionAttributes sa = (SelectionAttributes) sk.getAttributes(SelectionAttributes.ID);
-		tmp.add(String.valueOf(sa.isSelected()));
-		
-		// rotation attributes
-		RotationAttributes ra = (RotationAttributes) sk.getAttributes(RotationAttributes.ID);
-		tmp.add(String.valueOf(ra.getAngle()));
-		
-		// layer attributes
-		LayerAttributes la = (LayerAttributes) sk.getAttributes(LayerAttributes.ID);
-		tmp.add(String.valueOf(la.getLayer()));
-		
-		return tmp.toString();
-	}
 
 }

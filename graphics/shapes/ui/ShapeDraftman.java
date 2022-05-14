@@ -21,6 +21,7 @@ import graphics.shapes.SLine;
 import graphics.shapes.SOctagon;
 import graphics.shapes.SParallelogram;
 import graphics.shapes.SPentagon;
+import graphics.shapes.SPolygon;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SRhombus;
 import graphics.shapes.SSketch;
@@ -46,6 +47,7 @@ public class ShapeDraftman implements ShapeVisitor {
 	private static final RotationAttributes DEFAULTROTATIONATTRIBUTES = new RotationAttributes();
 	private static final int HANDLER_SIZE = 12;
 	private Graphics2D g2D;
+	
 	
 	@Override
 	public void visitRectangle(SRectangle sr) {
@@ -288,35 +290,39 @@ public class ShapeDraftman implements ShapeVisitor {
 		// anti-aliasing
 		this.g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
-
-	@Override
-	public void visitSKotlin(SKotlin sk) {
-		RotationAttributes ra = (RotationAttributes) sk.getAttributes(RotationAttributes.ID);
+	
+	private void visitPolygon(SPolygon sp) {
+		RotationAttributes ra = (RotationAttributes) sp.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
 		AffineTransform old = this.g2D.getTransform();
-		this.g2D.rotate(Math.toRadians(ra.getAngle()), sk.getBounds().x + sk.getBounds().width / 2, sk.getBounds().y + sk.getBounds().height / 2);
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), sp.getBounds().x + sp.getBounds().width / 2, sp.getBounds().y + sp.getBounds().height / 2);
 		
-		ColorAttributes ca = (ColorAttributes) sk.getAttributes(ColorAttributes.ID);
+		ColorAttributes ca = (ColorAttributes) sp.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
 		if(ca.filled) {
 			this.g2D.setColor(ca.filledColor);
-			this.g2D.fillPolygon(sk.getPolygon());
+			this.g2D.fillPolygon(sp.getPolygon());
 		}
 		if(ca.stroked) {
 			this.g2D.setColor(ca.strokedColor);
-			this.g2D.drawPolygon(sk.getPolygon());
+			this.g2D.drawPolygon(sp.getPolygon());
 		}
 		
-		SelectionAttributes sa = (SelectionAttributes) sk.getAttributes(SelectionAttributes.ID);
+		SelectionAttributes sa = (SelectionAttributes) sp.getAttributes(SelectionAttributes.ID);
 		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
 		if(sa.isSelected()) {
-			Rectangle bounds = sk.getBounds();
+			Rectangle bounds = sp.getBounds();
 			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
 			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
 			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
 		}
 		
 		this.g2D.setTransform(old);
+	}
+
+	@Override
+	public void visitSKotlin(SKotlin sk) {
+		this.visitPolygon(sk);
 	}
 	
 	@Override
