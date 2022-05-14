@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Iterator;
 
+import javax.swing.JOptionPane;
+
 import graphics.shapes.SCollection;
 import graphics.shapes.Shape;
 import graphics.shapes.ui.ShapesView;
@@ -41,6 +43,10 @@ public class ProjectSaver {
 		}
 		catch(IOException e) {
 			System.err.println("Error on write: " + e.getMessage());
+			JOptionPane.showMessageDialog(null, "Unable to save into specified file.", "IO Error", JOptionPane.ERROR_MESSAGE);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 

@@ -348,6 +348,7 @@ public class SelectionController extends Controller {
 
 	private Shape getTarget() {
 		SCollection model = (SCollection) this.getModel();
+		model.sortByLayersReversed();
 		Iterator<Shape> it = model.iterator();
 		
 		while(it.hasNext()) {

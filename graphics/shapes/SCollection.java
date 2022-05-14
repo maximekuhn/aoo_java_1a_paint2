@@ -185,7 +185,7 @@ public class SCollection extends Shape {
 	public void sortByLayers() {
 		/*
 		 * ascendant sort
-		 * layer1 -> layer2 -> layer3
+		 * layer0 -> layer1 -> layer2 -> layer3
 		 */
 		this.shapes.sort(new Comparator<Shape>() {
 
@@ -198,6 +198,28 @@ public class SCollection extends Shape {
 				if(la2 == null) la2 = new LayerAttributes();
 				
 				return la1.getLayer() - la2.getLayer();
+			}
+			
+		});
+	}
+	
+	public void sortByLayersReversed() {
+		/*
+		 * descendant sort
+		 * layer3 -> layer2 -> layer1 -> layer0
+		 */
+		this.shapes.sort(new Comparator<Shape>() {
+
+			@Override
+			public int compare(Shape s1, Shape s2) {
+				// TODO Auto-generated method stub
+				LayerAttributes la1 = (LayerAttributes) s1.getAttributes(LayerAttributes.ID);
+				if(la1 == null) la1 = new LayerAttributes();
+				
+				LayerAttributes la2 = (LayerAttributes) s2.getAttributes(LayerAttributes.ID);
+				if(la2 == null) la2 = new LayerAttributes();
+						
+				return la2.getLayer() - la1.getLayer();
 			}
 			
 		});
