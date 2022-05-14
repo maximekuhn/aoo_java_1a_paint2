@@ -47,7 +47,7 @@ public class ShapesToolController extends Controller {
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if(!this.sketchForbidden) {
-			this.sketch.addPoint(e.getPoint());
+			if(this.sketch != null) this.sketch.addPoint(e.getPoint());
 			this.getView().repaint();
 		}
 	}
