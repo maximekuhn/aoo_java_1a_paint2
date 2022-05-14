@@ -15,11 +15,13 @@ public class SImage extends Shape {
 
 	private Rectangle rect;
 	private Image img;
+	private Image originalImg;
 	private File path;
 	
 	public SImage(Point point, Image img, File path) {
 		this.rect = new Rectangle(point.x, point.y, img.getWidth(null), img.getHeight(null));
 		this.img = img;
+		this.originalImg = img;
 		this.path = path;
 	}
 	
@@ -84,7 +86,7 @@ public class SImage extends Shape {
 	@Override
 	public void resize(int dx, int dy) {
 		// TODO Auto-generated method stub
-		this.img = img.getScaledInstance(this.img.getWidth(null) + dx, img.getHeight(null) + dy, Image.SCALE_SMOOTH);
+		this.img = this.originalImg.getScaledInstance(this.img.getWidth(null) + dx, img.getHeight(null) + dy, Image.SCALE_SMOOTH);
 		this.rect = new Rectangle(this.getLoc().x, this.getLoc().y, img.getWidth(null), img.getHeight(null));
 	}
 	
