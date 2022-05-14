@@ -85,7 +85,6 @@ public class SImage extends Shape {
 
 	@Override
 	public void resize(int dx, int dy) {
-		// TODO Auto-generated method stub
 		this.img = this.originalImg.getScaledInstance(this.img.getWidth(null) + dx, img.getHeight(null) + dy, Image.SCALE_SMOOTH);
 		this.rect = new Rectangle(this.getLoc().x, this.getLoc().y, img.getWidth(null), img.getHeight(null));
 	}

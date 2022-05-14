@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import graphics.shapes.SArrow;
 import graphics.shapes.SCircle;
@@ -84,7 +85,6 @@ public class ProjectOpener {
 			SCollection model = (SCollection) this.sview.getModel();
 			List<String> lines = Files.readAllLines(fileToOpen.toPath(), StandardCharsets.UTF_8);
 			
-			// TODO : throw error (or pop-up) ?
 			if(lines.size() == 0) return;
 			
 			// line 0 => view's dimension
@@ -104,9 +104,11 @@ public class ProjectOpener {
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Unable to open specified file.", "IO Error", JOptionPane.ERROR_MESSAGE);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error : project file might be corrupted.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
