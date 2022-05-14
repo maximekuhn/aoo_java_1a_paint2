@@ -59,4 +59,6 @@ public abstract class SPolygon extends Shape {
 		return this.polygon;
 	}
 	
+	public abstract String toString();
+	
 }

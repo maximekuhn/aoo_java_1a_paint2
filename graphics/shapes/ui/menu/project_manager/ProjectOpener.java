@@ -223,6 +223,44 @@ public class ProjectOpener {
 		return sr;
 	}
 	
+	private Shape decodeSEllipse(String line) {
+		String[] settings = line.split(" ");
+		if(settings.length != 14) return null;
+		
+		// point + width & height
+		int locX = Integer.parseInt(settings[2]);
+		int locY = Integer.parseInt(settings[3]);
+		int width = Integer.parseInt(settings[4]);
+		int height = Integer.parseInt(settings[5]);
+		
+		SEllipse se = new SEllipse(new Point(locX, locY), width, height);
+		
+		// color attributes
+		boolean filled = Boolean.parseBoolean(settings[6]);
+		boolean stroked = Boolean.parseBoolean(settings[7]);
+		Color filledColor = this.decodeColor(settings[8]);
+		Color strokedColor = this.decodeColor(settings[9]);
+		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
+		se.addAttributes(ca);
+		
+		// selection attributes
+		boolean isSelected = Boolean.parseBoolean(settings[10]);
+		SelectionAttributes sa = new SelectionAttributes(isSelected);
+		se.addAttributes(sa);
+		
+		// rotation attributes
+		int angle = Integer.parseInt(settings[11]);
+		RotationAttributes ra = new RotationAttributes(angle);
+		se.addAttributes(ra);
+		
+		// layer attributes
+		int layer = Integer.parseInt(settings[12]);
+		LayerAttributes la = new LayerAttributes(layer);
+		se.addAttributes(la);
+		
+		return se;
+	}
+	
 	private Shape decodeSCircle(String line) {
 		String[] settings = line.split(" ");
 		if(settings.length != 13) return null;
@@ -610,10 +648,6 @@ public class ProjectOpener {
 	}
 
 	private Shape decodeSStar(String line) {
-		return this.decodePolygon(line);
-	}
-
-	private Shape decodeSEllipse(String line) {
 		return this.decodePolygon(line);
 	}
 
