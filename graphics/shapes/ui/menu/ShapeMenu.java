@@ -20,6 +20,7 @@ import graphics.shapes.SOctagon;
 import graphics.shapes.SParallelogram;
 import graphics.shapes.SPentagon;
 import graphics.shapes.SRectangle;
+import graphics.shapes.SRhombus;
 import graphics.shapes.SStar;
 import graphics.shapes.STextBox;
 import graphics.shapes.STrapezium;
@@ -51,6 +52,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private static final String SOCTAGON = "Octagon";
 	private static final String STRAPEZIUM = "Trapezium";
 	private static final String STRIANGLESCALE = "TriangleScale";
+	private static final String SRHOMBUS = "Rhombus";
 	
 	private ShapesView sview;
 	
@@ -71,6 +73,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private JMenuItem soctagon;
 	private JMenuItem strapezium;
 	private JMenuItem strianglescale;
+	private JMenuItem srhombus;
 	
 	public ShapeMenu(ShapesView sview) {
 		super(SHAPE);
@@ -96,6 +99,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.soctagon = new JMenuItem(SOCTAGON);
 		this.strapezium = new JMenuItem(STRAPEZIUM);
 		this.strianglescale = new JMenuItem(STRIANGLESCALE);
+		this.srhombus = new JMenuItem(SRHOMBUS);
 		
 		
 		// icons
@@ -116,6 +120,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.soctagon.setIcon(MenuBar.iconSize("src/pictures/octagon.png"));
 		this.strapezium.setIcon(MenuBar.iconSize("src/pictures/trapezium.png"));
 		this.strianglescale.setIcon(MenuBar.iconSize("src/pictures/trianglescale.png"));
+		this.srhombus.setIcon(MenuBar.iconSize("src/pictures/rhombus.png"));
 		
 		this.scircle.addActionListener(this);
 		this.srectangle.addActionListener(this);
@@ -134,6 +139,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.soctagon.addActionListener(this);
 		this.strapezium.addActionListener(this);
 		this.strianglescale.addActionListener(this);
+		this.srhombus.addActionListener(this);
 		
 		this.add(this.scircle);
 		this.add(this.srectangle);
@@ -152,6 +158,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.add(this.soctagon);
 		this.add(this.strapezium);
 		this.add(this.strianglescale);
+		this.add(this.srhombus);
 	}
 	
 	@Override
@@ -173,6 +180,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		else if(e.getSource().equals(this.soctagon)) this.doOctagon();
 		else if(e.getSource().equals(this.strapezium)) this.doTrapezium();
 		else if(e.getSource().equals(this.strianglescale)) this.doTriangleScale();
+		else if(e.getSource().equals(this.srhombus)) this.doRhombus();
 	}
 
 	private void doCircle() {
@@ -288,7 +296,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		SCollection model = (SCollection) this.sview.getModel();
 		SStar sst = new SStar(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
 		sst.addAttributes(new SelectionAttributes());
-		sst.addAttributes(new ColorAttributes(true, true, Color.CYAN, Color.BLACK));
+		sst.addAttributes(new ColorAttributes(true, true, Color.YELLOW, Color.BLACK));
 		model.add(sst);
 		this.sview.repaint();
 	}
@@ -297,7 +305,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		SCollection model = (SCollection) this.sview.getModel();
 		SParallelogram spg = new SParallelogram(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
 		spg.addAttributes(new SelectionAttributes());
-		spg.addAttributes(new ColorAttributes(true, true, Color.CYAN, Color.BLACK));
+		spg.addAttributes(new ColorAttributes(true, true, Color.ORANGE, Color.BLACK));
 		model.add(spg);
 		this.sview.repaint();
 	}
@@ -306,7 +314,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		SCollection model = (SCollection) this.sview.getModel();
 		SOctagon soc = new SOctagon(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
 		soc.addAttributes(new SelectionAttributes());
-		soc.addAttributes(new ColorAttributes(true, true, Color.CYAN, Color.BLACK));
+		soc.addAttributes(new ColorAttributes(true, true, Color.PINK, Color.BLACK));
 		model.add(soc);
 		this.sview.repaint();
 	}
@@ -315,7 +323,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		SCollection model = (SCollection) this.sview.getModel();
 		STrapezium stp = new STrapezium(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
 		stp.addAttributes(new SelectionAttributes());
-		stp.addAttributes(new ColorAttributes(true, true, Color.CYAN, Color.BLACK));
+		stp.addAttributes(new ColorAttributes(true, true, Color.GREEN, Color.BLACK));
 		model.add(stp);
 		this.sview.repaint();
 	}
@@ -324,8 +332,17 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		SCollection model = (SCollection) this.sview.getModel();
 		STriangleScale stc = new STriangleScale(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
 		stc.addAttributes(new SelectionAttributes());
-		stc.addAttributes(new ColorAttributes(true, true, Color.CYAN, Color.BLACK));
+		stc.addAttributes(new ColorAttributes(true, true, Color.RED, Color.BLACK));
 		model.add(stc);
+		this.sview.repaint();
+	}
+	
+	private void doRhombus() {
+		SCollection model = (SCollection) this.sview.getModel();
+		SRhombus srh = new SRhombus(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		srh.addAttributes(new SelectionAttributes());
+		srh.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
+		model.add(srh);
 		this.sview.repaint();
 	}
 }

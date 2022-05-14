@@ -25,25 +25,35 @@ public class SStar extends Shape {
 		this.loc = loc;
 		this.width = width;
 		this.height = height;
-		this.nPoints = 5;
+		this.nPoints = 10;
 		this.buildPolygon();
 	}
 	
 	private void buildPolygon() {
-		this.nPoints = 5;
+		this.nPoints = 10;
 		this.xStar = new int[this.nPoints];
 		this.yStar = new int[this.nPoints];
 
-		this.xStar[0] = this.loc.x + this.width / 2;
+		this.xStar[0] = this.loc.x + this.width * 1/2;
 		this.yStar[0] = this.loc.y;
-		this.xStar[1] = this.loc.x + this.width;
-		this.yStar[1] = this.loc.y + this.height * 2/5;
-		this.xStar[2] = this.loc.x + this.width * 5/6;
-		this.yStar[2] = this.loc.y + this.height;
-		this.xStar[3] = this.loc.x + this.width * 1/6 ;
-		this.yStar[3] = this.loc.y + this.height;
-		this.xStar[4] = this.loc.x;
-		this.yStar[4] = this.loc.y + this.height * 2/5;
+		this.xStar[1] = this.loc.x + this.width * 2/3;
+		this.yStar[1] = this.loc.y + this.height * 1/3;
+		this.xStar[2] = this.loc.x + this.width;
+		this.yStar[2] = this.loc.y + this.height * 2/5;
+		this.xStar[3] = this.loc.x + this.width * 3/4;
+		this.yStar[3] = this.loc.y + this.height * 3/5;
+		this.xStar[4] = this.loc.x + this.width * 4/5;
+		this.yStar[4] = this.loc.y + this.height;
+		this.xStar[5] = this.loc.x + this.width / 2;
+		this.yStar[5] = this.loc.y + this.height * 5/6;
+		this.xStar[6] = this.loc.x + this.width * 1/5;
+		this.yStar[6] = this.loc.y + this.height;
+		this.xStar[7] = this.loc.x + this.width * 1/4;
+		this.yStar[7] = this.loc.y + this.height * 3/5;
+		this.xStar[8] = this.loc.x;
+		this.yStar[8] = this.loc.y + this.height * 2/5;
+		this.xStar[9] = this.loc.x + this.width * 1/3;
+		this.yStar[9] = this.loc.y + this.height * 1/3;
 
 		this.star = new Polygon(this.xStar, this.yStar, this.nPoints);
 		}

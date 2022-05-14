@@ -43,4 +43,6 @@ public interface ShapeVisitor {
 	public void visitSTrapezium(STrapezium stp);
 
 	public void visitSTriangleScale(STriangleScale stc);
+
+	public void visitSRhombus(SRhombus srh);
 }

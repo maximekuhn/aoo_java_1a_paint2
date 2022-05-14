@@ -24,6 +24,7 @@ import graphics.shapes.SOctagon;
 import graphics.shapes.SParallelogram;
 import graphics.shapes.SPentagon;
 import graphics.shapes.SRectangle;
+import graphics.shapes.SRhombus;
 import graphics.shapes.SSketch;
 import graphics.shapes.SStar;
 import graphics.shapes.SText;
@@ -492,6 +493,12 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitSTriangleScale(STriangleScale stc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitSRhombus(SRhombus srh) {
 		// TODO Auto-generated method stub
 		
 	}

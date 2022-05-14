@@ -25,25 +25,23 @@ public class SParallelogram extends Shape {
 		this.loc = loc;
 		this.width = width;
 		this.height = height;
-		this.nPoints = 5;
+		this.nPoints = 4;
 		this.buildPolygon();
 	}
 	
 	private void buildPolygon() {
-		this.nPoints = 5;
+		this.nPoints = 4;
 		this.xParallelogram = new int[this.nPoints];
 		this.yParallelogram = new int[this.nPoints];
 
-		this.xParallelogram[0] = this.loc.x + this.width / 2;
-		this.yParallelogram[0] = this.loc.y;
+		this.xParallelogram[0] = this.loc.x + this.width * 1/3;
+		this.yParallelogram[0] = this.loc.y + this.height * 1/3;
 		this.xParallelogram[1] = this.loc.x + this.width;
-		this.yParallelogram[1] = this.loc.y + this.height * 2/5;
-		this.xParallelogram[2] = this.loc.x + this.width * 5/6;
+		this.yParallelogram[1] = this.loc.y + this.height * 1/3;
+		this.xParallelogram[2] = this.loc.x + this.width * 2/3;
 		this.yParallelogram[2] = this.loc.y + this.height;
-		this.xParallelogram[3] = this.loc.x + this.width * 1/6 ;
+		this.xParallelogram[3] = this.loc.x;
 		this.yParallelogram[3] = this.loc.y + this.height;
-		this.xParallelogram[4] = this.loc.x;
-		this.yParallelogram[4] = this.loc.y + this.height * 2/5;
 
 		this.parallelogram = new Polygon(this.xParallelogram, this.yParallelogram, this.nPoints);
 		}

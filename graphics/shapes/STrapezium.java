@@ -25,25 +25,23 @@ public class STrapezium extends Shape {
 		this.loc = loc;
 		this.width = width;
 		this.height = height;
-		this.nPoints = 5;
+		this.nPoints = 4;
 		this.buildPolygon();
 	}
 	
 	private void buildPolygon() {
-		this.nPoints = 5;
+		this.nPoints = 4;
 		this.xTrapezium = new int[this.nPoints];
 		this.yTrapezium = new int[this.nPoints];
 
-		this.xTrapezium[0] = this.loc.x + this.width / 2;
+		this.xTrapezium[0] = this.loc.x + this.width * 1/7;
 		this.yTrapezium[0] = this.loc.y;
-		this.xTrapezium[1] = this.loc.x + this.width;
-		this.yTrapezium[1] = this.loc.y + this.height * 2/5;
-		this.xTrapezium[2] = this.loc.x + this.width * 5/6;
+		this.xTrapezium[1] = this.loc.x + this.width * 6/7;
+		this.yTrapezium[1] = this.loc.y;
+		this.xTrapezium[2] = this.loc.x + this.width;
 		this.yTrapezium[2] = this.loc.y + this.height;
-		this.xTrapezium[3] = this.loc.x + this.width * 1/6 ;
+		this.xTrapezium[3] = this.loc.x;
 		this.yTrapezium[3] = this.loc.y + this.height;
-		this.xTrapezium[4] = this.loc.x;
-		this.yTrapezium[4] = this.loc.y + this.height * 2/5;
 
 		this.trapezium = new Polygon(this.xTrapezium, this.yTrapezium, this.nPoints);
 		}

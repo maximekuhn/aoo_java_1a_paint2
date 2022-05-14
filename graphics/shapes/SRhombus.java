@@ -10,40 +10,41 @@ import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
+public class SRhombus extends Shape {
 
-
-
-public class STriangleScale extends Shape{
-    private Polygon trianglescale;
+    private Polygon rhombus;
     private Point loc;
 	private int nPoints;
-	private int[] xTriangleScale;
-	private int[] yTriangleScale;
+	private int[] xRhombus;
+	private int[] yRhombus;
 	
 	private int width;
 	private int height;
 	
-	public STriangleScale(Point loc, int width, int height) {
+	public SRhombus(Point loc, int width, int height) {
 		this.loc = loc;
 		this.width = width;
 		this.height = height;
-		this.nPoints = 3;
+		this.nPoints = 4;
 		this.buildPolygon();
 	}
 	
 	private void buildPolygon() {
-		this.nPoints = 3;
-		this.xTriangleScale = new int[this.nPoints];
-		this.yTriangleScale = new int[this.nPoints];
+		this.nPoints = 4;
+		this.xRhombus = new int[this.nPoints];
+		this.yRhombus = new int[this.nPoints];
 
-		this.xTriangleScale[0] = this.loc.x;
-		this.yTriangleScale[0] = this.loc.y;
-		this.xTriangleScale[1] = this.loc.x + this.width * 1/4;
-		this.yTriangleScale[1] = this.loc.y + this.height;
-		this.xTriangleScale[2] = this.loc.x + this.width;
-		this.yTriangleScale[2] = this.loc.y + this.height;
+		this.xRhombus[0] = this.loc.x + this.width * 1/2;
+		this.yRhombus[0] = this.loc.y;
+		this.xRhombus[1] = this.loc.x + this.width * 5/6;
+		this.yRhombus[1] = this.loc.y + this.height * 1/2;
+		this.xRhombus[2] = this.loc.x + this.width * 1/2;
+		this.yRhombus[2] = this.loc.y + this.height;
+		this.xRhombus[3] = this.loc.x + this.width * 1/6;
+		this.yRhombus[3] = this.loc.y + this.height * 1/2;
 
-		this.trianglescale = new Polygon(this.xTriangleScale, this.yTriangleScale, this.nPoints);
+
+		this.rhombus = new Polygon(this.xRhombus, this.yRhombus, this.nPoints);
 		}
 
 	@Override
@@ -65,20 +66,20 @@ public class STriangleScale extends Shape{
 
 	@Override
 	public Shape copy() {
-		STriangleScale stc = new STriangleScale(new Point(this.getLoc()), this.getBounds().width, this.getBounds().height);
+		SRhombus srh = new SRhombus(new Point(this.getLoc()), this.getBounds().width, this.getBounds().height);
 		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = new ColorAttributes();
-		stc.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
+		srh.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
 		SelectionAttributes sa = (SelectionAttributes) this.getAttributes(SelectionAttributes.ID);
 		if(sa == null) sa = new SelectionAttributes();
-		stc.addAttributes(new SelectionAttributes(sa.isSelected()));
+		srh.addAttributes(new SelectionAttributes(sa.isSelected()));
 		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = new RotationAttributes();
-		stc.addAttributes(new RotationAttributes(ra.getAngle()));
+		srh.addAttributes(new RotationAttributes(ra.getAngle()));
 		LayerAttributes la = (LayerAttributes) this.getAttributes(LayerAttributes.ID);
 		if(la == null) la = new LayerAttributes();
-		stc.addAttributes(new LayerAttributes(la.getLayer()));
-		return stc;
+		srh.addAttributes(new LayerAttributes(la.getLayer()));
+		return srh;
 	}
 
 	@Override
@@ -89,13 +90,13 @@ public class STriangleScale extends Shape{
 	}
 	
     public Polygon getPolygon(){
-        return this.trianglescale;
+        return this.rhombus;
 
     }
     
     @Override
     public void accept(ShapeVisitor v){
-        v.visitSTriangleScale(this);
+        v.visitSRhombus(this);
     }
 
 
@@ -103,7 +104,7 @@ public class STriangleScale extends Shape{
 	@Override
 	public Rectangle getBounds() {
 
-		return this.trianglescale.getBounds();
+		return this.rhombus.getBounds();
 	}
 	
 
@@ -113,33 +114,33 @@ public class STriangleScale extends Shape{
 		 * take copy, because copy always have all attributes
 		 * (no need to check)
 		 */
-		STriangleScale stc = (STriangleScale) this.copy();
+		SRhombus srh = (SRhombus) this.copy();
 		StringJoiner tmp = new StringJoiner(" ", "[ " , " ]");
 		
 		// basic
-		tmp.add(stc.getClass().getName());
-		tmp.add(String.valueOf(stc.getLoc().x));
-		tmp.add(String.valueOf(stc.getLoc().y));
-		tmp.add(String.valueOf(stc.getBounds().width));
-		tmp.add(String.valueOf(stc.getBounds().height));
+		tmp.add(srh.getClass().getName());
+		tmp.add(String.valueOf(srh.getLoc().x));
+		tmp.add(String.valueOf(srh.getLoc().y));
+		tmp.add(String.valueOf(srh.getBounds().width));
+		tmp.add(String.valueOf(srh.getBounds().height));
 		
 		// color attributes
-		ColorAttributes ca = (ColorAttributes) stc.getAttributes(ColorAttributes.ID);
+		ColorAttributes ca = (ColorAttributes) srh.getAttributes(ColorAttributes.ID);
 		tmp.add(String.valueOf(ca.filled));
 		tmp.add(String.valueOf(ca.stroked));
 		tmp.add(String.valueOf(ca.filledColor.getRGB()));
 		tmp.add(String.valueOf(ca.strokedColor.getRGB()));
 		
 		// selection attributes
-		SelectionAttributes sa = (SelectionAttributes) stc.getAttributes(SelectionAttributes.ID);
+		SelectionAttributes sa = (SelectionAttributes) srh.getAttributes(SelectionAttributes.ID);
 		tmp.add(String.valueOf(sa.isSelected()));
 		
 		// rotation attributes
-		RotationAttributes ra = (RotationAttributes) stc.getAttributes(RotationAttributes.ID);
+		RotationAttributes ra = (RotationAttributes) srh.getAttributes(RotationAttributes.ID);
 		tmp.add(String.valueOf(ra.getAngle()));
 		
 		// layer attributes
-		LayerAttributes la = (LayerAttributes) stc.getAttributes(LayerAttributes.ID);
+		LayerAttributes la = (LayerAttributes) srh.getAttributes(LayerAttributes.ID);
 		tmp.add(String.valueOf(la.getLayer()));
 		
 		return tmp.toString();

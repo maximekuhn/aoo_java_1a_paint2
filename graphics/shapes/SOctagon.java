@@ -25,25 +25,31 @@ public class SOctagon extends Shape {
 		this.loc = loc;
 		this.width = width;
 		this.height = height;
-		this.nPoints = 5;
+		this.nPoints = 8;
 		this.buildPolygon();
 	}
 	
 	private void buildPolygon() {
-		this.nPoints = 5;
+		this.nPoints = 8;
 		this.xOctagon = new int[this.nPoints];
 		this.yOctagon = new int[this.nPoints];
 
-		this.xOctagon[0] = this.loc.x + this.width / 2;
-		this.yOctagon[0] = this.loc.y;
-		this.xOctagon[1] = this.loc.x + this.width;
-		this.yOctagon[1] = this.loc.y + this.height * 2/5;
-		this.xOctagon[2] = this.loc.x + this.width * 5/6;
-		this.yOctagon[2] = this.loc.y + this.height;
-		this.xOctagon[3] = this.loc.x + this.width * 1/6 ;
-		this.yOctagon[3] = this.loc.y + this.height;
+		this.xOctagon[0] = this.loc.x + this.width;
+		this.yOctagon[0] = this.loc.y + this.height;
+		this.xOctagon[1] = this.loc.x;
+		this.yOctagon[1] = this.loc.y;
+		this.xOctagon[2] = this.loc.x;
+		this.yOctagon[2] = this.loc.y;
+		this.xOctagon[3] = this.loc.x;
+		this.yOctagon[3] = this.loc.y;
 		this.xOctagon[4] = this.loc.x;
-		this.yOctagon[4] = this.loc.y + this.height * 2/5;
+		this.yOctagon[4] = this.loc.y;
+		this.xOctagon[5] = this.loc.x;
+		this.yOctagon[5] = this.loc.y;
+		this.xOctagon[6] = this.loc.x;
+		this.yOctagon[6] = this.loc.y;
+		this.xOctagon[7] = this.loc.x;
+		this.yOctagon[7] = this.loc.y;
 
 		this.octagon = new Polygon(this.xOctagon, this.yOctagon, this.nPoints);
 		}
