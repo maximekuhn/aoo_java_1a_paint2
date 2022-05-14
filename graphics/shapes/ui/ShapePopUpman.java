@@ -20,13 +20,18 @@ import graphics.shapes.SHexagon;
 import graphics.shapes.SImage;
 import graphics.shapes.SKotlin;
 import graphics.shapes.SLine;
+import graphics.shapes.SOctagon;
+import graphics.shapes.SParallelogram;
 import graphics.shapes.SPentagon;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SSketch;
+import graphics.shapes.SStar;
 import graphics.shapes.SText;
 import graphics.shapes.STextBox;
+import graphics.shapes.STrapezium;
 import graphics.shapes.STriangle;
 import graphics.shapes.STriangleRec;
+import graphics.shapes.STriangleScale;
 import graphics.shapes.ShapeVisitor;
 
 public class ShapePopUpman implements ShapeVisitor {
@@ -457,6 +462,36 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitSArrow(SArrow sar) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitSStar(SStar sst) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitSParallelogram(SParallelogram spg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitSOctagon(SOctagon soc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitSTrapezium(STrapezium stp) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitSTriangleScale(STriangleScale stc) {
 		// TODO Auto-generated method stub
 		
 	}
