@@ -82,6 +82,7 @@ public class SettingsController extends Controller implements ActionListener {
 	
 	private Shape getTarget() {
 		SCollection model = (SCollection) this.getModel();
+		model.sortByLayersReversed();
 		Iterator<Shape> it = model.iterator();
 		
 		while(it.hasNext()) {
