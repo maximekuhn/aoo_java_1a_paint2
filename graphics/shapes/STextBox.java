@@ -180,10 +180,10 @@ public class STextBox extends Shape {
 		sj.add(fa.font.getName().replace(" ", "\\w"));
 		sj.add(String.valueOf(fa.font.getStyle()));
 		sj.add(String.valueOf(fa.font.getSize()));
-		tmp.add(String.valueOf(fa.alignX));
-		tmp.add(String.valueOf(fa.alignY));
 		tmp.add(sj.toString());
 		tmp.add(String.valueOf(fa.fontColor.getRGB()));
+		tmp.add(String.valueOf(fa.alignX));
+		tmp.add(String.valueOf(fa.alignY));
 		
 		return tmp.toString();
 	}

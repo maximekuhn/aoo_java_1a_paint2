@@ -303,7 +303,7 @@ public class ProjectOpener {
 	
 	private Shape decodeSTextBox(String line) {
 		String[] settings = line.split(" ");
-		if(settings.length != 15) return null;
+		if(settings.length != 17) return null;
 		
 		// point + text
 		int locX = Integer.parseInt(settings[2]);
@@ -340,7 +340,11 @@ public class ProjectOpener {
 		// font attributes
 		Font font = this.decodeFont(settings[12]);
 		Color fontColor = this.decodeColor(settings[13]);
+		int fontAlignX = Integer.parseInt(settings[14]);
+		int fontAlignY = Integer.parseInt(settings[15]);
 		FontAttributes fa = new FontAttributes(font, fontColor);
+		fa.setAlignX(fontAlignX);
+		fa.setAlignY(fontAlignY);
 		stb.addAttributes(fa);
 		
 		return stb;
