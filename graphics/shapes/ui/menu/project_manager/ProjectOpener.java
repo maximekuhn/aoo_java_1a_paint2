@@ -303,45 +303,47 @@ public class ProjectOpener {
 	
 	private Shape decodeSTextBox(String line) {
 		String[] settings = line.split(" ");
-		if(settings.length != 17) return null;
+		if(settings.length != 19) return null;
 		
 		// point + text
 		int locX = Integer.parseInt(settings[2]);
 		int locY = Integer.parseInt(settings[3]);
-		String text = settings[4];
+		int width = Integer.parseInt(settings[4]);
+		int height = Integer.parseInt(settings[5]);
+		String text = settings[6];
 		text = text.replace("\\w", " ");
 		text = text.replace("\\n", System.lineSeparator());
 		
-		STextBox stb = new STextBox(new Point(locX, locY), text);
+		STextBox stb = new STextBox(new Point(locX, locY), text, width, height);
 		
 		// color attributes
-		boolean filled = Boolean.parseBoolean(settings[5]);
-		boolean stroked = Boolean.parseBoolean(settings[6]);
-		Color filledColor = this.decodeColor(settings[7]);
-		Color strokedColor = this.decodeColor(settings[8]);
+		boolean filled = Boolean.parseBoolean(settings[7]);
+		boolean stroked = Boolean.parseBoolean(settings[8]);
+		Color filledColor = this.decodeColor(settings[9]);
+		Color strokedColor = this.decodeColor(settings[10]);
 		ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 		stb.addAttributes(ca);
 		
 		// selection attributes
-		boolean isSelected = Boolean.parseBoolean(settings[9]);
+		boolean isSelected = Boolean.parseBoolean(settings[11]);
 		SelectionAttributes sa = new SelectionAttributes(isSelected);
 		stb.addAttributes(sa);
 		
 		// rotation attributes
-		int angle = Integer.parseInt(settings[10]);
+		int angle = Integer.parseInt(settings[12]);
 		RotationAttributes ra = new RotationAttributes(angle);
 		stb.addAttributes(ra);
 		
 		// layer attributes
-		int layer = Integer.parseInt(settings[11]);
+		int layer = Integer.parseInt(settings[13]);
 		LayerAttributes la = new LayerAttributes(layer);
 		stb.addAttributes(la);
 		
 		// font attributes
-		Font font = this.decodeFont(settings[12]);
-		Color fontColor = this.decodeColor(settings[13]);
-		int fontAlignX = Integer.parseInt(settings[14]);
-		int fontAlignY = Integer.parseInt(settings[15]);
+		Font font = this.decodeFont(settings[14]);
+		Color fontColor = this.decodeColor(settings[15]);
+		int fontAlignX = Integer.parseInt(settings[16]);
+		int fontAlignY = Integer.parseInt(settings[17]);
 		FontAttributes fa = new FontAttributes(font, fontColor);
 		fa.setAlignX(fontAlignX);
 		fa.setAlignY(fontAlignY);

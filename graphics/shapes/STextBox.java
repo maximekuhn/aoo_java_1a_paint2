@@ -149,6 +149,8 @@ public class STextBox extends Shape {
 		tmp.add(st.getClass().getName());
 		tmp.add(String.valueOf(st.getLoc().x));
 		tmp.add(String.valueOf(st.getLoc().y));
+		tmp.add(String.valueOf(st.getBounds().width));
+		tmp.add(String.valueOf(st.getBounds().height));
 		
 		// text in one line (with separator)
 		// replace new line with \n and blank with \w
