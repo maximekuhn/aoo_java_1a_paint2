@@ -405,7 +405,6 @@ public class ShapePopUpman implements ShapeVisitor {
         this.panel.setLayout(null);
         this.popUp.setContentPane(this.panel);
     	this.popUp.setVisible(true);
-    	this.open = true;
     	
         this.title = new JLabel(title);
         this.title.setBounds(65, 10, 110, 20);
