@@ -120,10 +120,9 @@ public class SelectionController extends Controller {
 				STextBox tb = (STextBox) s;
 				StringBuilder str = new StringBuilder();
 				str.append(tb.getText());
-				if ((int)e.getKeyChar() == 8)  // backspace key
-					if (str.length() > 0) str.deleteCharAt(str.length()-1); 
+				if ((int)e.getKeyChar() == 8) { // backspace key
+					if (str.length() > 0) str.deleteCharAt(str.length()-1); }
 				else str.append(e.getKeyChar());
-	
 				tb.setText(str.toString());
 			}
 		}
