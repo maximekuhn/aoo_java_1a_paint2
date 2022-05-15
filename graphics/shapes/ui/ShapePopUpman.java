@@ -22,11 +22,14 @@ import graphics.shapes.SArrow;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SCross;
+import graphics.shapes.SDecagon;
 import graphics.shapes.SEllipse;
+import graphics.shapes.SHeptagon;
 import graphics.shapes.SHexagon;
 import graphics.shapes.SImage;
 import graphics.shapes.SKotlin;
 import graphics.shapes.SLine;
+import graphics.shapes.SNonagon;
 import graphics.shapes.SOctagon;
 import graphics.shapes.SParallelogram;
 import graphics.shapes.SPentagon;
@@ -550,6 +553,24 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	public ImageIcon imageSize(String filename) {
 		return new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+	}
+
+	@Override
+	public void visitSNonagon(SNonagon sn) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitSHeptagon(SHeptagon sh) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitSDecagon(SDecagon sd) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

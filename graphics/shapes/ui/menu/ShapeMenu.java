@@ -12,10 +12,13 @@ import graphics.shapes.SArrow;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SCross;
+import graphics.shapes.SDecagon;
 import graphics.shapes.SEllipse;
+import graphics.shapes.SHeptagon;
 import graphics.shapes.SHexagon;
 import graphics.shapes.SKotlin;
 import graphics.shapes.SLine;
+import graphics.shapes.SNonagon;
 import graphics.shapes.SOctagon;
 import graphics.shapes.SParallelogram;
 import graphics.shapes.SPentagon;
@@ -53,6 +56,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private static final String STRAPEZIUM = "Trapezium";
 	private static final String STRIANGLESCALE = "TriangleScale";
 	private static final String SRHOMBUS = "Rhombus";
+	private static final String SNONAGON = "Nonagon";
+	private static final String SHEPTAGON = "Heptagon";
+	private static final String SDECAGON = "Decagon";
 	
 	private ShapesView sview;
 	
@@ -74,6 +80,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private JMenuItem strapezium;
 	private JMenuItem strianglescale;
 	private JMenuItem srhombus;
+	private JMenuItem snonagon;
+	private JMenuItem sheptagon;
+	private JMenuItem sdecagon;
 	
 	public ShapeMenu(ShapesView sview) {
 		super(SHAPE);
@@ -100,6 +109,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.strapezium = new JMenuItem(STRAPEZIUM);
 		this.strianglescale = new JMenuItem(STRIANGLESCALE);
 		this.srhombus = new JMenuItem(SRHOMBUS);
+		this.snonagon = new JMenuItem(SNONAGON);
+		this.sheptagon = new JMenuItem(SHEPTAGON);
+		this.sdecagon = new JMenuItem(SDECAGON);
 		
 		
 		// icons
@@ -121,6 +133,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.strapezium.setIcon(MenuBar.iconSize("src/pictures/trapezium.png"));
 		this.strianglescale.setIcon(MenuBar.iconSize("src/pictures/trianglescale.png"));
 		this.srhombus.setIcon(MenuBar.iconSize("src/pictures/rhombus.png"));
+		this.snonagon.setIcon(MenuBar.iconSize("src/pictures/nonagon.png"));
+		this.sheptagon.setIcon(MenuBar.iconSize("src/pictures/heptagon.png"));
+		this.sdecagon.setIcon(MenuBar.iconSize("src/pictures/decagon.png"));
 		
 		this.scircle.addActionListener(this);
 		this.srectangle.addActionListener(this);
@@ -140,6 +155,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.strapezium.addActionListener(this);
 		this.strianglescale.addActionListener(this);
 		this.srhombus.addActionListener(this);
+		this.snonagon.addActionListener(this);
+		this.sheptagon.addActionListener(this);
+		this.sdecagon.addActionListener(this);
 		
 		this.add(this.scircle);
 		this.add(this.srectangle);
@@ -159,6 +177,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.add(this.strapezium);
 		this.add(this.strianglescale);
 		this.add(this.srhombus);
+		this.add(this.snonagon);
+		this.add(this.sheptagon);
+		this.add(this.sdecagon);
 	}
 	
 	@Override
@@ -181,6 +202,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		else if(e.getSource().equals(this.strapezium)) this.doTrapezium();
 		else if(e.getSource().equals(this.strianglescale)) this.doTriangleScale();
 		else if(e.getSource().equals(this.srhombus)) this.doRhombus();
+		else if(e.getSource().equals(this.snonagon)) this.doNonagon();
+		else if(e.getSource().equals(this.sheptagon)) this.doHeptagon();
+		else if(e.getSource().equals(this.sdecagon)) this.doDecagon();
 	}
 
 	private void doCircle() {
@@ -343,6 +367,33 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		srh.addAttributes(new SelectionAttributes());
 		srh.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
 		model.add(srh);
+		this.sview.repaint();
+	}
+	
+	private void doNonagon() {
+		SCollection model = (SCollection) this.sview.getModel();
+		SNonagon sn = new SNonagon(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		sn.addAttributes(new SelectionAttributes());
+		sn.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
+		model.add(sn);
+		this.sview.repaint();
+	}
+	
+	private void doHeptagon() {
+		SCollection model = (SCollection) this.sview.getModel();
+		SHeptagon sh = new SHeptagon(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		sh.addAttributes(new SelectionAttributes());
+		sh.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
+		model.add(sh);
+		this.sview.repaint();
+	}
+	
+	private void doDecagon() {
+		SCollection model = (SCollection) this.sview.getModel();
+		SDecagon sd = new SDecagon(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		sd.addAttributes(new SelectionAttributes());
+		sd.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
+		model.add(sd);
 		this.sview.repaint();
 	}
 }

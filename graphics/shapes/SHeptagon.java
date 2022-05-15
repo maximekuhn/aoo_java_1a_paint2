@@ -10,48 +10,46 @@ import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-public class SOctagon extends Shape {
+public class SHeptagon extends Shape {
 
-    private Polygon octagon;
+    private Polygon heptagon;
     private Point loc;
 	private int nPoints;
-	private int[] xOctagon;
-	private int[] yOctagon;
+	private int[] xHeptagon;
+	private int[] yHeptagon;
 	
 	private int width;
 	private int height;
 	
-	public SOctagon(Point loc, int width, int height) {
+	public SHeptagon(Point loc, int width, int height) {
 		this.loc = loc;
 		this.width = width;
 		this.height = height;
-		this.nPoints = 8;
+		this.nPoints = 7;
 		this.buildPolygon();
 	}
 	
 	private void buildPolygon() {
-		this.nPoints = 8;
-		this.xOctagon = new int[this.nPoints];
-		this.yOctagon = new int[this.nPoints];
+		this.nPoints = 7;
+		this.xHeptagon = new int[this.nPoints];
+		this.yHeptagon = new int[this.nPoints];
 
-		this.xOctagon[0] = this.loc.x + this.width * 1/4;
-		this.yOctagon[0] = this.loc.y;
-		this.xOctagon[1] = this.loc.x + this.width * 3/4;
-		this.yOctagon[1] = this.loc.y;
-		this.xOctagon[2] = this.loc.x + this.width;
-		this.yOctagon[2] = this.loc.y + this.height * 1/3;
-		this.xOctagon[3] = this.loc.x + this.width;
-		this.yOctagon[3] = this.loc.y + this.height * 2/3;
-		this.xOctagon[4] = this.loc.x + this.width * 3/4;
-		this.yOctagon[4] = this.loc.y + this.height;
-		this.xOctagon[5] = this.loc.x + this.width * 1/4;
-		this.yOctagon[5] = this.loc.y + this.height;
-		this.xOctagon[6] = this.loc.x;
-		this.yOctagon[6] = this.loc.y + this.height * 2/3;
-		this.xOctagon[7] = this.loc.x;
-		this.yOctagon[7] = this.loc.y + this.height * 1/3;
+        this.xHeptagon[0] = this.loc.x + this.width / 2;
+        this.yHeptagon[0] = this.loc.y;
+        this.xHeptagon[1] = this.loc.x + this.width * 4/5;
+        this.yHeptagon[1] = this.loc.y + this.height * 1/5;
+        this.xHeptagon[2] = this.loc.x + this.width;
+        this.yHeptagon[2] = this.loc.y + this.height * 3/5;
+        this.xHeptagon[3] = this.loc.x + this.width * 2/3;
+        this.yHeptagon[3] = this.loc.y + this.height;
+        this.xHeptagon[4] = this.loc.x + this.width * 1/3;
+        this.yHeptagon[4] = this.loc.y + this.height;
+        this.xHeptagon[5] = this.loc.x;
+        this.yHeptagon[5] = this.loc.y + this.height * 1/5;
+        this.xHeptagon[6] = this.loc.x + this.width * 1/5;
+        this.yHeptagon[6] = this.loc.y + this.height * 1/5;
 
-		this.octagon = new Polygon(this.xOctagon, this.yOctagon, this.nPoints);
+		this.heptagon = new Polygon(this.xHeptagon, this.yHeptagon, this.nPoints);
 		}
 
 	@Override
@@ -73,7 +71,7 @@ public class SOctagon extends Shape {
 
 	@Override
 	public Shape copy() {
-		SOctagon soc = new SOctagon(new Point(this.getLoc()), this.getBounds().width, this.getBounds().height);
+		SHeptagon soc = new SHeptagon(new Point(this.getLoc()), this.getBounds().width, this.getBounds().height);
 		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = new ColorAttributes();
 		soc.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
@@ -97,13 +95,13 @@ public class SOctagon extends Shape {
 	}
 	
     public Polygon getPolygon(){
-        return this.octagon;
+        return this.heptagon;
 
     }
     
     @Override
     public void accept(ShapeVisitor v){
-        v.visitSOctagon(this);
+        v.visitSHeptagon(this);
     }
 
 
@@ -111,7 +109,7 @@ public class SOctagon extends Shape {
 	@Override
 	public Rectangle getBounds() {
 
-		return this.octagon.getBounds();
+		return this.heptagon.getBounds();
 	}
 	
 
@@ -121,7 +119,7 @@ public class SOctagon extends Shape {
 		 * take copy, because copy always have all attributes
 		 * (no need to check)
 		 */
-		SOctagon soc = (SOctagon) this.copy();
+		SHeptagon soc = (SHeptagon) this.copy();
 		StringJoiner tmp = new StringJoiner(" ", "[ " , " ]");
 		
 		// basic

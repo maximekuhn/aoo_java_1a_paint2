@@ -13,11 +13,14 @@ import graphics.shapes.SArrow;
 import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SCross;
+import graphics.shapes.SDecagon;
 import graphics.shapes.SEllipse;
+import graphics.shapes.SHeptagon;
 import graphics.shapes.SHexagon;
 import graphics.shapes.SImage;
 import graphics.shapes.SKotlin;
 import graphics.shapes.SLine;
+import graphics.shapes.SNonagon;
 import graphics.shapes.SOctagon;
 import graphics.shapes.SParallelogram;
 import graphics.shapes.SPentagon;
@@ -747,4 +750,95 @@ public class ShapeDraftman implements ShapeVisitor {
 		
 		this.g2D.setTransform(old);
 }
+	
+	@Override
+	   public void visitSHeptagon(SHeptagon sh){
+		RotationAttributes ra = (RotationAttributes) sh.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), sh.getBounds().x + sh.getBounds().width / 2, sh.getBounds().y + sh.getBounds().height / 2);
+		
+		ColorAttributes ca = (ColorAttributes) sh.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
+		if(ca.filled) {
+			this.g2D.setColor(ca.filledColor);
+			this.g2D.fillPolygon(sh.getPolygon());
+		}
+		if(ca.stroked) {
+			this.g2D.setColor(ca.strokedColor);
+			this.g2D.drawPolygon(sh.getPolygon());
+		}
+		
+		SelectionAttributes sa = (SelectionAttributes) sh.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
+		if(sa.isSelected()) {
+			Rectangle bounds = sh.getBounds();
+			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
+			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+		}
+		
+		this.g2D.setTransform(old);
+}
+	
+	@Override
+	   public void visitSNonagon(SNonagon sn){
+		RotationAttributes ra = (RotationAttributes) sn.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), sn.getBounds().x + sn.getBounds().width / 2, sn.getBounds().y + sn.getBounds().height / 2);
+		
+		ColorAttributes ca = (ColorAttributes) sn.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
+		if(ca.filled) {
+			this.g2D.setColor(ca.filledColor);
+			this.g2D.fillPolygon(sn.getPolygon());
+		}
+		if(ca.stroked) {
+			this.g2D.setColor(ca.strokedColor);
+			this.g2D.drawPolygon(sn.getPolygon());
+		}
+		
+		SelectionAttributes sa = (SelectionAttributes) sn.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
+		if(sa.isSelected()) {
+			Rectangle bounds = sn.getBounds();
+			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
+			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+		}
+		
+		this.g2D.setTransform(old);
+}
+	
+	@Override
+	   public void visitSDecagon(SDecagon sd){
+		RotationAttributes ra = (RotationAttributes) sd.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), sd.getBounds().x + sd.getBounds().width / 2, sd.getBounds().y + sd.getBounds().height / 2);
+		
+		ColorAttributes ca = (ColorAttributes) sd.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
+		if(ca.filled) {
+			this.g2D.setColor(ca.filledColor);
+			this.g2D.fillPolygon(sd.getPolygon());
+		}
+		if(ca.stroked) {
+			this.g2D.setColor(ca.strokedColor);
+			this.g2D.drawPolygon(sd.getPolygon());
+		}
+		
+		SelectionAttributes sa = (SelectionAttributes) sd.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
+		if(sa.isSelected()) {
+			Rectangle bounds = sd.getBounds();
+			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
+			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+		}
+		
+		this.g2D.setTransform(old);
+}
+
 }

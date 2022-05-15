@@ -10,48 +10,50 @@ import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-public class SOctagon extends Shape {
+public class SNonagon extends Shape {
 
-    private Polygon octagon;
+    private Polygon nonagon;
     private Point loc;
 	private int nPoints;
-	private int[] xOctagon;
-	private int[] yOctagon;
+	private int[] xNonagon;
+	private int[] yNonagon;
 	
 	private int width;
 	private int height;
 	
-	public SOctagon(Point loc, int width, int height) {
+	public SNonagon(Point loc, int width, int height) {
 		this.loc = loc;
 		this.width = width;
 		this.height = height;
-		this.nPoints = 8;
+		this.nPoints = 9;
 		this.buildPolygon();
 	}
 	
 	private void buildPolygon() {
-		this.nPoints = 8;
-		this.xOctagon = new int[this.nPoints];
-		this.yOctagon = new int[this.nPoints];
+		this.nPoints = 9;
+		this.xNonagon = new int[this.nPoints];
+		this.yNonagon = new int[this.nPoints];
 
-		this.xOctagon[0] = this.loc.x + this.width * 1/4;
-		this.yOctagon[0] = this.loc.y;
-		this.xOctagon[1] = this.loc.x + this.width * 3/4;
-		this.yOctagon[1] = this.loc.y;
-		this.xOctagon[2] = this.loc.x + this.width;
-		this.yOctagon[2] = this.loc.y + this.height * 1/3;
-		this.xOctagon[3] = this.loc.x + this.width;
-		this.yOctagon[3] = this.loc.y + this.height * 2/3;
-		this.xOctagon[4] = this.loc.x + this.width * 3/4;
-		this.yOctagon[4] = this.loc.y + this.height;
-		this.xOctagon[5] = this.loc.x + this.width * 1/4;
-		this.yOctagon[5] = this.loc.y + this.height;
-		this.xOctagon[6] = this.loc.x;
-		this.yOctagon[6] = this.loc.y + this.height * 2/3;
-		this.xOctagon[7] = this.loc.x;
-		this.yOctagon[7] = this.loc.y + this.height * 1/3;
+        this.xNonagon[0] = this.loc.x + this.width / 2;
+        this.yNonagon[0] = this.loc.y;
+        this.xNonagon[1] = this.loc.x + this.width * 4/5;
+        this.yNonagon[1] = this.loc.y + this.height * 1/6;
+        this.xNonagon[2] = this.loc.x + this.width;
+        this.yNonagon[2] = this.loc.y + this.height * 1/3;
+        this.xNonagon[3] = this.loc.x + this.width * 9/10;
+        this.yNonagon[3] = this.loc.y + this.height * 2/3;
+        this.xNonagon[4] = this.loc.x + this.width * 2/3;
+        this.yNonagon[4] = this.loc.y + this.height;
+        this.xNonagon[5] = this.loc.x + this.width * 1/3;
+        this.yNonagon[5] = this.loc.y + this.height;
+        this.xNonagon[6] = this.loc.x + this.width * 1/10;
+        this.yNonagon[6] = this.loc.y + this.height * 2/3;
+        this.xNonagon[7] = this.loc.x;
+        this.yNonagon[7] = this.loc.y + this.height * 1/3;
+        this.xNonagon[8] = this.loc.x + this.width * 1/5;
+        this.yNonagon[8] = this.loc.y + this.height * 1/6;
 
-		this.octagon = new Polygon(this.xOctagon, this.yOctagon, this.nPoints);
+		this.nonagon = new Polygon(this.xNonagon, this.yNonagon, this.nPoints);
 		}
 
 	@Override
@@ -73,7 +75,7 @@ public class SOctagon extends Shape {
 
 	@Override
 	public Shape copy() {
-		SOctagon soc = new SOctagon(new Point(this.getLoc()), this.getBounds().width, this.getBounds().height);
+		SNonagon soc = new SNonagon(new Point(this.getLoc()), this.getBounds().width, this.getBounds().height);
 		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = new ColorAttributes();
 		soc.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
@@ -97,13 +99,13 @@ public class SOctagon extends Shape {
 	}
 	
     public Polygon getPolygon(){
-        return this.octagon;
+        return this.nonagon;
 
     }
     
     @Override
     public void accept(ShapeVisitor v){
-        v.visitSOctagon(this);
+        v.visitSNonagon(this);
     }
 
 
@@ -111,7 +113,7 @@ public class SOctagon extends Shape {
 	@Override
 	public Rectangle getBounds() {
 
-		return this.octagon.getBounds();
+		return this.nonagon.getBounds();
 	}
 	
 
@@ -121,7 +123,7 @@ public class SOctagon extends Shape {
 		 * take copy, because copy always have all attributes
 		 * (no need to check)
 		 */
-		SOctagon soc = (SOctagon) this.copy();
+		SNonagon soc = (SNonagon) this.copy();
 		StringJoiner tmp = new StringJoiner(" ", "[ " , " ]");
 		
 		// basic

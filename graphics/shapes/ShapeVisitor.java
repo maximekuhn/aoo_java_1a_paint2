@@ -45,4 +45,10 @@ public interface ShapeVisitor {
 	public void visitSTriangleScale(STriangleScale stc);
 
 	public void visitSRhombus(SRhombus srh);
+
+	public void visitSNonagon(SNonagon sn);
+
+	public void visitSHeptagon(SHeptagon sh);
+
+	public void visitSDecagon(SDecagon sd);
 }
