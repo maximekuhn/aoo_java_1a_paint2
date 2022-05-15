@@ -20,6 +20,11 @@ public class STextBox extends Shape {
 		this.rect = new Rectangle(loc.x, loc.y, minBounds().width, minBounds().height);
 	}
 
+	public STextBox(Point loc, String text, int width, int height) {
+		this.text = text.split("\\R", -1);
+		this.rect = new Rectangle(loc.x, loc.y, width, height);
+	}
+
 	public String getText() {
 		return String.join(System.lineSeparator(), this.text);
 	}
@@ -97,7 +102,7 @@ public class STextBox extends Shape {
 
 	@Override
 	public Shape copy() {
-		STextBox st = new STextBox(new Point(this.getLoc()), String.join(System.lineSeparator(), this.text));
+		STextBox st = new STextBox(new Point(this.getLoc()), String.join(System.lineSeparator(), this.text), this.rect.width, this.rect.height);
 		ColorAttributes ca = (ColorAttributes) this.getAttributes(ColorAttributes.ID);
 		if(ca == null) ca = new ColorAttributes();
 		st.addAttributes(new ColorAttributes(ca.filled, ca.stroked, ca.filledColor, ca.strokedColor));
