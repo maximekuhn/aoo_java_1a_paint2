@@ -60,6 +60,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private static final String SHEPTAGON = "Heptagon";
 	private static final String SDECAGON = "Decagon";
 	
+	private static final String TRIANGLE_SUBMENU = "Triangle";
+	private static final String REGULAR_POLYGON_SUBMENU = "Regular polygon";
+	
 	private ShapesView sview;
 	
 	private JMenuItem scircle;
@@ -84,6 +87,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private JMenuItem sheptagon;
 	private JMenuItem sdecagon;
 	
+	private JMenu triangleSubMenu;
+	private JMenu regularPolygonSubMenu;
+	
 	public ShapeMenu(ShapesView sview) {
 		super(SHAPE);
 		this.sview = sview;
@@ -91,6 +97,12 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	}
 	
 	private void buildMenu() {
+		// sub menu(s)
+		this.triangleSubMenu = new JMenu(TRIANGLE_SUBMENU);
+		this.regularPolygonSubMenu = new JMenu(REGULAR_POLYGON_SUBMENU);
+		
+		
+		// buttons
 		this.scircle = new JMenuItem(SCIRCLE);
 		this.srectangle = new JMenuItem(SRECTANGLE);
 		this.stextbox = new JMenuItem(STEXTBOX);
@@ -136,6 +148,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.snonagon.setIcon(MenuBar.iconSize("src/pictures/nonagon.png"));
 		this.sheptagon.setIcon(MenuBar.iconSize("src/pictures/heptagon.png"));
 		this.sdecagon.setIcon(MenuBar.iconSize("src/pictures/decagon.png"));
+		this.triangleSubMenu.setIcon(MenuBar.iconSize("src/pictures/submenu/triangle_submenu.png"));
+		this.regularPolygonSubMenu.setIcon(MenuBar.iconSize("src/pictures/submenu/regular_polygon_submenu.png"));
+		
 		
 		this.scircle.addActionListener(this);
 		this.srectangle.addActionListener(this);
@@ -159,27 +174,34 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.sheptagon.addActionListener(this);
 		this.sdecagon.addActionListener(this);
 		
+		
+		this.triangleSubMenu.add(this.striangle);
+		this.triangleSubMenu.add(this.strianglerec);
+		this.triangleSubMenu.add(this.strianglescale);
+		
+		this.regularPolygonSubMenu.add(this.spentagon);
+		this.regularPolygonSubMenu.add(this.shexagon);
+		this.regularPolygonSubMenu.add(this.sheptagon);
+		this.regularPolygonSubMenu.add(this.soctagon);
+		this.regularPolygonSubMenu.add(this.snonagon);
+		this.regularPolygonSubMenu.add(this.sdecagon);
+		
+		
+		this.add(this.triangleSubMenu);
+		this.add(this.regularPolygonSubMenu);
+		this.addSeparator();
 		this.add(this.scircle);
 		this.add(this.srectangle);
 		this.add(this.stextbox);
 		this.add(this.skotlin);
-		this.add(this.striangle);
 		this.add(this.sline);
-		this.add(this.shexagon);
-		this.add(this.strianglerec);
 		this.add(this.scross);
 		this.add(this.sellipse);
-		this.add(this.spentagon);
 		this.add(this.sarrow);
 		this.add(this.sstar);
 		this.add(this.sparallelogram);
-		this.add(this.soctagon);
 		this.add(this.strapezium);
-		this.add(this.strianglescale);
 		this.add(this.srhombus);
-		this.add(this.snonagon);
-		this.add(this.sheptagon);
-		this.add(this.sdecagon);
 	}
 	
 	@Override
