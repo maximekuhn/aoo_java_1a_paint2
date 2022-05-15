@@ -295,7 +295,7 @@ public class ShapePopUpman implements ShapeVisitor {
 					if (bold.isSelected()) this.fa.style += 1;
 					if (italic.isSelected()) this.fa.style += 2;
 					
-					this.font = new Font(fontName, Font.PLAIN, size);
+					this.font = new Font(fontName, this.fa.style, size);
 		    		this.fa.font = this.font;
 		    		
 					loc.setLocation(this.x, this.y);
