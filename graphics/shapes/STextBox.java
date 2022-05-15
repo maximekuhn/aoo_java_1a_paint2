@@ -106,7 +106,7 @@ public class STextBox extends Shape {
 		st.addAttributes(new SelectionAttributes(sa.isSelected()));
 		FontAttributes fa = (FontAttributes) this.getAttributes(FontAttributes.ID);
 		if(fa == null) fa = new FontAttributes();
-		st.addAttributes(new FontAttributes(fa.font, fa.fontColor, fa.fontSize, fa.alignX, fa.alignY));
+		st.addAttributes(new FontAttributes(fa.font, fa.fontColor, fa.fontSize, fa.alignX, fa.alignY, fa.style));
 		RotationAttributes ra = (RotationAttributes) this.getAttributes(RotationAttributes.ID);
 		if(ra == null) ra = new RotationAttributes();
 		st.addAttributes(new RotationAttributes(ra.getAngle()));

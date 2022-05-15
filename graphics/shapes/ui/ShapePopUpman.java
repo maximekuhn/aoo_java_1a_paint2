@@ -87,7 +87,6 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	private JToggleButton bold = new JToggleButton(this.imageSize("src/pictures/text/bold.png"));
 	private JToggleButton italic = new JToggleButton(this.imageSize("src/pictures/text/italic.png"));
-	private JToggleButton underline = new JToggleButton(this.imageSize("src/pictures/text/underline.png"));
     
     private JButton bSave;
     private JButton bExit;
@@ -167,7 +166,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.fontsBox = new JComboBox<>(this.fontsName);
 		this.fontsBox.setEditable(true);
 		this.fontsBox.setSelectedItem(this.fa.font.getName());
-		this.fontsBox.setBounds(400, 40, 170, 30);
+		this.fontsBox.setBounds(400, 40, 160, 30);
 		this.popUp.add(this.fontsBox);
 		
 		int smin = 6;
@@ -179,7 +178,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.sizeBox = new JComboBox<>(this.sizeFont);
 		this.sizeBox.setEditable(true);
 		this.sizeBox.setSelectedItem(this.fa.font.getSize());
-		this.sizeBox.setBounds(400, 80, 170, 30);
+		this.sizeBox.setBounds(400, 80, 160, 30);
 		this.popUp.add(this.sizeBox);
 		
 		this.bSave.setBounds(125, 170, 65, 30);
@@ -283,8 +282,12 @@ public class ShapePopUpman implements ShapeVisitor {
 					if (textTop.isSelected()) this.fa.alignY = 0;
 					else if (textMiddle.isSelected()) this.fa.alignY = 1;
 					else if (textBottom.isSelected()) this.fa.alignY = 2;
+
+					this.fa.style = 0;
+					if (bold.isSelected()) this.fa.style += 1;
+					if (italic.isSelected()) this.fa.style += 2;
 		    		
-		    		this.font = new Font(fontName, Font.PLAIN, size);
+		    		this.font = new Font(fontName, this.fa.style, size);
 		    		this.fa.font = this.font;
 		    		loc.setLocation(this.x, this.y);
 		    		stb.setLoc(loc);
@@ -487,10 +490,14 @@ public class ShapePopUpman implements ShapeVisitor {
 
 		this.bold.setBounds(500, 130, 30, 30);
 		popUp.add(this.bold);
-		this.italic.setBounds(530, 130, 30, 30);
+		this.italic.setBounds(550, 130, 30, 30);
 		popUp.add(this.italic);
-		this.underline.setBounds(560, 130, 30, 30);
-		popUp.add(this.underline);
+		if (this.fa.style == 1) this.bold.setSelected(true);
+		else if (this.fa.style == 2) this.italic.setSelected(true);
+		else if (this.fa.style == 3) {
+			this.bold.setSelected(true);
+			this.italic.setSelected(true);
+		}
 	}
 	
 	public void creatShapePopUp(String title, Shape s) {

@@ -14,11 +14,13 @@ public class FontAttributes extends Attributes {
 	public static final int DEFAULT_FONT_SIZE = 18;
 	public static final int DEFAULT_ALIGN_X = 1;  //center
 	public static final int DEFAULT_ALIGN_Y = 1;  //center
+	public static final int DEFAULT_STYLE = Font.PLAIN;
 	public Font font;
 	public Color fontColor;
 	public int fontSize;
 	public int alignX;
 	public int alignY;
+	public int style;
 	
 	@Override
 	public String getId() {
@@ -31,6 +33,7 @@ public class FontAttributes extends Attributes {
 		this.fontColor = Color.BLACK;
 		this.alignX = DEFAULT_ALIGN_X;
 		this.alignY = DEFAULT_ALIGN_Y;
+		this.style = DEFAULT_STYLE;
 	}
 	
 	public FontAttributes(Font font, Color fontColor) {
@@ -39,14 +42,16 @@ public class FontAttributes extends Attributes {
 		this.fontSize = font.getSize();
 		this.alignX = DEFAULT_ALIGN_X;
 		this.alignY = DEFAULT_ALIGN_Y;
+		this.style = DEFAULT_STYLE;
 	}
 
-	public FontAttributes(Font font, Color fontColor, int size, int alignX, int alignY) {
+	public FontAttributes(Font font, Color fontColor, int size, int alignX, int alignY, int style) {
 		this.font = font;
 		this.fontColor = fontColor;
 		this.fontSize = size;
 		this.alignX = alignX;
 		this.alignY = alignY;
+		this.style = style;
 	}
 
 	public void setFontSize(int fontSize) {
