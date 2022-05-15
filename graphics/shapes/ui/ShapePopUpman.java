@@ -147,8 +147,8 @@ public class ShapePopUpman implements ShapeVisitor {
 	public void visitText(SText st) {
 		Point loc = st.getLoc();
 		
-		creatSettingsFrame("Text Settings", 600, 250);
-		this.title.setBounds(145, 10, 110, 20);
+		creatSettingsFrame("Text Settings", 600, 260);
+		this.title.setBounds(250, 10, 110, 20);
 		
 		addTextSettings(10, 40, 60, 20);
 		this.tText.setText(String.valueOf(st.getText()));
@@ -166,7 +166,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.fontsBox = new JComboBox<>(this.fontsName);
 		this.fontsBox.setEditable(true);
 		this.fontsBox.setSelectedItem(this.fa.font.getName());
-		this.fontsBox.setBounds(400, 40, 160, 30);
+		this.fontsBox.setBounds(390, 40, 190, 30);
 		this.popUp.add(this.fontsBox);
 		
 		int smin = 6;
@@ -178,11 +178,11 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.sizeBox = new JComboBox<>(this.sizeFont);
 		this.sizeBox.setEditable(true);
 		this.sizeBox.setSelectedItem(this.fa.font.getSize());
-		this.sizeBox.setBounds(400, 80, 160, 30);
+		this.sizeBox.setBounds(390, 80, 190, 30);
 		this.popUp.add(this.sizeBox);
 		
-		this.bSave.setBounds(125, 170, 65, 30);
-		this.bExit.setBounds(194, 170, 65, 30);	
+		this.bSave.setBounds(233, 170, 65, 30);
+		this.bExit.setBounds(301, 170, 65, 30);	
 		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
@@ -195,14 +195,19 @@ public class ShapePopUpman implements ShapeVisitor {
 		    		
 		    		this.font = new Font(fontName, Font.PLAIN, size);
 		    		this.fa.font = this.font;
+		    		
 		    		loc.setLocation(this.x, this.y);
 		    		st.setLoc(loc);
 		    		st.setText(text);
 		    		
-		    		this.popUp.dispose();
-		    		this.sview.repaint();
+		    		if(size <= 0) creatErrorPopup("The size must be between 0 and 1638");
+		    		else if(size > 1638) creatErrorPopup("The size must be between 0 and 1638");
+		    		else {
+			    		this.popUp.dispose();
+			    		this.sview.repaint();
+		    		}
 				} catch (Exception e1) {
-					creatErrorPopup("Error : integer expected for x, y and size");
+					creatErrorPopup("Integer expected for x, y and size");
 				}
 			}
 		});	
@@ -227,8 +232,8 @@ public class ShapePopUpman implements ShapeVisitor {
 	public void visitTextBox(STextBox stb) {
 		Point loc = stb.getLoc();
 		
-		creatSettingsFrame("Text Box Settings", 600, 250);
-		this.title.setBounds(245, 10, 110, 20);
+		creatSettingsFrame("Text Box Settings", 600, 260);
+		this.title.setBounds(250, 10, 110, 20);
 		
 		addTextSettings(10, 40, 50, 20);
 		this.tText.setText(String.valueOf(stb.getText()));
@@ -246,7 +251,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.fontsBox = new JComboBox<>(this.fontsName);
 		this.fontsBox.setEditable(true);
 		this.fontsBox.setSelectedItem(this.fa.font.getName());
-		this.fontsBox.setBounds(390, 40, 200, 30);
+		this.fontsBox.setBounds(390, 40, 190, 30);
 		this.popUp.add(this.fontsBox);
 		
 		int smin = 6;
@@ -258,7 +263,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.sizeBox = new JComboBox<>(this.sizeFont);
 		this.sizeBox.setEditable(true);
 		this.sizeBox.setSelectedItem(this.fa.font.getSize());
-		this.sizeBox.setBounds(390, 80, 200, 30);
+		this.sizeBox.setBounds(390, 80, 190, 30);
 		this.popUp.add(this.sizeBox);
 		
 		addTextAdvancedSettings(this.popUp);
@@ -286,17 +291,22 @@ public class ShapePopUpman implements ShapeVisitor {
 					this.fa.style = 0;
 					if (bold.isSelected()) this.fa.style += 1;
 					if (italic.isSelected()) this.fa.style += 2;
-		    		
-		    		this.font = new Font(fontName, this.fa.style, size);
+					
+					this.font = new Font(fontName, Font.PLAIN, size);
 		    		this.fa.font = this.font;
-		    		loc.setLocation(this.x, this.y);
+		    		
+					loc.setLocation(this.x, this.y);
 		    		stb.setLoc(loc);
 		    		stb.setText(text);
 		    		
-		    		this.popUp.dispose();
-		    		this.sview.repaint();
+					if(size <= 0) creatErrorPopup("The size must be between 0 and 1638");
+		    		else if(size > 1638) creatErrorPopup("The size must be between 0 and 1638");
+		    		else {
+			    		this.popUp.dispose();
+			    		this.sview.repaint();
+		    		}
 				} catch (Exception e1) {
-					creatErrorPopup("Error : integer expected for x, y and size");
+					creatErrorPopup("Integer expected for x, y and size");
 				}
 			}
 		});
