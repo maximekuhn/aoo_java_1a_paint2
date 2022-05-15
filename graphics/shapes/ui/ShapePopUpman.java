@@ -395,20 +395,18 @@ public class ShapePopUpman implements ShapeVisitor {
 	}
 	
 	public void creatSettingsFrame(String title, int w, int h) {
-        if(this.popUp == null) {
-        	this.popUp = new JFrame(title);
-            this.popUp.setSize(w, h);
-            this.popUp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            this.popUp.setResizable(false);
-            this.popUp.setLocationRelativeTo(null);
-            
-            this.panel = new JPanel();
-            this.panel.setLayout(null);
-            this.popUp.setContentPane(this.panel);
-        	this.popUp.setVisible(true);
-        }
-        else System.out.println("ouvert");
-		
+    	this.popUp = new JFrame(title);
+        this.popUp.setSize(w, h);
+        this.popUp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.popUp.setResizable(false);
+        this.popUp.setLocationRelativeTo(null);
+        
+        this.panel = new JPanel();
+        this.panel.setLayout(null);
+        this.popUp.setContentPane(this.panel);
+    	this.popUp.setVisible(true);
+    	this.open = true;
+    	
         this.title = new JLabel(title);
         this.title.setBounds(65, 10, 110, 20);
 		
