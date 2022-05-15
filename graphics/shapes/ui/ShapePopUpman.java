@@ -394,6 +394,21 @@ public class ShapePopUpman implements ShapeVisitor {
 		creatShapePopUp("Rhombus Settings", srh);
 	}
 	
+	@Override
+	public void visitSNonagon(SNonagon sn) {
+		creatShapePopUp("Nonagon Settings", sn);		
+	}
+
+	@Override
+	public void visitSHeptagon(SHeptagon sh) {
+		creatShapePopUp("Heptagon Settings", sh);		
+	}
+
+	@Override
+	public void visitSDecagon(SDecagon sd) {
+		creatShapePopUp("Decagon Settings", sd);		
+	}
+	
 	public void creatSettingsFrame(String title, int w, int h) {
     	this.popUp = new JFrame(title);
         this.popUp.setSize(w, h);
@@ -552,22 +567,6 @@ public class ShapePopUpman implements ShapeVisitor {
 		return new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
 	}
 
-	@Override
-	public void visitSNonagon(SNonagon sn) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void visitSHeptagon(SHeptagon sh) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void visitSDecagon(SDecagon sd) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 }
