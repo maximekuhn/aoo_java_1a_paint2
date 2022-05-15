@@ -3,7 +3,10 @@ package graphics.shapes.ui;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
+import java.awt.Image;
 
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -13,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 
 import graphics.shapes.SArrow;
 import graphics.shapes.SCircle;
@@ -70,6 +74,20 @@ public class ShapePopUpman implements ShapeVisitor {
     private Font font;
     
     private JScrollPane scrolltxt;
+
+	private JToggleButton textLeft = new JToggleButton(this.imageSize("src/pictures/text/left.png"));
+	private JToggleButton textCenter = new JToggleButton(this.imageSize("src/pictures/text/center.png"));
+	private JToggleButton textRight = new JToggleButton(this.imageSize("src/pictures/text/right.png"));
+	private ButtonGroup textAlignX = new ButtonGroup();
+
+	private JToggleButton textTop = new JToggleButton(this.imageSize("src/pictures/text/top.png"));
+	private JToggleButton textMiddle = new JToggleButton(this.imageSize("src/pictures/text/middle.png"));
+	private JToggleButton textBottom = new JToggleButton(this.imageSize("src/pictures/text/bottom.png"));
+	private ButtonGroup textAlignY = new ButtonGroup();
+
+	private JToggleButton bold = new JToggleButton(this.imageSize("src/pictures/text/bold.png"));
+	private JToggleButton italic = new JToggleButton(this.imageSize("src/pictures/text/italic.png"));
+	private JToggleButton underline = new JToggleButton(this.imageSize("src/pictures/text/underline.png"));
     
     private JButton bSave;
     private JButton bExit;
@@ -211,9 +229,9 @@ public class ShapePopUpman implements ShapeVisitor {
 		Point loc = stb.getLoc();
 		
 		creatSettingsFrame("Text Box Settings", 600, 250);
-		this.title.setBounds(145, 10, 110, 20);
+		this.title.setBounds(245, 10, 110, 20);
 		
-		addTextSettings(10, 40, 60, 20);
+		addTextSettings(10, 40, 50, 20);
 		this.tText.setText(String.valueOf(stb.getText()));
 		
 		addLocSettings(280, 40, 20, 20);
@@ -229,7 +247,7 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.fontsBox = new JComboBox<>(this.fontsName);
 		this.fontsBox.setEditable(true);
 		this.fontsBox.setSelectedItem(this.fa.font.getName());
-		this.fontsBox.setBounds(400, 40, 170, 30);
+		this.fontsBox.setBounds(390, 40, 200, 30);
 		this.popUp.add(this.fontsBox);
 		
 		int smin = 6;
@@ -241,11 +259,13 @@ public class ShapePopUpman implements ShapeVisitor {
 		this.sizeBox = new JComboBox<>(this.sizeFont);
 		this.sizeBox.setEditable(true);
 		this.sizeBox.setSelectedItem(this.fa.font.getSize());
-		this.sizeBox.setBounds(400, 80, 170, 30);
+		this.sizeBox.setBounds(390, 80, 200, 30);
 		this.popUp.add(this.sizeBox);
 		
-		this.bSave.setBounds(125, 170, 65, 30);
-		this.bExit.setBounds(194, 170, 65, 30);	
+		addTextAdvancedSettings(this.popUp);
+
+		this.bSave.setBounds(235, 180, 65, 30);
+		this.bExit.setBounds(304, 180, 65, 30);	
 		
 		this.bSave.addActionListener(e -> {
 			if(e.getSource().equals(this.bSave)) {
@@ -255,6 +275,14 @@ public class ShapePopUpman implements ShapeVisitor {
 					int size = (int) this.sizeBox.getSelectedItem();
 		    		this.x = Integer.valueOf(this.tx.getText());
 		    		this.y = Integer.valueOf(this.ty.getText());
+					
+					if (textLeft.isSelected()) this.fa.alignX = 0;
+					else if (textCenter.isSelected()) this.fa.alignX = 1;
+					else if (textRight.isSelected()) this.fa.alignX = 2;
+
+					if (textTop.isSelected()) this.fa.alignY = 0;
+					else if (textMiddle.isSelected()) this.fa.alignY = 1;
+					else if (textBottom.isSelected()) this.fa.alignY = 2;
 		    		
 		    		this.font = new Font(fontName, Font.PLAIN, size);
 		    		this.fa.font = this.font;
@@ -420,14 +448,49 @@ public class ShapePopUpman implements ShapeVisitor {
 	
 	public void addTextSettings(int dx, int dy, int w, int h) {
 		this.lText = new JLabel("Text :");
-		this.lText.setBounds(dx, dy, w, h);
+		this.lText.setBounds(dx, dy+45, w, h);
 		
 		this.tText = new JTextArea();
 		this.scrolltxt = new JScrollPane(this.tText);
-		this.scrolltxt.setBounds(dx+51, dy+2, w+140, h+80);
+		this.scrolltxt.setBounds(dx+51, dy+2, w+140, h+100);
 				
 		this.popUp.add(this.lText);
 		this.popUp.add(this.scrolltxt);
+	}
+
+	public void addTextAdvancedSettings(JFrame popUp) {
+		this.textLeft.setBounds(280, 130, 30, 30);
+		popUp.add(this.textLeft);
+		this.textAlignX.add(this.textLeft);
+		if (this.fa.alignX == 0) this.textLeft.setSelected(true);
+		this.textCenter.setBounds(310, 130, 30, 30);
+		popUp.add(this.textCenter);
+		this.textAlignX.add(this.textCenter);
+		if (this.fa.alignX == 1) this.textCenter.setSelected(true);
+		this.textRight.setBounds(340, 130, 30, 30);
+		popUp.add(this.textRight);
+		this.textAlignX.add(this.textRight);
+		if (this.fa.alignX == 2) this.textRight.setSelected(true);
+
+		this.textTop.setBounds(390, 130, 30, 30);
+		popUp.add(this.textTop);
+		this.textAlignY.add(this.textTop);
+		if (this.fa.alignY == 0) this.textTop.setSelected(true);
+		this.textMiddle.setBounds(420, 130, 30, 30);
+		popUp.add(this.textMiddle);
+		this.textAlignY.add(this.textMiddle);
+		if (this.fa.alignY == 1) this.textMiddle.setSelected(true);
+		this.textBottom.setBounds(450, 130, 30, 30);
+		popUp.add(this.textBottom);
+		this.textAlignY.add(this.textBottom);
+		if (this.fa.alignY == 2) this.textBottom.setSelected(true);
+
+		this.bold.setBounds(500, 130, 30, 30);
+		popUp.add(this.bold);
+		this.italic.setBounds(530, 130, 30, 30);
+		popUp.add(this.italic);
+		this.underline.setBounds(560, 130, 30, 30);
+		popUp.add(this.underline);
 	}
 	
 	public void creatShapePopUp(String title, Shape s) {
@@ -467,5 +530,9 @@ public class ShapePopUpman implements ShapeVisitor {
 	public static void creatErrorPopup(String errorMessage){
         JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
     }
+
+	public ImageIcon imageSize(String filename) {
+		return new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+	}
 	
 }
