@@ -298,17 +298,18 @@ public class ShapePopUpman implements ShapeVisitor {
 		    		
 					loc.setLocation(this.x, this.y);
 		    		stb.setLoc(loc);
-		    		stb.setText(text);
 		    		
-					if(size <= 0) creatErrorPopup("The size must be between 0 and 1638");
-		    		else if(size > 1638) creatErrorPopup("The size must be between 0 and 1638");
+					if(size <= 0) creatErrorPopup("The size must be between 1 and 1638");
+		    		else if(size > 1638) creatErrorPopup("The size must be between 1 and 1638");
 		    		else {
-		    			this.font = new Font(fontName, this.fa.style, size);
+						this.font = new Font(fontName, this.fa.style, size);
 			    		this.fa.font = this.font;
 			    		this.popUp.dispose();
 			    		this.sview.repaint();
 		    		}
-				} catch (Exception e1) {
+					stb.setText(text);
+				} 
+				catch (Exception e1) {
 					creatErrorPopup("Integer expected for x, y and size");
 				}
 			}
