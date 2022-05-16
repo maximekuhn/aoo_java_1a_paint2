@@ -8,6 +8,7 @@ Groupe 3
 Pour exécuter le projet :
 - git clone https://github.com/maximekuhn/aoo\_java\_1a\_paint2
 <br/>
+
 - respecter l'arborescence ci-dessous : 
 <br/>
 src <br/>
@@ -15,6 +16,7 @@ src <br/>
 |  pictures <br/>
 |  README.md <br/>
 <br/>
+
 - compiler puis exécuter le main (src/graphics/shapes/ui/Editor.class)
 <br/>
 
