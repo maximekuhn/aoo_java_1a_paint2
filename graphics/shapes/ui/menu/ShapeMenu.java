@@ -47,7 +47,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private static final String STRIANGLE = "Triangle";
 	private static final String SLINE = "Line";
 	private static final String SHEXAGON = "Hexagon";
-	private static final String STRIANGLEREC = "TriangleRec";
+	private static final String STRIANGLEREC = "Rectangle triangle";
 	private static final String SCROSS = "Cross";
 	private static final String SELLIPSE = "Ellipse";
 	private static final String SPENTAGON = "Pentagon";
@@ -56,16 +56,17 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private static final String SPARALLELOGRAM = "Parallelogram";
 	private static final String SOCTAGON = "Octagon";
 	private static final String STRAPEZIUM = "Trapezium";
-	private static final String STRIANGLESCALE = "TriangleScale";
+	private static final String STRIANGLESCALE = "Scale triangle";
 	private static final String SRHOMBUS = "Rhombus";
 	private static final String SNONAGON = "Nonagon";
 	private static final String SHEPTAGON = "Heptagon";
 	private static final String SDECAGON = "Decagon";
-	private static final String SSIXPOINTEDSTAR = "SixPointedStar";
-	private static final String SFOURPOINTEDSTAR = "FourPointedStar";
+	private static final String SSIXPOINTEDSTAR = "Six  pointed star";
+	private static final String SFOURPOINTEDSTAR = "Four pointed star";
 	
 	private static final String TRIANGLE_SUBMENU = "Triangle";
 	private static final String REGULAR_POLYGON_SUBMENU = "Regular polygon";
+	private static final String STAR_SUBMENU = "Star";
 	
 	private ShapesView sview;
 	
@@ -95,6 +96,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	
 	private JMenu triangleSubMenu;
 	private JMenu regularPolygonSubMenu;
+	private JMenu starSubMenu;
 	
 	public ShapeMenu(ShapesView sview) {
 		super(SHAPE);
@@ -106,6 +108,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		// sub menu(s)
 		this.triangleSubMenu = new JMenu(TRIANGLE_SUBMENU);
 		this.regularPolygonSubMenu = new JMenu(REGULAR_POLYGON_SUBMENU);
+		this.starSubMenu = new JMenu(STAR_SUBMENU);
 		
 		
 		// buttons
@@ -161,6 +164,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		
 		this.triangleSubMenu.setIcon(MenuBar.iconSize("src/pictures/submenu/triangle_submenu.png"));
 		this.regularPolygonSubMenu.setIcon(MenuBar.iconSize("src/pictures/submenu/regular_polygon_submenu.png"));
+		this.starSubMenu.setIcon(MenuBar.iconSize("src/pictures/submenu/star_submenu.png"));
 		
 		
 		this.scircle.addActionListener(this);
@@ -200,9 +204,14 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.regularPolygonSubMenu.add(this.snonagon);
 		this.regularPolygonSubMenu.add(this.sdecagon);
 		
+		this.starSubMenu.add(this.sstar);
+		this.starSubMenu.add(this.sfourpointedstar);
+		this.starSubMenu.add(this.ssixpointedstar);
+		
 		
 		this.add(this.triangleSubMenu);
 		this.add(this.regularPolygonSubMenu);
+		this.add(this.starSubMenu);
 		this.addSeparator();
 		this.add(this.scircle);
 		this.add(this.srectangle);
@@ -212,12 +221,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.add(this.scross);
 		this.add(this.sellipse);
 		this.add(this.sarrow);
-		this.add(this.sstar);
 		this.add(this.sparallelogram);
 		this.add(this.strapezium);
 		this.add(this.srhombus);
-		this.add(this.ssixpointedstar);
-		this.add(this.sfourpointedstar);
 	}
 	
 	@Override

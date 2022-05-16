@@ -48,8 +48,6 @@ import graphics.shapes.ui.ShapesView;
 
 public class ProjectOpener {
 	
-	// TODO : better errors handling
-
 	private static final String SRECTANGLE = new SRectangle(new Point(0,0), 0, 0).getClass().getName();
 	private static final String SCIRCLE = new SCircle(new Point(0,0), 0).getClass().getName();
 	private static final String SCOLLECTION = new SCollection().getClass().getName();

@@ -569,14 +569,12 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	@Override
 	public void visitSFourPointedStar(SFourPointedStar sfp) {
-		// TODO Auto-generated method stub
-		
+		creatShapePopUp("Four pointed star Settings", sfp);
 	}
 
 	@Override
 	public void visitSSixPointedStar(SSixPointedStar ssp) {
-		// TODO Auto-generated method stub
-		
+		creatShapePopUp("Six pointed star Settings", ssp);
 	}
 
 	

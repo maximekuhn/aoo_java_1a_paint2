@@ -212,7 +212,6 @@ public class SCollection extends Shape {
 
 			@Override
 			public int compare(Shape s1, Shape s2) {
-				// TODO Auto-generated method stub
 				LayerAttributes la1 = (LayerAttributes) s1.getAttributes(LayerAttributes.ID);
 				if(la1 == null) la1 = new LayerAttributes();
 				
