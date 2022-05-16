@@ -13,7 +13,9 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
 
 import graphics.shapes.ui.Editor;
+import graphics.shapes.ui.LayersView;
 import graphics.shapes.ui.ShapesView;
+import graphics.shapes.ui.toolbar.ToolBar;
 
 public class WindowMenu extends JMenu implements ActionListener {
 
@@ -27,12 +29,16 @@ public class WindowMenu extends JMenu implements ActionListener {
 	private static final int DEFAULT_WIDTH = 600;
 	private static final int DEFAULT_HEIGHT = 600;
 	
-	private static final Color DARK_THEME_COLOR = Color.GRAY;
-	private static final Color LIGHT_THEME_COLOR = Color.WHITE;
+	private static final Color DARK_THEME_MAIN_COLOR = new Color(60, 60, 60);
+	private static final Color DARK_THEME_ACCENT_COLOR = Color.GRAY;
+	private static final Color LIGHT_THEME_MAIN_COLOR = Color.WHITE;
+	private static final Color LIGHT_THEME_ACCENT_COLOR = new Color(245, 245, 245);
 	
 	private Editor editor;
 	private MenuBar menuBar;
 	private ShapesView sview;
+	private LayersView lview;
+	private ToolBar toolbar;
 	
 	private JMenuItem defaultSize;
 	private JMenuItem maximize;
@@ -40,12 +46,16 @@ public class WindowMenu extends JMenu implements ActionListener {
 	
 	private JRadioButtonMenuItem darkTheme;
 	private JRadioButtonMenuItem lightTheme;
+
+	public boolean darkThemeEnabled;
 	
-	public WindowMenu(Editor editor, MenuBar menuBar, ShapesView sview) {
+	public WindowMenu(Editor editor, MenuBar menuBar, ShapesView sview, LayersView lview, ToolBar toolbar) {
 		super(WINDOW);
 		this.editor = editor;
 		this.menuBar = menuBar;
 		this.sview = sview;
+		this.lview = lview;
+		this.toolbar = toolbar;
 		this.buildMenu();
 	}
 	
@@ -107,15 +117,39 @@ public class WindowMenu extends JMenu implements ActionListener {
 	}
 	
 	private void doLightTheme() {
-		// TODO : change color of other components
-		this.sview.setBackground(LIGHT_THEME_COLOR);
+		this.sview.setBackground(LIGHT_THEME_MAIN_COLOR);
+		this.lview.setBackground(LIGHT_THEME_ACCENT_COLOR);
+		this.toolbar.setBackgroundColor(this.darkThemeEnabled, LIGHT_THEME_ACCENT_COLOR);
+		this.lview.setColor(LIGHT_THEME_MAIN_COLOR, LIGHT_THEME_ACCENT_COLOR);
+		this.menuBar.setColor(LIGHT_THEME_MAIN_COLOR);
+		this.menuBar.fileMenu.setOpaque(true);
+		this.menuBar.selectionMenu.setOpaque(true);
+		this.menuBar.shapeMenu.setOpaque(true);
+		this.menuBar.windowMenu.setOpaque(true);
+		this.menuBar.layerMenu.setOpaque(true);
+		this.menuBar.developerMenu.setOpaque(true);
+		this.darkThemeEnabled = false;
 		this.sview.repaint();
+		this.lview.repaint();
+		this.menuBar.repaint();
 	}
 
 	private void doDarkTheme() {
-		// TODO : change color of other components
-		this.sview.setBackground(DARK_THEME_COLOR);
+		this.sview.setBackground(DARK_THEME_MAIN_COLOR);
+		this.lview.setBackground(DARK_THEME_ACCENT_COLOR);
+		this.toolbar.setBackgroundColor(this.darkThemeEnabled, DARK_THEME_ACCENT_COLOR);
+		this.lview.setColor(DARK_THEME_MAIN_COLOR, DARK_THEME_ACCENT_COLOR);
+		this.menuBar.setColor(DARK_THEME_ACCENT_COLOR);
+		this.menuBar.fileMenu.setOpaque(false);
+		this.menuBar.selectionMenu.setOpaque(false);
+		this.menuBar.shapeMenu.setOpaque(false);
+		this.menuBar.windowMenu.setOpaque(false);
+		this.menuBar.layerMenu.setOpaque(false);
+		this.menuBar.developerMenu.setOpaque(false);
+		this.darkThemeEnabled = true;
 		this.sview.repaint();
+		this.lview.repaint();
+		this.menuBar.repaint();
 	}
 
 }

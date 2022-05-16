@@ -18,18 +18,20 @@ public class LayersView extends View {
 	private ShapesView sview;
 	
 	private Color bgColor;
+	private Color borderColor;
 	
 	public LayersView(Object model) {
 		super(model);
-		this.setBgColor(Color.WHITE);
+		this.setColor(Color.WHITE, new Color(245,245,245));
 	}
 	
 	public void setShapesView(ShapesView sview) {
 		this.sview = sview;
 	}
 	
-	public void setBgColor(Color c) {
-		this.bgColor = c;
+	public void setColor(Color bgColor, Color borderColor) {
+		this.bgColor = bgColor;
+		this.borderColor = borderColor;
 	}
 	
 	@Override
@@ -54,7 +56,7 @@ public class LayersView extends View {
 			g2D.setStroke(new BasicStroke(2));
 			g2D.drawImage(new ImageIcon(bi).getImage().getScaledInstance(140, 80, Image.SCALE_SMOOTH), 5, i * 90 + 5, null);
 			g2D.drawRect(5, i * 90 + 5, 140, 80);
-			g2D.setColor(new Color(245,245,245));
+			g2D.setColor(borderColor);
 			g2D.setStroke(new BasicStroke(2));
 			g2D.drawRect(0, i*90, this.getWidth(), 90);
 			g2D.setColor(new Color(0,0,0));

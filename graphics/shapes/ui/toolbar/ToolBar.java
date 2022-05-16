@@ -56,4 +56,9 @@ public class ToolBar extends JToolBar {
 				button.setBorder(BorderFactory.createEmptyBorder(3,3,3,3));
 		}
 	}
+
+	public void setBackgroundColor(boolean darkModeEnabled, Color color) {
+		if (darkModeEnabled) setBackground(color);
+		else setBackground(color);
+	}
 }

@@ -25,8 +25,9 @@ public class Editor extends JFrame
 {
 	ShapesView sview;
 	SCollection model;
-	private MenuBar menuBar;
-	private LayersView lview;
+	MenuBar menuBar;
+	ToolBar toolbar;
+	LayersView lview;
 	
 	public Editor()
 	{	
@@ -69,10 +70,11 @@ public class Editor extends JFrame
 		this.sview.setBackground(Color.WHITE);
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
 		
-		this.menuBar = new MenuBar(this.sview, this);
+		this.toolbar = new ToolBar(this.sview);
+		this.menuBar = new MenuBar(this.sview, this.lview, this.toolbar, this);
 		this.setJMenuBar(this.menuBar);
 		
-		this.sview.add(new ToolBar(this.sview), BorderLayout.PAGE_START);
+		this.sview.add(toolbar, BorderLayout.PAGE_START);
 	}
 
 	
