@@ -59,12 +59,16 @@ public class FontAttributes extends Attributes {
 	}
 
 	public void setAlignX(int alignX) {
-		// 0 = align left, 1 = align center, 2 = align right
+		/* 
+		 * 0 = align left, 1 = align center, 2 = align right
+		 */
 		this.alignX = alignX;
 	}
 
 	public void setAlignY(int alignY) {
-		// 0 = align top, 1 = align center, 2 = align bottom
+		/*
+		 * 0 = align top, 1 = align center, 2 = align bottom
+		 */
 		this.alignY = alignY;
 	}
 	
