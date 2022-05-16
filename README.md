@@ -1,30 +1,23 @@
 # aoo_java_1a_paint2
 
-### Modifier / ajouter
-$ git add file
+Projet AOO Java 1A IR.
 <br/>
-ajoute un fichier. <br/>
-/!\ AJOUTER UNIQUEMENT LES FICHIERS DANS GRAPHICS OU PICTURES /!\
+Groupe 3
 <br/>
 <br/>
-$ git commit -m "message de commit"
+Pour exécuter le projet :
+- git clone https://github.com/maximekuhn/aoo\_java\_1a\_paint2
 <br/>
-mettre une description de ce qui a changé
+- respecter l'arborescence ci-dessous : 
 <br/>
-<br/>
-$ git push
-<br/>
-envoi les modifications sur le dépôt github
-
-### Récupérer le code
-$ git pull 
-
-
-### Arborescence du projet
 src <br/>
 |  graphics <br/>
 |  pictures <br/>
 |  README.md <br/>
+<br/>
+- compiler puis exécuter le main (src/graphics/shapes/ui/Editor.class)
+<br/>
 
 ---
+<br/>
 GRAINCA Albi, CRON Bastien, GOKER Batuhan, KUHN Maxime
