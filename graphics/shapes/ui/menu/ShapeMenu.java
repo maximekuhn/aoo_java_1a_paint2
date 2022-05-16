@@ -14,6 +14,7 @@ import graphics.shapes.SCollection;
 import graphics.shapes.SCross;
 import graphics.shapes.SDecagon;
 import graphics.shapes.SEllipse;
+import graphics.shapes.SFourPointedStar;
 import graphics.shapes.SHeptagon;
 import graphics.shapes.SHexagon;
 import graphics.shapes.SKotlin;
@@ -24,6 +25,7 @@ import graphics.shapes.SParallelogram;
 import graphics.shapes.SPentagon;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SRhombus;
+import graphics.shapes.SSixPointedStar;
 import graphics.shapes.SStar;
 import graphics.shapes.STextBox;
 import graphics.shapes.STrapezium;
@@ -59,6 +61,8 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private static final String SNONAGON = "Nonagon";
 	private static final String SHEPTAGON = "Heptagon";
 	private static final String SDECAGON = "Decagon";
+	private static final String SSIXPOINTEDSTAR = "SixPointedStar";
+	private static final String SFOURPOINTEDSTAR = "FourPointedStar";
 	
 	private static final String TRIANGLE_SUBMENU = "Triangle";
 	private static final String REGULAR_POLYGON_SUBMENU = "Regular polygon";
@@ -86,6 +90,8 @@ public class ShapeMenu extends JMenu implements ActionListener {
 	private JMenuItem snonagon;
 	private JMenuItem sheptagon;
 	private JMenuItem sdecagon;
+	private JMenuItem ssixpointedstar;
+	private JMenuItem sfourpointedstar;
 	
 	private JMenu triangleSubMenu;
 	private JMenu regularPolygonSubMenu;
@@ -124,6 +130,8 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.snonagon = new JMenuItem(SNONAGON);
 		this.sheptagon = new JMenuItem(SHEPTAGON);
 		this.sdecagon = new JMenuItem(SDECAGON);
+		this.ssixpointedstar = new JMenuItem(SSIXPOINTEDSTAR);
+		this.sfourpointedstar = new JMenuItem(SFOURPOINTEDSTAR);
 		
 		
 		// icons
@@ -148,6 +156,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.snonagon.setIcon(MenuBar.iconSize("src/pictures/nonagon.png"));
 		this.sheptagon.setIcon(MenuBar.iconSize("src/pictures/heptagon.png"));
 		this.sdecagon.setIcon(MenuBar.iconSize("src/pictures/decagon.png"));
+		this.ssixpointedstar.setIcon(MenuBar.iconSize("src/pictures/sixpointedstar.png"));
+		this.sfourpointedstar.setIcon(MenuBar.iconSize("src/pictures/fourpointedstar.png"));
+		
 		this.triangleSubMenu.setIcon(MenuBar.iconSize("src/pictures/submenu/triangle_submenu.png"));
 		this.regularPolygonSubMenu.setIcon(MenuBar.iconSize("src/pictures/submenu/regular_polygon_submenu.png"));
 		
@@ -173,6 +184,9 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.snonagon.addActionListener(this);
 		this.sheptagon.addActionListener(this);
 		this.sdecagon.addActionListener(this);
+		this.ssixpointedstar.addActionListener(this);
+		this.sfourpointedstar.addActionListener(this);
+		
 		
 		
 		this.triangleSubMenu.add(this.striangle);
@@ -202,6 +216,8 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		this.add(this.sparallelogram);
 		this.add(this.strapezium);
 		this.add(this.srhombus);
+		this.add(this.ssixpointedstar);
+		this.add(this.sfourpointedstar);
 	}
 	
 	@Override
@@ -227,6 +243,8 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		else if(e.getSource().equals(this.snonagon)) this.doNonagon();
 		else if(e.getSource().equals(this.sheptagon)) this.doHeptagon();
 		else if(e.getSource().equals(this.sdecagon)) this.doDecagon();
+		else if(e.getSource().equals(this.ssixpointedstar)) this.doSixPointedStar();
+		else if(e.getSource().equals(this.sfourpointedstar)) this.doFourPointedStar();
 	}
 
 	private void doCircle() {
@@ -416,6 +434,24 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		sd.addAttributes(new SelectionAttributes());
 		sd.addAttributes(new ColorAttributes(true, true, new Color(239, 127, 72), Color.BLACK));
 		model.add(sd);
+		this.sview.repaint();
+	}
+	
+	private void doSixPointedStar() {
+		SCollection model = (SCollection) this.sview.getModel();
+		SSixPointedStar ssp = new SSixPointedStar(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		ssp.addAttributes(new SelectionAttributes());
+		ssp.addAttributes(new ColorAttributes(true, true, new Color(239, 127, 72), Color.BLACK));
+		model.add(ssp);
+		this.sview.repaint();
+	}
+	
+	private void doFourPointedStar() {
+		SCollection model = (SCollection) this.sview.getModel();
+		SFourPointedStar sfp = new SFourPointedStar(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
+		sfp.addAttributes(new SelectionAttributes());
+		sfp.addAttributes(new ColorAttributes(true, true, new Color(239, 127, 72), Color.BLACK));
+		model.add(sfp);
 		this.sview.repaint();
 	}
 }

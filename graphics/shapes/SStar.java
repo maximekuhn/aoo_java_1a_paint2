@@ -2,7 +2,6 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
@@ -10,69 +9,41 @@ import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-public class SStar extends Shape {
-
-    private Polygon star;
-    private Point loc;
-	private int nPoints;
-	private int[] xStar;
-	private int[] yStar;
-	
-	private int width;
-	private int height;
+public class SStar extends SPolygon {
 	
 	public SStar(Point loc, int width, int height) {
-		this.loc = loc;
-		this.width = width;
-		this.height = height;
-		this.nPoints = 10;
-		this.buildPolygon();
+		super(loc, width, height);
 	}
 	
-	private void buildPolygon() {
+	@Override
+	public void buildPolygon() {
 		this.nPoints = 10;
-		this.xStar = new int[this.nPoints];
-		this.yStar = new int[this.nPoints];
+		this.xPolygon = new int[this.nPoints];
+		this.yPolygon = new int[this.nPoints];
 
-		this.xStar[0] = this.loc.x + this.width * 1/2;
-		this.yStar[0] = this.loc.y;
-		this.xStar[1] = this.loc.x + this.width * 2/3;
-		this.yStar[1] = this.loc.y + this.height * 1/3;
-		this.xStar[2] = this.loc.x + this.width;
-		this.yStar[2] = this.loc.y + this.height * 2/5;
-		this.xStar[3] = this.loc.x + this.width * 3/4;
-		this.yStar[3] = this.loc.y + this.height * 3/5;
-		this.xStar[4] = this.loc.x + this.width * 4/5;
-		this.yStar[4] = this.loc.y + this.height;
-		this.xStar[5] = this.loc.x + this.width / 2;
-		this.yStar[5] = this.loc.y + this.height * 5/6;
-		this.xStar[6] = this.loc.x + this.width * 1/5;
-		this.yStar[6] = this.loc.y + this.height;
-		this.xStar[7] = this.loc.x + this.width * 1/4;
-		this.yStar[7] = this.loc.y + this.height * 3/5;
-		this.xStar[8] = this.loc.x;
-		this.yStar[8] = this.loc.y + this.height * 2/5;
-		this.xStar[9] = this.loc.x + this.width * 1/3;
-		this.yStar[9] = this.loc.y + this.height * 1/3;
+		this.xPolygon[0] = this.getLoc().x + this.width * 1/2;
+		this.yPolygon[0] = this.getLoc().y;
+		this.xPolygon[1] = this.getLoc().x + this.width * 2/3;
+		this.yPolygon[1] = this.getLoc().y + this.height * 1/3;
+		this.xPolygon[2] = this.getLoc().x + this.width;
+		this.yPolygon[2] = this.getLoc().y + this.height * 2/5;
+		this.xPolygon[3] = this.getLoc().x + this.width * 3/4;
+		this.yPolygon[3] = this.getLoc().y + this.height * 3/5;
+		this.xPolygon[4] = this.getLoc().x + this.width * 4/5;
+		this.yPolygon[4] = this.getLoc().y + this.height;
+		this.xPolygon[5] = this.getLoc().x + this.width / 2;
+		this.yPolygon[5] = this.getLoc().y + this.height * 5/6;
+		this.xPolygon[6] = this.getLoc().x + this.width * 1/5;
+		this.yPolygon[6] = this.getLoc().y + this.height;
+		this.xPolygon[7] = this.getLoc().x + this.width * 1/4;
+		this.yPolygon[7] = this.getLoc().y + this.height * 3/5;
+		this.xPolygon[8] = this.getLoc().x;
+		this.yPolygon[8] = this.getLoc().y + this.height * 2/5;
+		this.xPolygon[9] = this.getLoc().x + this.width * 1/3;
+		this.yPolygon[9] = this.getLoc().y + this.height * 1/3;
 
-		this.star = new Polygon(this.xStar, this.yStar, this.nPoints);
+		this.polygon = new Polygon(this.xPolygon, this.yPolygon, this.nPoints);
 		}
-
-	@Override
-	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		this.buildPolygon();
-	}
-
-	@Override
-	public Point getLoc() {
-		return this.loc;
-	}
-
-    public void translate(int dx, int dy) {
-		this.setLoc(new Point(this.loc.x + dx, this.loc.y + dy));
-		this.buildPolygon();
-	}
 
 
 	@Override
@@ -99,24 +70,12 @@ public class SStar extends Shape {
 		this.height += dy;
 		this.buildPolygon();
 	}
-	
-    public Polygon getPolygon(){
-        return this.star;
 
-    }
     
     @Override
     public void accept(ShapeVisitor v){
         v.visitSStar(this);
     }
-
-
-
-	@Override
-	public Rectangle getBounds() {
-
-		return this.star.getBounds();
-	}
 	
 
 	@Override

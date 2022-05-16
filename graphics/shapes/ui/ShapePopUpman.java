@@ -24,6 +24,7 @@ import graphics.shapes.SCollection;
 import graphics.shapes.SCross;
 import graphics.shapes.SDecagon;
 import graphics.shapes.SEllipse;
+import graphics.shapes.SFourPointedStar;
 import graphics.shapes.SHeptagon;
 import graphics.shapes.SHexagon;
 import graphics.shapes.SImage;
@@ -35,6 +36,7 @@ import graphics.shapes.SParallelogram;
 import graphics.shapes.SPentagon;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SRhombus;
+import graphics.shapes.SSixPointedStar;
 import graphics.shapes.SSketch;
 import graphics.shapes.SStar;
 import graphics.shapes.SText;
@@ -563,6 +565,18 @@ public class ShapePopUpman implements ShapeVisitor {
 
 	public ImageIcon imageSize(String filename) {
 		return new ImageIcon(new ImageIcon(filename).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+	}
+
+	@Override
+	public void visitSFourPointedStar(SFourPointedStar sfp) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitSSixPointedStar(SSixPointedStar ssp) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

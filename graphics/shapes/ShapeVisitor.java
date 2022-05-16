@@ -51,4 +51,8 @@ public interface ShapeVisitor {
 	public void visitSHeptagon(SHeptagon sh);
 
 	public void visitSDecagon(SDecagon sd);
+
+	public void visitSFourPointedStar(SFourPointedStar sfp);
+
+	public void visitSSixPointedStar(SSixPointedStar ssp);
 }

@@ -15,6 +15,7 @@ import graphics.shapes.SCollection;
 import graphics.shapes.SCross;
 import graphics.shapes.SDecagon;
 import graphics.shapes.SEllipse;
+import graphics.shapes.SFourPointedStar;
 import graphics.shapes.SHeptagon;
 import graphics.shapes.SHexagon;
 import graphics.shapes.SImage;
@@ -27,6 +28,7 @@ import graphics.shapes.SPentagon;
 import graphics.shapes.SPolygon;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SRhombus;
+import graphics.shapes.SSixPointedStar;
 import graphics.shapes.SSketch;
 import graphics.shapes.SStar;
 import graphics.shapes.SText;
@@ -833,6 +835,66 @@ public class ShapeDraftman implements ShapeVisitor {
 		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
 		if(sa.isSelected()) {
 			Rectangle bounds = sd.getBounds();
+			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
+			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+		}
+		
+		this.g2D.setTransform(old);
+}
+	
+	@Override
+	   public void visitSSixPointedStar(SSixPointedStar ssp){
+		RotationAttributes ra = (RotationAttributes) ssp.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), ssp.getBounds().x + ssp.getBounds().width / 2, ssp.getBounds().y + ssp.getBounds().height / 2);
+		
+		ColorAttributes ca = (ColorAttributes) ssp.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
+		if(ca.filled) {
+			this.g2D.setColor(ca.filledColor);
+			this.g2D.fillPolygon(ssp.getPolygon());
+		}
+		if(ca.stroked) {
+			this.g2D.setColor(ca.strokedColor);
+			this.g2D.drawPolygon(ssp.getPolygon());
+		}
+		
+		SelectionAttributes sa = (SelectionAttributes) ssp.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
+		if(sa.isSelected()) {
+			Rectangle bounds = ssp.getBounds();
+			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
+			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
+		}
+		
+		this.g2D.setTransform(old);
+}
+	
+	@Override
+	   public void visitSFourPointedStar(SFourPointedStar sfp){
+		RotationAttributes ra = (RotationAttributes) sfp.getAttributes(RotationAttributes.ID);
+		if(ra == null) ra = DEFAULTROTATIONATTRIBUTES;
+		AffineTransform old = this.g2D.getTransform();
+		this.g2D.rotate(Math.toRadians(ra.getAngle()), sfp.getBounds().x + sfp.getBounds().width / 2, sfp.getBounds().y + sfp.getBounds().height / 2);
+		
+		ColorAttributes ca = (ColorAttributes) sfp.getAttributes(ColorAttributes.ID);
+		if(ca == null) ca = DEFAULTCOLORATTRIBUTES;
+		if(ca.filled) {
+			this.g2D.setColor(ca.filledColor);
+			this.g2D.fillPolygon(sfp.getPolygon());
+		}
+		if(ca.stroked) {
+			this.g2D.setColor(ca.strokedColor);
+			this.g2D.drawPolygon(sfp.getPolygon());
+		}
+		
+		SelectionAttributes sa = (SelectionAttributes) sfp.getAttributes(SelectionAttributes.ID);
+		if(sa == null) sa = DEFAULTSELECTIONATTRIBUTES;
+		if(sa.isSelected()) {
+			Rectangle bounds = sfp.getBounds();
 			this.g2D.setColor(DEFAULTCOLORATTRIBUTES.strokedColor);
 			this.g2D.drawRect(bounds.x - HANDLER_SIZE / 2, bounds.y - HANDLER_SIZE / 2, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
 			this.g2D.drawRect(bounds.x + bounds.width, bounds.y + bounds.height, HANDLER_SIZE / 2, HANDLER_SIZE / 2);
