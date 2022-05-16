@@ -441,7 +441,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		SCollection model = (SCollection) this.sview.getModel();
 		SSixPointedStar ssp = new SSixPointedStar(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
 		ssp.addAttributes(new SelectionAttributes());
-		ssp.addAttributes(new ColorAttributes(true, true, new Color(239, 127, 72), Color.BLACK));
+		ssp.addAttributes(new ColorAttributes(true, true, Color.RED, Color.BLACK));
 		model.add(ssp);
 		this.sview.repaint();
 	}
@@ -450,7 +450,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		SCollection model = (SCollection) this.sview.getModel();
 		SFourPointedStar sfp = new SFourPointedStar(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
 		sfp.addAttributes(new SelectionAttributes());
-		sfp.addAttributes(new ColorAttributes(true, true, new Color(239, 127, 72), Color.BLACK));
+		sfp.addAttributes(new ColorAttributes(true, true, Color.GREEN, Color.BLACK));
 		model.add(sfp);
 		this.sview.repaint();
 	}
