@@ -17,12 +17,19 @@ public class LayersView extends View {
 
 	private ShapesView sview;
 	
+	private Color bgColor;
+	
 	public LayersView(Object model) {
 		super(model);
+		this.setBgColor(Color.WHITE);
 	}
 	
 	public void setShapesView(ShapesView sview) {
 		this.sview = sview;
+	}
+	
+	public void setBgColor(Color c) {
+		this.bgColor = c;
 	}
 	
 	@Override
@@ -39,7 +46,7 @@ public class LayersView extends View {
 		for(int i = 0; i < layerCount; i++) {
 			sv = new ShapesView(model.getShapesAtLayer(i));
 			sv.setSize(new Dimension(this.sview.getSize()));
-			sv.setBackground(Color.WHITE);
+			sv.setBackground(this.bgColor);
 			bi = new BufferedImage(sv.getWidth(), sv.getHeight(), BufferedImage.TYPE_INT_RGB);
 			sv.paintComponent(bi.createGraphics());
 			
