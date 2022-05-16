@@ -2,7 +2,6 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
@@ -10,63 +9,36 @@ import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-public class SArrow extends Shape {
+public class SArrow extends SPolygon {
 
-    private Polygon arrow;
-    private Point loc;
-	private int nPoints;
-	private int[] xArrow;
-	private int[] yArrow;
-	
-	private int width;
-	private int height;
 	
 	public SArrow(Point loc, int width, int height) {
-		this.loc = loc;
-		this.width = width;
-		this.height = height;
-		this.nPoints = 7;
-		this.buildPolygon();
+		super(loc, width, height);
 	}
 	
-	private void buildPolygon() {
+	@Override
+	public void buildPolygon() {
 		this.nPoints = 7;
-		this.xArrow = new int[this.nPoints];
-		this.yArrow = new int[this.nPoints];
+		this.xPolygon = new int[this.nPoints];
+		this.yPolygon = new int[this.nPoints];
 
-		this.xArrow[0] = this.loc.x + this.width * 1/3;
-		this.yArrow[0] = this.loc.y + this.height * 1/2;
-		this.xArrow[1] = this.loc.x;
-		this.yArrow[1] = this.loc.y + this.height * 1/2;
-		this.xArrow[2] = this.loc.x + this.width / 2;
-		this.yArrow[2] = this.loc.y;
-		this.xArrow[3] = this.loc.x + this.width;
-		this.yArrow[3] = this.loc.y + this.height * 1/2;
-		this.xArrow[4] = this.loc.x + this.width * 2/3;
-		this.yArrow[4] = this.loc.y + this.height * 1/2;
-		this.xArrow[5] = this.loc.x + this.width * 2/3;
-		this.yArrow[5] = this.loc.y + this.height;
-		this.xArrow[6] = this.loc.x + this.width * 1/3;
-		this.yArrow[6] = this.loc.y + this.height;
+		this.xPolygon[0] = this.getLoc().x + this.width * 1/3;
+		this.yPolygon[0] = this.getLoc().y + this.height * 1/2;
+		this.xPolygon[1] = this.getLoc().x;
+		this.yPolygon[1] = this.getLoc().y + this.height * 1/2;
+		this.xPolygon[2] = this.getLoc().x + this.width / 2;
+		this.yPolygon[2] = this.getLoc().y;
+		this.xPolygon[3] = this.getLoc().x + this.width;
+		this.yPolygon[3] = this.getLoc().y + this.height * 1/2;
+		this.xPolygon[4] = this.getLoc().x + this.width * 2/3;
+		this.yPolygon[4] = this.getLoc().y + this.height * 1/2;
+		this.xPolygon[5] = this.getLoc().x + this.width * 2/3;
+		this.yPolygon[5] = this.getLoc().y + this.height;
+		this.xPolygon[6] = this.getLoc().x + this.width * 1/3;
+		this.yPolygon[6] = this.getLoc().y + this.height;
 
-		this.arrow = new Polygon(this.xArrow, this.yArrow, this.nPoints);
+		this.polygon = new Polygon(this.xPolygon, this.yPolygon, this.nPoints);
 		}
-
-	@Override
-	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		this.buildPolygon();
-	}
-
-	@Override
-	public Point getLoc() {
-		return this.loc;
-	}
-
-    public void translate(int dx, int dy) {
-		this.setLoc(new Point(this.loc.x + dx, this.loc.y + dy));
-		this.buildPolygon();
-	}
 
 
 	@Override
@@ -94,23 +66,11 @@ public class SArrow extends Shape {
 		this.buildPolygon();
 	}
 	
-    public Polygon getPolygon(){
-        return this.arrow;
-
-    }
     
     @Override
     public void accept(ShapeVisitor v){
         v.visitSArrow(this);
     }
-
-
-
-	@Override
-	public Rectangle getBounds() {
-
-		return this.arrow.getBounds();
-	}
 	
 
 	@Override

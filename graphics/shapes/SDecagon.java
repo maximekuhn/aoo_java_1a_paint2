@@ -2,7 +2,6 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
@@ -10,69 +9,41 @@ import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-public class SDecagon extends Shape {
-
-    private Polygon decagon;
-    private Point loc;
-	private int nPoints;
-	private int[] xDecagon;
-	private int[] yDecagon;
-	
-	private int width;
-	private int height;
+public class SDecagon extends SPolygon {
 	
 	public SDecagon(Point loc, int width, int height) {
-		this.loc = loc;
-		this.width = width;
-		this.height = height;
-		this.nPoints = 10;
-		this.buildPolygon();
+		super(loc, width, height);
 	}
 	
-	private void buildPolygon() {
+	@Override
+	public void buildPolygon() {
 		this.nPoints = 10;
-		this.xDecagon = new int[this.nPoints];
-		this.yDecagon = new int[this.nPoints];
+		this.xPolygon = new int[this.nPoints];
+		this.yPolygon = new int[this.nPoints];
 
-        this.xDecagon[0] = this.loc.x + this.width * 1/3;
-        this.yDecagon[0] = this.loc.y;
-        this.xDecagon[1] = this.loc.x + this.width * 2/3;
-        this.yDecagon[1] = this.loc.y;
-        this.xDecagon[2] = this.loc.x + this.width * 9/10;
-        this.yDecagon[2] = this.loc.y + this.height * 1/5;
-        this.xDecagon[3] = this.loc.x + this.width;
-        this.yDecagon[3] = this.loc.y + this.height * 1/2;
-        this.xDecagon[4] = this.loc.x + this.width * 9/10;
-        this.yDecagon[4] = this.loc.y + this.height * 4/5;
-        this.xDecagon[5] = this.loc.x + this.width * 2/3;
-        this.yDecagon[5] = this.loc.y + this.height;
-        this.xDecagon[6] = this.loc.x + this.width * 1/3;
-        this.yDecagon[6] = this.loc.y + this.height;
-        this.xDecagon[7] = this.loc.x + this.width * 1/10;
-        this.yDecagon[7] = this.loc.y + this.height * 4/5;
-        this.xDecagon[8] = this.loc.x;
-        this.yDecagon[8] = this.loc.y + this.height * 1/2;
-        this.xDecagon[9] = this.loc.x + this.width * 1/10 ;
-        this.yDecagon[9] = this.loc.y + this.height * 1/5;
+        this.xPolygon[0] = this.getLoc().x + this.width * 1/3;
+        this.yPolygon[0] = this.getLoc().y;
+        this.xPolygon[1] = this.getLoc().x + this.width * 2/3;
+        this.yPolygon[1] = this.getLoc().y;
+        this.xPolygon[2] = this.getLoc().x + this.width * 9/10;
+        this.yPolygon[2] = this.getLoc().y + this.height * 1/5;
+        this.xPolygon[3] = this.getLoc().x + this.width;
+        this.yPolygon[3] = this.getLoc().y + this.height * 1/2;
+        this.xPolygon[4] = this.getLoc().x + this.width * 9/10;
+        this.yPolygon[4] = this.getLoc().y + this.height * 4/5;
+        this.xPolygon[5] = this.getLoc().x + this.width * 2/3;
+        this.yPolygon[5] = this.getLoc().y + this.height;
+        this.xPolygon[6] = this.getLoc().x + this.width * 1/3;
+        this.yPolygon[6] = this.getLoc().y + this.height;
+        this.xPolygon[7] = this.getLoc().x + this.width * 1/10;
+        this.yPolygon[7] = this.getLoc().y + this.height * 4/5;
+        this.xPolygon[8] = this.getLoc().x;
+        this.yPolygon[8] = this.getLoc().y + this.height * 1/2;
+        this.xPolygon[9] = this.getLoc().x + this.width * 1/10 ;
+        this.yPolygon[9] = this.getLoc().y + this.height * 1/5;
 
-		this.decagon = new Polygon(this.xDecagon, this.yDecagon, this.nPoints);
+		this.polygon = new Polygon(this.xPolygon, this.yPolygon, this.nPoints);
 		}
-
-	@Override
-	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		this.buildPolygon();
-	}
-
-	@Override
-	public Point getLoc() {
-		return this.loc;
-	}
-
-    public void translate(int dx, int dy) {
-		this.setLoc(new Point(this.loc.x + dx, this.loc.y + dy));
-		this.buildPolygon();
-	}
 
 
 	@Override
@@ -99,25 +70,12 @@ public class SDecagon extends Shape {
 		this.height += dy;
 		this.buildPolygon();
 	}
-	
-    public Polygon getPolygon(){
-        return this.decagon;
-
-    }
     
     @Override
     public void accept(ShapeVisitor v){
         v.visitSDecagon(this);
     }
 
-
-
-	@Override
-	public Rectangle getBounds() {
-
-		return this.decagon.getBounds();
-	}
-	
 
 	@Override
 	public String toString() {

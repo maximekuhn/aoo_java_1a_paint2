@@ -2,7 +2,6 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
@@ -10,57 +9,30 @@ import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-public class SParallelogram extends Shape {
+public class SParallelogram extends SPolygon {
 
-    private Polygon parallelogram;
-    private Point loc;
-	private int nPoints;
-	private int[] xParallelogram;
-	private int[] yParallelogram;
-	
-	private int width;
-	private int height;
 	
 	public SParallelogram(Point loc, int width, int height) {
-		this.loc = loc;
-		this.width = width;
-		this.height = height;
-		this.nPoints = 4;
-		this.buildPolygon();
+		super(loc, width, height);
 	}
 	
-	private void buildPolygon() {
+	@Override
+	public void buildPolygon() {
 		this.nPoints = 4;
-		this.xParallelogram = new int[this.nPoints];
-		this.yParallelogram = new int[this.nPoints];
+		this.xPolygon = new int[this.nPoints];
+		this.yPolygon = new int[this.nPoints];
 
-		this.xParallelogram[0] = this.loc.x + this.width * 1/3;
-		this.yParallelogram[0] = this.loc.y + this.height * 1/3;
-		this.xParallelogram[1] = this.loc.x + this.width;
-		this.yParallelogram[1] = this.loc.y + this.height * 1/3;
-		this.xParallelogram[2] = this.loc.x + this.width * 2/3;
-		this.yParallelogram[2] = this.loc.y + this.height;
-		this.xParallelogram[3] = this.loc.x;
-		this.yParallelogram[3] = this.loc.y + this.height;
+		this.xPolygon[0] = this.getLoc().x + this.width * 1/3;
+		this.yPolygon[0] = this.getLoc().y + this.height * 1/3;
+		this.xPolygon[1] = this.getLoc().x + this.width;
+		this.yPolygon[1] = this.getLoc().y + this.height * 1/3;
+		this.xPolygon[2] = this.getLoc().x + this.width * 2/3;
+		this.yPolygon[2] = this.getLoc().y + this.height;
+		this.xPolygon[3] = this.getLoc().x;
+		this.yPolygon[3] = this.getLoc().y + this.height;
 
-		this.parallelogram = new Polygon(this.xParallelogram, this.yParallelogram, this.nPoints);
+		this.polygon = new Polygon(this.xPolygon, this.yPolygon, this.nPoints);
 		}
-
-	@Override
-	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		this.buildPolygon();
-	}
-
-	@Override
-	public Point getLoc() {
-		return this.loc;
-	}
-
-    public void translate(int dx, int dy) {
-		this.setLoc(new Point(this.loc.x + dx, this.loc.y + dy));
-		this.buildPolygon();
-	}
 
 
 	@Override
@@ -87,26 +59,12 @@ public class SParallelogram extends Shape {
 		this.height += dy;
 		this.buildPolygon();
 	}
-	
-    public Polygon getPolygon(){
-        return this.parallelogram;
-
-    }
     
     @Override
     public void accept(ShapeVisitor v){
         v.visitSParallelogram(this);
     }
-
-
-
-	@Override
-	public Rectangle getBounds() {
-
-		return this.parallelogram.getBounds();
-	}
-	
-
+    
 	@Override
 	public String toString() {
 		/*

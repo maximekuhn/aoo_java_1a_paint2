@@ -2,7 +2,6 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
@@ -10,57 +9,29 @@ import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-public class STrapezium extends Shape {
-
-    private Polygon trapezium;
-    private Point loc;
-	private int nPoints;
-	private int[] xTrapezium;
-	private int[] yTrapezium;
-	
-	private int width;
-	private int height;
+public class STrapezium extends SPolygon {
 	
 	public STrapezium(Point loc, int width, int height) {
-		this.loc = loc;
-		this.width = width;
-		this.height = height;
-		this.nPoints = 4;
-		this.buildPolygon();
+		super(loc, width, height);
 	}
 	
-	private void buildPolygon() {
+	@Override
+	public void buildPolygon() {
 		this.nPoints = 4;
-		this.xTrapezium = new int[this.nPoints];
-		this.yTrapezium = new int[this.nPoints];
+		this.xPolygon = new int[this.nPoints];
+		this.yPolygon = new int[this.nPoints];
 
-		this.xTrapezium[0] = this.loc.x + this.width * 1/7;
-		this.yTrapezium[0] = this.loc.y;
-		this.xTrapezium[1] = this.loc.x + this.width * 6/7;
-		this.yTrapezium[1] = this.loc.y;
-		this.xTrapezium[2] = this.loc.x + this.width;
-		this.yTrapezium[2] = this.loc.y + this.height;
-		this.xTrapezium[3] = this.loc.x;
-		this.yTrapezium[3] = this.loc.y + this.height;
+		this.xPolygon[0] = this.getLoc().x + this.width * 1/7;
+		this.yPolygon[0] = this.getLoc().y;
+		this.xPolygon[1] = this.getLoc().x + this.width * 6/7;
+		this.yPolygon[1] = this.getLoc().y;
+		this.xPolygon[2] = this.getLoc().x + this.width;
+		this.yPolygon[2] = this.getLoc().y + this.height;
+		this.xPolygon[3] = this.getLoc().x;
+		this.yPolygon[3] = this.getLoc().y + this.height;
 
-		this.trapezium = new Polygon(this.xTrapezium, this.yTrapezium, this.nPoints);
+		this.polygon = new Polygon(this.xPolygon, this.yPolygon, this.nPoints);
 		}
-
-	@Override
-	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		this.buildPolygon();
-	}
-
-	@Override
-	public Point getLoc() {
-		return this.loc;
-	}
-
-    public void translate(int dx, int dy) {
-		this.setLoc(new Point(this.loc.x + dx, this.loc.y + dy));
-		this.buildPolygon();
-	}
 
 
 	@Override
@@ -87,24 +58,11 @@ public class STrapezium extends Shape {
 		this.height += dy;
 		this.buildPolygon();
 	}
-	
-    public Polygon getPolygon(){
-        return this.trapezium;
-
-    }
     
     @Override
     public void accept(ShapeVisitor v){
         v.visitSTrapezium(this);
     }
-
-
-
-	@Override
-	public Rectangle getBounds() {
-
-		return this.trapezium.getBounds();
-	}
 	
 
 	@Override

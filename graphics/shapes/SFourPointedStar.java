@@ -17,20 +17,26 @@ public class SFourPointedStar extends SPolygon {
 
 	@Override
 	public void buildPolygon() {
-		this.nPoints = 5;
+		this.nPoints = 8;
 		this.xPolygon = new int[this.nPoints];
 		this.yPolygon = new int[this.nPoints];
 		
-		this.xPolygon[0] = this.getLoc().x;
-		this.yPolygon[0] = this.getLoc().y;
-		this.xPolygon[1] = this.getLoc().x + this.width;
+		this.xPolygon[0] = this.getLoc().x + this.width;
+		this.yPolygon[0] = this.getLoc().y + this.height;
+		this.xPolygon[1] = this.getLoc().x;
 		this.yPolygon[1] = this.getLoc().y;
-		this.xPolygon[2] = this.getLoc().x + this.width / 2;
-		this.yPolygon[2] = this.getLoc().y + this.height /2;
-		this.xPolygon[3] = this.getLoc().x + this.width;
-		this.yPolygon[3] = this.getLoc().y + this.height;
+		this.xPolygon[2] = this.getLoc().x;
+		this.yPolygon[2] = this.getLoc().y;
+		this.xPolygon[3] = this.getLoc().x;
+		this.yPolygon[3] = this.getLoc().y;
 		this.xPolygon[4] = this.getLoc().x;
-		this.yPolygon[4] = this.getLoc().y + this.height;
+		this.yPolygon[4] = this.getLoc().y;
+		this.xPolygon[5] = this.getLoc().x;
+		this.yPolygon[5] = this.getLoc().y;
+		this.xPolygon[6] = this.getLoc().x;
+		this.yPolygon[6] = this.getLoc().y;
+		this.xPolygon[7] = this.getLoc().x;
+		this.yPolygon[7] = this.getLoc().y;
 		
 		this.polygon = new Polygon(this.xPolygon, this.yPolygon, this.nPoints);
 	}

@@ -2,7 +2,6 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
@@ -10,62 +9,33 @@ import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-public class SHexagon extends Shape {
-
-    private Polygon hexagon;
-    private Point loc;
-	private int nPoints;
-	private int[] xHexagon;
-	private int[] yHexagon;
-	
-	private int width;
-	private int height;
+public class SHexagon extends SPolygon {
 	
 	public SHexagon(Point loc, int width, int height) {
-		this.loc = loc;
-		this.width = width;
-		this.height = height;
-		this.nPoints = 6;
-		this.buildPolygon();
+		super(loc, width, height);
 	}
 	
-	private void buildPolygon() {
+	@Override
+	public void buildPolygon() {
 		this.nPoints = 6;
-		this.xHexagon = new int[this.nPoints];
-		this.yHexagon = new int[this.nPoints];
+		this.xPolygon = new int[this.nPoints];
+		this.yPolygon = new int[this.nPoints];
 
-		this.xHexagon[0] = this.loc.x + (this.width * 1/5);
-		this.yHexagon[0] = this.loc.y;
-		this.xHexagon[1] = this.loc.x + (this.width * 4/5);
-		this.yHexagon[1] = this.loc.y;
-		this.xHexagon[2] = this.loc.x + this.width;
-		this.yHexagon[2] = this.loc.y + this.height / 2;
-		this.xHexagon[3] = this.loc.x + (this.width * 4/5);
-		this.yHexagon[3] = this.loc.y + this.height;
-		this.xHexagon[4] = this.loc.x + (this.width * 1/5);
-		this.yHexagon[4] = this.loc.y + this.height;
-		this.xHexagon[5] = this.loc.x;
-		this.yHexagon[5] = this.loc.y + this.height / 2;
+		this.xPolygon[0] = this.getLoc().x + (this.width * 1/5);
+		this.yPolygon[0] = this.getLoc().y;
+		this.xPolygon[1] = this.getLoc().x + (this.width * 4/5);
+		this.yPolygon[1] = this.getLoc().y;
+		this.xPolygon[2] = this.getLoc().x + this.width;
+		this.yPolygon[2] = this.getLoc().y + this.height / 2;
+		this.xPolygon[3] = this.getLoc().x + (this.width * 4/5);
+		this.yPolygon[3] = this.getLoc().y + this.height;
+		this.xPolygon[4] = this.getLoc().x + (this.width * 1/5);
+		this.yPolygon[4] = this.getLoc().y + this.height;
+		this.xPolygon[5] = this.getLoc().x;
+		this.yPolygon[5] = this.getLoc().y + this.height / 2;
 
-		this.hexagon = new Polygon(this.xHexagon, this.yHexagon, this.nPoints);
+		this.polygon = new Polygon(this.xPolygon, this.yPolygon, this.nPoints);
 		}
-
-	@Override
-	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		this.buildPolygon();
-	}
-
-	@Override
-	public Point getLoc() {
-		return this.loc;
-	}
-
-    public void translate(int dx, int dy) {
-		this.setLoc(new Point(this.loc.x + dx, this.loc.y + dy));
-		this.buildPolygon();
-	}
-
 
 	@Override
 	public Shape copy() {
@@ -91,24 +61,11 @@ public class SHexagon extends Shape {
 		this.height += dy;
 		this.buildPolygon();
 	}
-	
-    public Polygon getPolygon(){
-        return this.hexagon;
-
-    }
     
     @Override
     public void accept(ShapeVisitor v){
         v.visitSHexagon(this);
     }
-
-
-
-	@Override
-	public Rectangle getBounds() {
-
-		return this.hexagon.getBounds();
-	}
 	
 
 	@Override

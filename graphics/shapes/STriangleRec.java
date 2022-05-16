@@ -2,7 +2,6 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
@@ -13,54 +12,27 @@ import graphics.shapes.attributes.SelectionAttributes;
 
 
 
-public class STriangleRec extends Shape{
-    private Polygon trianglerec;
-    private Point loc;
-	private int nPoints;
-	private int[] xTriangleRec;
-	private int[] yTriangleRec;
-	
-	private int width;
-	private int height;
+public class STriangleRec extends SPolygon{
 	
 	public STriangleRec(Point loc, int width, int height) {
-		this.loc = loc;
-		this.width = width;
-		this.height = height;
-		this.nPoints = 3;
-		this.buildPolygon();
+		super(loc, width, height);
 	}
 	
-	private void buildPolygon() {
+	@Override
+	public void buildPolygon() {
 		this.nPoints = 3;
-		this.xTriangleRec = new int[this.nPoints];
-		this.yTriangleRec = new int[this.nPoints];
+		this.xPolygon = new int[this.nPoints];
+		this.yPolygon = new int[this.nPoints];
 
-		this.xTriangleRec[0] = this.loc.x + this.width;
-		this.yTriangleRec[0] = this.loc.y;
-		this.xTriangleRec[1] = this.loc.x + this.width;
-		this.yTriangleRec[1] = this.loc.y + this.height;
-		this.xTriangleRec[2] = this.loc.x;
-		this.yTriangleRec[2] = this.loc.y + this.height;
+		this.xPolygon[0] = this.getLoc().x + this.width;
+		this.yPolygon[0] = this.getLoc().y;
+		this.xPolygon[1] = this.getLoc().x + this.width;
+		this.yPolygon[1] = this.getLoc().y + this.height;
+		this.xPolygon[2] = this.getLoc().x;
+		this.yPolygon[2] = this.getLoc().y + this.height;
 
-		this.trianglerec = new Polygon(this.xTriangleRec, this.yTriangleRec, this.nPoints);
+		this.polygon = new Polygon(this.xPolygon, this.yPolygon, this.nPoints);
 		}
-
-	@Override
-	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		this.buildPolygon();
-	}
-
-	@Override
-	public Point getLoc() {
-		return this.loc;
-	}
-
-    public void translate(int dx, int dy) {
-		this.setLoc(new Point(this.loc.x + dx, this.loc.y + dy));
-		this.buildPolygon();
-	}
 
 
 	@Override
@@ -88,24 +60,12 @@ public class STriangleRec extends Shape{
 		this.buildPolygon();
 	}
 	
-    public Polygon getPolygon(){
-        return this.trianglerec;
-
-    }
     
     @Override
     public void accept(ShapeVisitor v){
         v.visitSTriangleRec(this);
     }
 
-
-
-	@Override
-	public Rectangle getBounds() {
-
-		return this.trianglerec.getBounds();
-	}
-	
 
 	@Override
 	public String toString() {

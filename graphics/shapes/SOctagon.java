@@ -2,7 +2,6 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
@@ -10,65 +9,37 @@ import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-public class SOctagon extends Shape {
-
-    private Polygon octagon;
-    private Point loc;
-	private int nPoints;
-	private int[] xOctagon;
-	private int[] yOctagon;
-	
-	private int width;
-	private int height;
+public class SOctagon extends SPolygon {
 	
 	public SOctagon(Point loc, int width, int height) {
-		this.loc = loc;
-		this.width = width;
-		this.height = height;
-		this.nPoints = 8;
-		this.buildPolygon();
+		super(loc, width, height);
 	}
 	
-	private void buildPolygon() {
+	@Override
+	public void buildPolygon() {
 		this.nPoints = 8;
-		this.xOctagon = new int[this.nPoints];
-		this.yOctagon = new int[this.nPoints];
+		this.xPolygon = new int[this.nPoints];
+		this.yPolygon = new int[this.nPoints];
 
-		this.xOctagon[0] = this.loc.x + this.width * 1/4;
-		this.yOctagon[0] = this.loc.y;
-		this.xOctagon[1] = this.loc.x + this.width * 3/4;
-		this.yOctagon[1] = this.loc.y;
-		this.xOctagon[2] = this.loc.x + this.width;
-		this.yOctagon[2] = this.loc.y + this.height * 1/3;
-		this.xOctagon[3] = this.loc.x + this.width;
-		this.yOctagon[3] = this.loc.y + this.height * 2/3;
-		this.xOctagon[4] = this.loc.x + this.width * 3/4;
-		this.yOctagon[4] = this.loc.y + this.height;
-		this.xOctagon[5] = this.loc.x + this.width * 1/4;
-		this.yOctagon[5] = this.loc.y + this.height;
-		this.xOctagon[6] = this.loc.x;
-		this.yOctagon[6] = this.loc.y + this.height * 2/3;
-		this.xOctagon[7] = this.loc.x;
-		this.yOctagon[7] = this.loc.y + this.height * 1/3;
+		this.xPolygon[0] = this.getLoc().x + this.width * 1/4;
+		this.yPolygon[0] = this.getLoc().y;
+		this.xPolygon[1] = this.getLoc().x + this.width * 3/4;
+		this.yPolygon[1] = this.getLoc().y;
+		this.xPolygon[2] = this.getLoc().x + this.width;
+		this.yPolygon[2] = this.getLoc().y + this.height * 1/3;
+		this.xPolygon[3] = this.getLoc().x + this.width;
+		this.yPolygon[3] = this.getLoc().y + this.height * 2/3;
+		this.xPolygon[4] = this.getLoc().x + this.width * 3/4;
+		this.yPolygon[4] = this.getLoc().y + this.height;
+		this.xPolygon[5] = this.getLoc().x + this.width * 1/4;
+		this.yPolygon[5] = this.getLoc().y + this.height;
+		this.xPolygon[6] = this.getLoc().x;
+		this.yPolygon[6] = this.getLoc().y + this.height * 2/3;
+		this.xPolygon[7] = this.getLoc().x;
+		this.yPolygon[7] = this.getLoc().y + this.height * 1/3;
 
-		this.octagon = new Polygon(this.xOctagon, this.yOctagon, this.nPoints);
+		this.polygon = new Polygon(this.xPolygon, this.yPolygon, this.nPoints);
 		}
-
-	@Override
-	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		this.buildPolygon();
-	}
-
-	@Override
-	public Point getLoc() {
-		return this.loc;
-	}
-
-    public void translate(int dx, int dy) {
-		this.setLoc(new Point(this.loc.x + dx, this.loc.y + dy));
-		this.buildPolygon();
-	}
 
 
 	@Override
@@ -95,25 +66,11 @@ public class SOctagon extends Shape {
 		this.height += dy;
 		this.buildPolygon();
 	}
-	
-    public Polygon getPolygon(){
-        return this.octagon;
-
-    }
     
     @Override
     public void accept(ShapeVisitor v){
         v.visitSOctagon(this);
     }
-
-
-
-	@Override
-	public Rectangle getBounds() {
-
-		return this.octagon.getBounds();
-	}
-	
 
 	@Override
 	public String toString() {

@@ -2,7 +2,6 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
@@ -10,59 +9,31 @@ import graphics.shapes.attributes.LayerAttributes;
 import graphics.shapes.attributes.RotationAttributes;
 import graphics.shapes.attributes.SelectionAttributes;
 
-public class SPentagon extends Shape {
-
-    private Polygon pentagon;
-    private Point loc;
-	private int nPoints;
-	private int[] xPentagon;
-	private int[] yPentagon;
-	
-	private int width;
-	private int height;
+public class SPentagon extends SPolygon {
 	
 	public SPentagon(Point loc, int width, int height) {
-		this.loc = loc;
-		this.width = width;
-		this.height = height;
-		this.nPoints = 5;
-		this.buildPolygon();
+		super(loc, width, height);
 	}
 	
-	private void buildPolygon() {
+	@Override
+	public void buildPolygon() {
 		this.nPoints = 5;
-		this.xPentagon = new int[this.nPoints];
-		this.yPentagon = new int[this.nPoints];
+		this.xPolygon = new int[this.nPoints];
+		this.yPolygon = new int[this.nPoints];
 
-		this.xPentagon[0] = this.loc.x + this.width / 2;
-		this.yPentagon[0] = this.loc.y;
-		this.xPentagon[1] = this.loc.x + this.width;
-		this.yPentagon[1] = this.loc.y + this.height * 2/5;
-		this.xPentagon[2] = this.loc.x + this.width * 5/6;
-		this.yPentagon[2] = this.loc.y + this.height;
-		this.xPentagon[3] = this.loc.x + this.width * 1/6 ;
-		this.yPentagon[3] = this.loc.y + this.height;
-		this.xPentagon[4] = this.loc.x;
-		this.yPentagon[4] = this.loc.y + this.height * 2/5;
+		this.xPolygon[0] = this.getLoc().x + this.width / 2;
+		this.yPolygon[0] = this.getLoc().y;
+		this.xPolygon[1] = this.getLoc().x + this.width;
+		this.yPolygon[1] = this.getLoc().y + this.height * 2/5;
+		this.xPolygon[2] = this.getLoc().x + this.width * 5/6;
+		this.yPolygon[2] = this.getLoc().y + this.height;
+		this.xPolygon[3] = this.getLoc().x + this.width * 1/6 ;
+		this.yPolygon[3] = this.getLoc().y + this.height;
+		this.xPolygon[4] = this.getLoc().x;
+		this.yPolygon[4] = this.getLoc().y + this.height * 2/5;
 
-		this.pentagon = new Polygon(this.xPentagon, this.yPentagon, this.nPoints);
+		this.polygon = new Polygon(this.xPolygon, this.yPolygon, this.nPoints);
 		}
-
-	@Override
-	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		this.buildPolygon();
-	}
-
-	@Override
-	public Point getLoc() {
-		return this.loc;
-	}
-
-    public void translate(int dx, int dy) {
-		this.setLoc(new Point(this.loc.x + dx, this.loc.y + dy));
-		this.buildPolygon();
-	}
 
 
 	@Override
@@ -90,24 +61,11 @@ public class SPentagon extends Shape {
 		this.buildPolygon();
 	}
 	
-    public Polygon getPolygon(){
-        return this.pentagon;
-
-    }
     
     @Override
     public void accept(ShapeVisitor v){
         v.visitSPentagon(this);
     }
-
-
-
-	@Override
-	public Rectangle getBounds() {
-
-		return this.pentagon.getBounds();
-	}
-	
 
 	@Override
 	public String toString() {

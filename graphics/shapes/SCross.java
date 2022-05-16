@@ -2,7 +2,6 @@ package graphics.shapes;
 
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.util.StringJoiner;
 
 import graphics.shapes.attributes.ColorAttributes;
@@ -13,84 +12,56 @@ import graphics.shapes.attributes.SelectionAttributes;
 
 
 
-public class SCross extends Shape{
-    private Polygon cross;
-    private Point loc;
-	private int nPoints;
-	private int[] xCross;
-	private int[] yCross;
-	
-	private int width;
-	private int height;
+public class SCross extends SPolygon{
 	
 	public SCross(Point loc, int width, int height) {
-		this.loc = loc;
-		this.width = width;
-		this.height = height;
-		this.nPoints = 12;
-		this.buildPolygon();
+		super(loc, width, height);
 	}
 	
-	private void buildPolygon() {
+	@Override
+	public void buildPolygon() {
 		this.nPoints = 12;
-		this.xCross = new int[this.nPoints];
-		this.yCross = new int[this.nPoints];
+		this.xPolygon = new int[this.nPoints];
+		this.yPolygon = new int[this.nPoints];
 
-        this.xCross[0] = this.loc.x;
-        this.yCross[0] = this.loc.y + this.height * 1/8;
+        this.xPolygon[0] = this.getLoc().x;
+        this.yPolygon[0] = this.getLoc().y + this.height * 1/8;
         
-        this.xCross[1] = this.loc.x + this.width * 1/5;
-        this.yCross[1] = this.loc.y;
+        this.xPolygon[1] = this.getLoc().x + this.width * 1/5;
+        this.yPolygon[1] = this.getLoc().y;
         
-        this.xCross[2] = this.loc.x + this.width / 2;
-        this.yCross[2] = this.loc.y + this.height * 3/8;
+        this.xPolygon[2] = this.getLoc().x + this.width / 2;
+        this.yPolygon[2] = this.getLoc().y + this.height * 3/8;
         
-        this.xCross[3] = this.loc.x + this.width * 4/5;
-        this.yCross[3] = this.loc.y;
+        this.xPolygon[3] = this.getLoc().x + this.width * 4/5;
+        this.yPolygon[3] = this.getLoc().y;
         
-        this.xCross[4] = this.loc.x + this.width;
-        this.yCross[4] = this.loc.y + this.height * 1/8;
+        this.xPolygon[4] = this.getLoc().x + this.width;
+        this.yPolygon[4] = this.getLoc().y + this.height * 1/8;
         
-        this.xCross[5] = this.loc.x + this.width * 5/8;
-        this.yCross[5] = this.loc.y + this.height / 2;
+        this.xPolygon[5] = this.getLoc().x + this.width * 5/8;
+        this.yPolygon[5] = this.getLoc().y + this.height / 2;
       
-        this.xCross[6] = this.loc.x + this.width;
-        this.yCross[6] = this.loc.y + this.height * 7/8;
+        this.xPolygon[6] = this.getLoc().x + this.width;
+        this.yPolygon[6] = this.getLoc().y + this.height * 7/8;
         
-        this.xCross[7] = this.loc.x + this.width * 7/8;
-        this.yCross[7] = this.loc.y + this.height;
+        this.xPolygon[7] = this.getLoc().x + this.width * 7/8;
+        this.yPolygon[7] = this.getLoc().y + this.height;
         
-        this.xCross[8] = this.loc.x + this.width / 2;
-        this.yCross[8] = this.loc.y + this.height * 5/8;
+        this.xPolygon[8] = this.getLoc().x + this.width / 2;
+        this.yPolygon[8] = this.getLoc().y + this.height * 5/8;
         
-        this.xCross[9] = this.loc.x + this.width * 1/5;
-        this.yCross[9] = this.loc.y + this.height;
+        this.xPolygon[9] = this.getLoc().x + this.width * 1/5;
+        this.yPolygon[9] = this.getLoc().y + this.height;
         
-        this.xCross[10] = this.loc.x;
-        this.yCross[10] = this.loc.y + this.height * 7/8;
+        this.xPolygon[10] = this.getLoc().x;
+        this.yPolygon[10] = this.getLoc().y + this.height * 7/8;
         
-        this.xCross[11] = this.loc.x + this.width * 3/8 ;
-        this.yCross[11] = this.loc.y + this.height / 2;
+        this.xPolygon[11] = this.getLoc().x + this.width * 3/8 ;
+        this.yPolygon[11] = this.getLoc().y + this.height / 2;
 
-		this.cross = new Polygon(this.xCross, this.yCross, this.nPoints);
+		this.polygon = new Polygon(this.xPolygon, this.yPolygon, this.nPoints);
 		}
-
-	@Override
-	public void setLoc(Point p) {
-		this.loc.setLocation(p);
-		this.buildPolygon();
-	}
-
-	@Override
-	public Point getLoc() {
-		return this.loc;
-	}
-
-    public void translate(int dx, int dy) {
-		this.setLoc(new Point(this.loc.x + dx, this.loc.y + dy));
-		this.buildPolygon();
-	}
-
 
 	@Override
 	public Shape copy() {
@@ -116,24 +87,13 @@ public class SCross extends Shape{
 		this.height += dy;
 		this.buildPolygon();
 	}
-	
-    public Polygon getPolygon(){
-        return this.cross;
 
-    }
     
     @Override
     public void accept(ShapeVisitor v){
         v.visitSCross(this);
     }
 
-
-
-	@Override
-	public Rectangle getBounds() {
-
-		return this.cross.getBounds();
-	}
 	
 
 	@Override
