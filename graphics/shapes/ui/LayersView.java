@@ -36,7 +36,7 @@ public class LayersView extends View {
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO : fix scaling (stop using literals)
+		// LayersView V1
 		
 		super.paintComponent(g);
 		

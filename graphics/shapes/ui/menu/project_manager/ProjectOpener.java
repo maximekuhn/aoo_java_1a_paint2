@@ -1,7 +1,6 @@
 package graphics.shapes.ui.menu.project_manager;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Point;

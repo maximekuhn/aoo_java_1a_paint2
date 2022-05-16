@@ -80,7 +80,6 @@ public class SText extends Shape {
 
 	@Override
 	public void resize(int dx, int dy) {
-		// TODO Auto-generated method stub
 		
 	}
 	
