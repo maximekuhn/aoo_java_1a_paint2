@@ -548,6 +548,10 @@ public class ProjectOpener {
 		}
 		catch(IOException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Unable to open " + imagePath + ".", "IO Error", JOptionPane.ERROR_MESSAGE);
+		}
+		catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Error when loading " + imagePath + ".", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		return null;
 	}
