@@ -396,7 +396,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		SCollection model = (SCollection) this.sview.getModel();
 		SNonagon sn = new SNonagon(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
 		sn.addAttributes(new SelectionAttributes());
-		sn.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
+		sn.addAttributes(new ColorAttributes(true, true, new Color(247, 176, 10), Color.BLACK));
 		model.add(sn);
 		this.sview.repaint();
 	}
@@ -405,7 +405,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		SCollection model = (SCollection) this.sview.getModel();
 		SHeptagon sh = new SHeptagon(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
 		sh.addAttributes(new SelectionAttributes());
-		sh.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
+		sh.addAttributes(new ColorAttributes(true, true, Color.GREEN, Color.BLACK));
 		model.add(sh);
 		this.sview.repaint();
 	}
@@ -414,7 +414,7 @@ public class ShapeMenu extends JMenu implements ActionListener {
 		SCollection model = (SCollection) this.sview.getModel();
 		SDecagon sd = new SDecagon(new Point(this.sview.getWidth() / 2, this.sview.getHeight() / 2), 50, 50);
 		sd.addAttributes(new SelectionAttributes());
-		sd.addAttributes(new ColorAttributes(true, true, Color.BLACK, Color.BLACK));
+		sd.addAttributes(new ColorAttributes(true, true, new Color(239, 127, 72), Color.BLACK));
 		model.add(sd);
 		this.sview.repaint();
 	}

@@ -37,21 +37,21 @@ public class SNonagon extends Shape {
         this.xNonagon[0] = this.loc.x + this.width / 2;
         this.yNonagon[0] = this.loc.y;
         this.xNonagon[1] = this.loc.x + this.width * 4/5;
-        this.yNonagon[1] = this.loc.y + this.height * 1/6;
+        this.yNonagon[1] = this.loc.y + this.height * 1/10;
         this.xNonagon[2] = this.loc.x + this.width;
-        this.yNonagon[2] = this.loc.y + this.height * 1/3;
-        this.xNonagon[3] = this.loc.x + this.width * 9/10;
-        this.yNonagon[3] = this.loc.y + this.height * 2/3;
-        this.xNonagon[4] = this.loc.x + this.width * 2/3;
+        this.yNonagon[2] = this.loc.y + this.height * 4/10;
+        this.xNonagon[3] = this.loc.x + this.width * 95/100;
+        this.yNonagon[3] = this.loc.y + this.height * 7/10;
+        this.xNonagon[4] = this.loc.x + this.width * 7/10;
         this.yNonagon[4] = this.loc.y + this.height;
-        this.xNonagon[5] = this.loc.x + this.width * 1/3;
+        this.xNonagon[5] = this.loc.x + this.width * 3/10;
         this.yNonagon[5] = this.loc.y + this.height;
-        this.xNonagon[6] = this.loc.x + this.width * 1/10;
-        this.yNonagon[6] = this.loc.y + this.height * 2/3;
+        this.xNonagon[6] = this.loc.x + this.width * 5/100;
+        this.yNonagon[6] = this.loc.y + this.height * 7/10;
         this.xNonagon[7] = this.loc.x;
-        this.yNonagon[7] = this.loc.y + this.height * 1/3;
+        this.yNonagon[7] = this.loc.y + this.height * 4/10;
         this.xNonagon[8] = this.loc.x + this.width * 1/5;
-        this.yNonagon[8] = this.loc.y + this.height * 1/6;
+        this.yNonagon[8] = this.loc.y + this.height * 1/10;
 
 		this.nonagon = new Polygon(this.xNonagon, this.yNonagon, this.nPoints);
 		}

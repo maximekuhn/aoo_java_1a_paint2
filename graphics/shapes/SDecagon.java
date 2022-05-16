@@ -41,7 +41,7 @@ public class SDecagon extends Shape {
         this.xDecagon[2] = this.loc.x + this.width * 9/10;
         this.yDecagon[2] = this.loc.y + this.height * 1/5;
         this.xDecagon[3] = this.loc.x + this.width;
-        this.yDecagon[3] = this.loc.y + this.height * 2/5;
+        this.yDecagon[3] = this.loc.y + this.height * 1/2;
         this.xDecagon[4] = this.loc.x + this.width * 9/10;
         this.yDecagon[4] = this.loc.y + this.height * 4/5;
         this.xDecagon[5] = this.loc.x + this.width * 2/3;
@@ -51,7 +51,7 @@ public class SDecagon extends Shape {
         this.xDecagon[7] = this.loc.x + this.width * 1/10;
         this.yDecagon[7] = this.loc.y + this.height * 4/5;
         this.xDecagon[8] = this.loc.x;
-        this.yDecagon[8] = this.loc.y + this.height * 2/5;
+        this.yDecagon[8] = this.loc.y + this.height * 1/2;
         this.xDecagon[9] = this.loc.x + this.width * 1/10 ;
         this.yDecagon[9] = this.loc.y + this.height * 1/5;
 

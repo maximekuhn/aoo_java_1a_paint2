@@ -36,17 +36,17 @@ public class SHeptagon extends Shape {
 
         this.xHeptagon[0] = this.loc.x + this.width / 2;
         this.yHeptagon[0] = this.loc.y;
-        this.xHeptagon[1] = this.loc.x + this.width * 4/5;
+        this.xHeptagon[1] = this.loc.x + this.width * 7/8;
         this.yHeptagon[1] = this.loc.y + this.height * 1/5;
         this.xHeptagon[2] = this.loc.x + this.width;
         this.yHeptagon[2] = this.loc.y + this.height * 3/5;
-        this.xHeptagon[3] = this.loc.x + this.width * 2/3;
+        this.xHeptagon[3] = this.loc.x + this.width * 3/4;
         this.yHeptagon[3] = this.loc.y + this.height;
-        this.xHeptagon[4] = this.loc.x + this.width * 1/3;
+        this.xHeptagon[4] = this.loc.x + this.width * 1/4;
         this.yHeptagon[4] = this.loc.y + this.height;
         this.xHeptagon[5] = this.loc.x;
-        this.yHeptagon[5] = this.loc.y + this.height * 1/5;
-        this.xHeptagon[6] = this.loc.x + this.width * 1/5;
+        this.yHeptagon[5] = this.loc.y + this.height * 3/5;
+        this.xHeptagon[6] = this.loc.x + this.width * 1/8;
         this.yHeptagon[6] = this.loc.y + this.height * 1/5;
 
 		this.heptagon = new Polygon(this.xHeptagon, this.yHeptagon, this.nPoints);
