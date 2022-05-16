@@ -32,6 +32,11 @@ public class SImage extends Shape {
 		 */
 	}
 	
+	public void setImageSize(int width, int height) {
+		this.img = this.originalImg.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		this.rect = new Rectangle(this.getLoc().x, this.getLoc().y, img.getWidth(null), img.getHeight(null));
+	}
+	
 	@Override
 	public Point getLoc() {
 		return new Point(this.rect.x, this.rect.y);
@@ -102,7 +107,9 @@ public class SImage extends Shape {
 		tmp.add(si.getClass().getName());
 		tmp.add(String.valueOf(si.getLoc().x));
 		tmp.add(String.valueOf(si.getLoc().y));
-		tmp.add(String.valueOf(si.getPath()));
+		tmp.add(String.valueOf(si.getImage().getWidth(null)));
+		tmp.add(String.valueOf(si.getImage().getHeight(null)));
+		tmp.add(String.valueOf(si.getPath()).replace(" ", "\\w"));
 		
 		// color attributes
 		ColorAttributes ca = (ColorAttributes) si.getAttributes(ColorAttributes.ID);

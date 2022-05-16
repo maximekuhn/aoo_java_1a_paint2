@@ -505,38 +505,42 @@ public class ProjectOpener {
 
 	private Shape decodeSImage(String line) {
 		String[] settings = line.split(" ");
-		if(settings.length != 13) return null;
+		if(settings.length != 15) return null;
 		
 		// point
 		int locX = Integer.parseInt(settings[2]);
 		int locY = Integer.parseInt(settings[3]);
+		int width = Integer.parseInt(settings[4]);
+		int height = Integer.parseInt(settings[5]);
 		
 		// image
-		String imagePath = settings[4];
+		String imagePath = settings[6].replace("\\w", " ");
 		try {
 			Image img = ImageIO.read(new File(imagePath));
 			SImage si = new SImage(new Point(locX, locY), img, new File(imagePath));
+			si.setImageSize(width, height);
+			si.setLoc(new Point(locX, locY));
 			
 			// color attributes
-			boolean filled = Boolean.parseBoolean(settings[5]);
-			boolean stroked = Boolean.parseBoolean(settings[6]);
-			Color filledColor = this.decodeColor(settings[7]);
-			Color strokedColor = this.decodeColor(settings[8]);
+			boolean filled = Boolean.parseBoolean(settings[7]);
+			boolean stroked = Boolean.parseBoolean(settings[8]);
+			Color filledColor = this.decodeColor(settings[9]);
+			Color strokedColor = this.decodeColor(settings[10]);
 			ColorAttributes ca = new ColorAttributes(filled, stroked, filledColor, strokedColor);
 			si.addAttributes(ca);
 			
 			// selection attributes
-			boolean isSelected = Boolean.parseBoolean(settings[9]);
+			boolean isSelected = Boolean.parseBoolean(settings[11]);
 			SelectionAttributes sa = new SelectionAttributes(isSelected);
 			si.addAttributes(sa);
 			
 			// rotation attributes
-			int angle = Integer.parseInt(settings[10]);
+			int angle = Integer.parseInt(settings[12]);
 			RotationAttributes ra = new RotationAttributes(angle);
 			si.addAttributes(ra);
 			
 			// layer attributes
-			int layer = Integer.parseInt(settings[11]);
+			int layer = Integer.parseInt(settings[13]);
 			LayerAttributes la = new LayerAttributes(layer);
 			si.addAttributes(la);
 			
