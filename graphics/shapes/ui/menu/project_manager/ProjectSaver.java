@@ -26,10 +26,6 @@ public class ProjectSaver {
 		
 		try(BufferedWriter ow = new BufferedWriter(Files.newBufferedWriter(fileToSave.toPath()))){
 			
-			/* write sview settings */
-			ow.write(String.valueOf(this.sview.getWidth()) + " " + String.valueOf(this.sview.getHeight()));
-			ow.newLine();
-			
 			/* write all shapes settings */
 			Shape s;
 			while(iterator.hasNext()) {

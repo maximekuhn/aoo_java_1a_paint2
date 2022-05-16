@@ -87,14 +87,8 @@ public class ProjectOpener {
 			
 			if(lines.size() == 0) return;
 			
-			// line 0 => view's dimension
-			//this.decryptDimension(lines.get(0));
-			
-			// other lines = all shapes
-			if(lines.size() < 2) return;
-			
 			Shape shape;
-			for(int i = 1; i < lines.size(); i++) {
+			for(int i = 0; i < lines.size(); i++) {
 				String line = lines.get(i);
 				shape = this.decode(line);
 				if(shape != null) model.add(shape);
@@ -167,20 +161,6 @@ public class ProjectOpener {
 		
 		return new Font(name, style, size);
 	}
-
-	private void decodeDimension(String line) {
-		// TODO : fix this
-		try {
-			int width = Integer.parseInt(line.split(" ")[0]);
-			int height = Integer.parseInt(line.split(" ")[1]);
-			this.sview.setSize(new Dimension(width, height));
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
 	
 	
 	/* ---        --- */
