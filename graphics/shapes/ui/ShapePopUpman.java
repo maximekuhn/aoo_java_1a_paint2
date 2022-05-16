@@ -196,9 +196,6 @@ public class ShapePopUpman implements ShapeVisitor {
 		    		this.x = Integer.valueOf(this.tx.getText());
 		    		this.y = Integer.valueOf(this.ty.getText());
 		    		
-		    		this.font = new Font(fontName, Font.PLAIN, size);
-		    		this.fa.font = this.font;
-		    		
 		    		loc.setLocation(this.x, this.y);
 		    		st.setLoc(loc);
 		    		st.setText(text);
@@ -206,6 +203,8 @@ public class ShapePopUpman implements ShapeVisitor {
 		    		if(size <= 0) creatErrorPopup("The size must be between 0 and 1638");
 		    		else if(size > 1638) creatErrorPopup("The size must be between 0 and 1638");
 		    		else {
+		    			this.font = new Font(fontName, Font.PLAIN, size);
+			    		this.fa.font = this.font;
 			    		this.popUp.dispose();
 			    		this.sview.repaint();
 		    		}
@@ -294,9 +293,6 @@ public class ShapePopUpman implements ShapeVisitor {
 					this.fa.style = 0;
 					if (bold.isSelected()) this.fa.style += 1;
 					if (italic.isSelected()) this.fa.style += 2;
-					
-					this.font = new Font(fontName, this.fa.style, size);
-		    		this.fa.font = this.font;
 		    		
 					loc.setLocation(this.x, this.y);
 		    		stb.setLoc(loc);
@@ -305,6 +301,8 @@ public class ShapePopUpman implements ShapeVisitor {
 					if(size <= 0) creatErrorPopup("The size must be between 0 and 1638");
 		    		else if(size > 1638) creatErrorPopup("The size must be between 0 and 1638");
 		    		else {
+		    			this.font = new Font(fontName, this.fa.style, size);
+			    		this.fa.font = this.font;
 			    		this.popUp.dispose();
 			    		this.sview.repaint();
 		    		}
